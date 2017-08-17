@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Untitled Document</title>
+<!--    <link rel="stylesheet" href=".css">-->
+    <script src="../lib/d3v4/d3.min.js"></script>
+    <style>
+        #chart { 
+            background: #eee;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="chart">
+    
+    
+    
+</div>
+
+
+<script>
+    
+    // config
+    
+    var width = 880,
+        height = 480,
+        padding = 20;
+    
+    var gradeBuckets = 1200, 
+        colCount = 0,
+        rowCount = 0,
+        colLimit = 15,
+        xPos = 10,
+        yPos = height,
+        radius = 1.5, 
+        spacing = 1,
+        startXpos = xPos;
+    
+    // functions
+    
+    var addCircles = function (gradeCount, className, color, start) { 
+        if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2); } 
+        startXpos = xPos,
+            colCount = 0;
+        
+        for(var c = 0; c < gradeCount; c++) {
+            
+            svg.append("circle")
+                .attr("cx", xPos)
+                .attr("cy", yPos)
+                .attr("r", radius)
+                .style("fill", color)
+                .style("stroke", "none")
+                .attr("class", className);
+        
+            xPos = xPos + spacing + radius * 2;
+            colCount++; 
+            
+            if(colCount === colLimit) { 
+                colCount = 0; 
+                xPos = startXpos;
+                yPos = yPos - spacing - radius * 2;
+            }
+        }
+        yPos = height;
+    }
+    
+    d3.select("#chart")
+        .style("width", width + padding * 2 + "px")
+        .style("height", height + padding * 2 + "px")
+        
+    
+    var svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", width + padding * 2)
+        .attr("height", height + padding * 2)
+        .append("g")
+        .attr("transform", "translate(" + padding + " , " + padding + ")")
+    
+    
+    
+    d3.csv("students.csv", function (data) { 
+        data.forEach( function (d) { 
+            d.pupils = +d.pupils / gradeBuckets;
+        })
+        console.log(data);
+        console.log(data.length);
+        
+
+        addCircles(data[0].pupils, ".grade1", "#045a8d", true);
+        
+        for(var c = 1; c < 12; c++) { 
+        
+            addCircles(data[c].pupils, ".grade" + c, "#045a8d")
+            
+        }
+            
+        
+       
+        
+//        svg.append("circle")
+//            .attr("cx", xPos)
+//            .attr("cy", height)
+//            .attr("r", 2)
+//            .style("fill", "crimson")
+
+        
+       
+    })
+    
+    
+    
+    
+    
+</script>
+
+
+
+</body>
+</html>
