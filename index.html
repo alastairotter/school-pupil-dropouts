@@ -6,17 +6,40 @@
     <title>Untitled Document</title>
 <!--    <link rel="stylesheet" href=".css">-->
     <script src="../lib/d3v4/d3.min.js"></script>
+    <script src="function.js"></script>
     <style>
+        body { 
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
         #chart { 
-            background: #eee;
+            
             margin-left: auto;
             margin-right: auto;
+        }
+        .nav, .nav1 { 
+            position: relative;
+            text-transform: uppercase;
+            font-size: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: right;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .nav1 { 
+            display: none;
+        }
+        .nav:hover { 
+            cursor: hand;
+            cursor: pointer;
+            
         }
     </style>
 </head>
 <body>
 
-
+<div class="nav step1">Next</div>
 <div id="chart">
     
     
@@ -42,38 +65,17 @@
         spacing = 1,
         startXpos = xPos;
     
-    // functions
-    
-    var addCircles = function (gradeCount, className, color, start) { 
-        if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2); } 
-        startXpos = xPos,
-            colCount = 0;
-        
-        for(var c = 0; c < gradeCount; c++) {
-            
-            svg.append("circle")
-                .attr("cx", xPos)
-                .attr("cy", yPos)
-                .attr("r", radius)
-                .style("fill", color)
-                .style("stroke", "none")
-                .attr("class", className);
-        
-            xPos = xPos + spacing + radius * 2;
-            colCount++; 
-            
-            if(colCount === colLimit) { 
-                colCount = 0; 
-                xPos = startXpos;
-                yPos = yPos - spacing - radius * 2;
-            }
-        }
-        yPos = height;
-    }
+ 
+
+
     
     d3.select("#chart")
         .style("width", width + padding * 2 + "px")
         .style("height", height + padding * 2 + "px")
+    
+    d3.select(".nav")
+        .style("width", width + padding * 2 + "px")
+//        .style("height", height + padding * 2 + "px")
         
     
     var svg = d3.select("#chart")
@@ -93,29 +95,38 @@
         console.log(data.length);
         
 
-        addCircles(data[0].pupils, ".grade1", "#045a8d", true);
+        addCircles(data[0].pupils, "grade1", "crimson", true);
         
         for(var c = 1; c < 12; c++) { 
         
-            addCircles(data[c].pupils, ".grade" + c, "#045a8d")
+            addCircles(data[c].pupils, "grade" + c, "#045a8d")
             
         }
-            
+        
+        spreadCircles();
+        
+        
+
+
+// Navigation 
+
+d3.select(".nav").on("click", function () { 
+    
+//    d3.selectAll(".grade1").style("fill", "crimson")
+    makeBars(".grade1", true);
+    
+})
+        
+
+        
         
        
-        
-//        svg.append("circle")
-//            .attr("cx", xPos)
-//            .attr("cy", height)
-//            .attr("r", 2)
-//            .style("fill", "crimson")
-
         
        
     })
     
     
-    
+  
     
     
 </script>
