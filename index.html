@@ -57,7 +57,13 @@
                 .attr("r", radius)
                 .style("fill", color)
                 .style("stroke", "none")
-                .attr("class", className);
+                .attr("class", className)
+//                .style("opacity", 0)
+//                .transition()
+//                .duration( function () { 
+//                    return c * 2; 
+//                })
+//                .style("opacity", 1)
         
             xPos = xPos + spacing + radius * 2;
             colCount++; 
@@ -95,11 +101,11 @@
 
         addCircles(data[0].pupils, ".grade1", "#045a8d", true);
         
-        for(var c = 1; c < 12; c++) { 
-        
-            addCircles(data[c].pupils, ".grade" + c, "#045a8d")
-            
-        }
+//        for(var c = 1; c < 12; c++) { 
+//        
+//            addCircles(data[c].pupils, ".grade" + c, "#045a8d")
+//            
+//        }
             
         
        
