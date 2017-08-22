@@ -110,13 +110,14 @@ var spreadCircles = function () {
 }
 
 
-var makeBars = function (className, labelName, year, labelClass, start, label, ref) { 
+var makeBars = function (className, pupilCount, labelName, year, labelClass, start, label, ref) { 
         if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2);  yPos = height - 30; } 
         
         else { xPos = 0;  }
         startXpos = xPos,
             colCount = 0;
     
+   // barlabels
     svg.append("text")
         .attr("x", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
         .attr("y", height - 5)
@@ -128,6 +129,8 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
         .delay(1000)
         .duration(1000)
         .style("opacity", 1)
+    
+
            
     
     var c = d3.selectAll(".grade7").size();
@@ -230,20 +233,21 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
     
     
     // get top position
+    labels = svg.append("g").attr("class", labelName)
     
     if(label) { 
         
         
         var labelAnchor = yPos - 10 - 80;
         
-        var labels = svg.append("g").attr("class", labelName)
+        
         
         setTimeout( function ()  { 
         labels.append("line")
             .attr("y1", yPos - 10 - 80)
             .attr("y2", function () { 
-                if(ref) return yPos + 65; 
-                else return yPos -10; 
+                if(ref) return yPos + 35; 
+                else return yPos - 30; 
             })
             .attr("x1", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
             .attr("x2", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
@@ -277,6 +281,24 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
         }, 2000);
             
     }
+    
+    
+    //    barNumbers
+    svg.append("text")
+        .attr("x", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
+        .attr("y", function() { 
+        
+            if(ref) return yPos - 10 + 65;
+            else return yPos - 10;
+        })
+        .html(pupilCount)
+        .attr("class", "barNumbers")
+        .style("text-anchor", "middle")
+        .style("opacity", 0)
+        .transition() 
+        .delay(1000)
+        .duration(1000)
+        .style("opacity", 1)
             
     
     
