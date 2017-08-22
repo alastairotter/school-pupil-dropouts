@@ -6,6 +6,7 @@
     <title>Untitled Document</title>
 <!--    <link rel="stylesheet" href=".css">-->
    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+   <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 
 
    <script src="../lib/vue.js"></script>
@@ -16,6 +17,7 @@
     
     <style>
         body { 
+            margin: 0;
             background: #388aa3;
             font-family: "Roboto Condensed", Arial, "Helvetica Neue", Helvetica, sans-serif;
         }
@@ -23,26 +25,27 @@
             margin-left: auto;
             margin-right: auto;
             background: #388aa3;
+/*            background: dodgerblue;*/
         }
         
         #nav { 
             position: absolute; 
-            top: 20px;
-            
-            background: red;
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+           
             z-index: 300;
         }
         .nav { 
-            position: absolute;
-            top: 0;
-            right: 0;
+            width: 100%;
             text-transform: uppercase;
-            font-size: 80%;
+            font-size: 200%;
             margin-left: auto;
             margin-right: auto;
-            text-align: right;
+            text-align: center;
             margin-bottom: 10px;
             font-weight: bold;
+            color: #fff;
         }
         .nav:hover { 
             cursor: pointer;
@@ -50,8 +53,8 @@
         }
                 
         .barLabels { 
-            font-size: 70%; 
-            font-weight: bold;
+            font-size: 80%; 
+/*            font-weight: 700;*/
             fill: #fff;
         }
         
@@ -65,13 +68,24 @@
             width: 100%;
             text-align: center;
             transition:all 0.3s ease;
-
+/*            background: #eee;*/
+        }
+        .text-title { 
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 180%; 
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 30px;
         }
         .text-inner { 
             font-size: 90%;
-            width: 200px;
+            width: 600px;
             margin-left: auto;
             margin-right: auto;
+            color: #c1f0ff;
+            font-weight: 300;
             
         }
         .label {
@@ -84,6 +98,7 @@
             left: -300px;
             z-index: 150;
             opacity: 0;
+            font-size: 90%;
 /*            transition:all 2s ease;*/
             
         }
@@ -107,27 +122,20 @@
 </head>
 <body>
 
-<div id="nav">
-    <div class="nav stage1" v-if="stage === 1" v-on:click="stage1">Next</div>
-    <div class="nav stage2" v-if="stage === 2" v-on:click="stage2">Next</div>
-    <div class="nav stage3" v-if="stage === 3" v-on:click="stage3">Next</div>
-    <div class="nav stage4" v-if="stage === 4" v-on:click="stage4">Next</div>
-    <div class="nav stage5" v-if="stage === 5" v-on:click="stage5">Next</div>
-    <div class="nav stage6" v-if="stage === 6" v-on:click="stage6">Next</div>
-</div>
+
     <div class="label label1">In 2004 <span class="em">1,207,996</span> pupils entered Grade 1</div>
     <div class="label label2">A year later there were <span class="em">151,755</span> fewer pupils that started Grade 2</div>
     <div class="label label3">This downward trend continues throughout primary school and by Grade 7 there are <span class="em">910,994</span> pupils registered for the final year of primary school </div>
-    <div class="label label4">7 years after starting school on 2004 there are now <span class="em">297,002</span> fewer pupils in grade 7 than entered Grade one  in 2004. <br />
+    <div class="label label4">7 years after starting school in 2004 there are now <span class="em">297,002</span> fewer pupils in Grade 7 than entered Grade 1 in 2004. <br />
 <ul>
     <li>Grade 1: 1,207,996</li>
-    <li>Grade 2: 1,056,241 (-12.6%)</li>
-    <li>Grade 3: 1,040,022 (-1.54%)</li>
+    <li>Grade 2: 1,056,241 ( -12.6% )</li>
+    <li>Grade 3: 1,040,022 ( -1.54% )</li>
     
-<li>Grade 4: 1,023,963 (-1.54%)</li>
-<li>Grade 5: 980,945 (-4.20%)</li>
-<li>Grade 6: 948,213 (-3.34%)</li>
-<li>Grade 7: 910,994 (-3.93%)</li>
+<li>Grade 4: 1,023,963 ( -1.54% )</li>
+<li>Grade 5: 980,945 ( -4.20% )</li>
+<li>Grade 6: 948,213 ( -3.34% )</li>
+<li>Grade 7: 910,994 ( -3.93% )</li>
 <!--
 8,934588,2.59%
 9,1036555,10.91%
@@ -138,11 +146,21 @@
     
     
 </ul></div>
+<div class="label label8">From Grade 8 to 10 this trend reverses rapidly and by Grade 10 there are <span class="em">1,100,877</span> pupils ... </div>
+
+    <div class="label label12">... before plummeting in Grade 11 and 12. By Grade 12 there are just <span class="em">665,355</span> learners, just <span class="em">55%</span> of the number of learners that started Grade 1 12 years earlier</div>
 <div id ="text">
+ <div class="text-title">Tracking learners through 12 years of schooling in South Africa</div>
   
    <div class="text-inner">
        
-      {{ content }}
+       <p>In January every year millions of children enter grade one, the start of an expected 12 years of primary and secondary schooling. In an ideal world the majority of these children will emerge with a matric certificate 12 years later. Unfortunately this is far from the reality in South Africa's school system.</p>
+       <p>
+         In January 2004 1.2 million children started grade one. We followed this class through their 12 years of schooling. 
+       </p> 
+       <p>Each of the circles below represents 1,000 learners that started grade one in 2004.</p>
+      
+      
        
    </div>
     
@@ -151,6 +169,16 @@
     
     
     
+</div>
+   
+   <div id="nav">
+    <div class="nav stage1" v-if="stage === 1" v-on:click="stage1"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+    <div class="nav stage2" v-if="stage === 2" v-on:click="stage2"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+    <div class="nav stage3" v-if="stage === 3" v-on:click="stage3"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+    <div class="nav stage4" v-if="stage === 4" v-on:click="stage4"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+    <div class="nav stage5" v-if="stage === 5" v-on:click="stage5"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+    <div class="nav stage6" v-if="stage === 6" v-on:click="stage6"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+    <div class="nav stage7" v-if="stage === 7" v-on:click="stage7"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
 </div>
     
 
@@ -170,7 +198,7 @@
         xPos = 10,
         yPos = height - 30,
         radius = 1.6, 
-        spacing = 0.9,
+        spacing = 0.3,
         startXpos = xPos,
         labelXpos = startXpos;
     
@@ -188,13 +216,10 @@
 //        $("#text").css("left", pos.left + "px")
         
         
-        $("#nav")
-        .css("width", width + "px")
-        .css("left", pos.left + "px")
+//        $("#nav")
+//        .css("width", width + "px")
+//        .css("left", pos.left + "px")
         
-//        $(".label")
-//            .css("left", pos.left + (startXpos + ((radius * 2 + spacing) * colLimit) / 2) + 10 + "px")
-//            .css("width", 200)
     
     })
     
@@ -283,14 +308,9 @@
                     .transition() 
                     .duration(1000)
                     .style("opacity", 0)
-                    .on("end", function () { 
-                        content.content = ""
-                    })
-                    .transition()
-                    .duration(1000)
-                    .style("opacity", 1)
                     
-                    makeBars(".grade1", ".grade1Label", "Gr1 (2004)", ".label1", true, true);
+                    
+                    makeBars(".grade1", ".grade1Label", "Gr1 (2005)", ".label1", true, true);
                 
                     $(".label").css("opacity", 1)
                 
@@ -302,8 +322,8 @@
             
             stage2: function () {
                 this.stage = 3;
-                
-                    makeBars(".grade2", ".grade2Label", "Gr2 (2005)", ".label2", false, true)
+                    d3.select(".label2").style("width", "250px")
+                    makeBars(".grade2", ".grade2Label", "Gr2 (2006)", ".label2", false, true)
 //                    makeBars(".grade3", "Gr3 (2006)")
 //                    makeBars(".grade4", "Gr4 (2007)")
 //                    makeBars(".grade5", "Gr5 (2008)")
@@ -319,12 +339,12 @@
             stage3: function () { 
                 this.stage = 4;
                 console.log("stage3")
-                makeBars(".grade3", ".grade3Label", "Gr3 (2006)", ".label3", false, false)
-                makeBars(".grade4", ".grade4Label", "Gr4 (2007)", ".label4", false, false)
-                makeBars(".grade5", ".grade5Label", "Gr5 (2008)", ".label5", false, false)
-                makeBars(".grade6", ".grade6Label", "Gr6 (2009)", ".label6", false, false)
+                makeBars(".grade3", ".grade3Label", "Gr3 (2007)", ".label3", false, false)
+                makeBars(".grade4", ".grade4Label", "Gr4 (2008)", ".label4", false, false)
+                makeBars(".grade5", ".grade5Label", "Gr5 (2009)", ".label5", false, false)
+                makeBars(".grade6", ".grade6Label", "Gr6 (2010)", ".label6", false, false)
                 
-                makeBars(".grade1ref", ".grade3Label", "Gr7 (2010)", ".label3", false, true, true)       
+                makeBars(".grade1ref", ".grade3Label", "Gr7 (2011)", ".label3", false, true, true)       
             },
             
             stage4: function () { 
@@ -345,7 +365,89 @@
             
             }, 
             stage5: function () { 
-                this.stage = 5;
+                this.stage = 6;
+                console.log("stage 5");
+                d3.select(".label4").transition(). duration(1000).style("opacity", 0)
+                var pos = $(".label3").position()
+                d3.select(".label3").transition().duration(500).style("top", pos.top - 40 + "px").style("left", pos.left - 20 + "px").style("width", "400px")
+                makeBars(".grade8", ".grade8Label", "Gr8 (2012)", ".label77", false, false)
+                makeBars(".grade9", ".grade9Label", "Gr9 (2013)", ".label9", false, false)
+                makeBars(".grade10", ".grade10Label", "Gr10 (2014)", ".label8", false, true)
+            },
+            
+            stage6: function () { 
+                this.stage = 7; 
+                console.log("stage6")
+                d3.select(".label12").style("width", "200px")
+                makeBars(".grade11", ".grade11Label", "Gr11 (2015)", ".label11", false, false)
+                makeBars(".grade12", ".grade12Label", "Gr12 (2016)", ".label12", false, true)
+                
+            },
+            
+            stage7: function () { 
+                this.stage = 8; 
+                console.log("stage7")
+                
+                // get origin xpos
+//                var origX = d3.select(".grade2").attr("cx");
+                var origX12 = d3.select(".grade12").attr("cx");
+                var xDiff = origX12 - width/2; 
+                
+                
+                
+                // clear bar labels
+//                d3.selectAll(".barLabels").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this).remove(); });
+                d3.selectAll(".grade1ref").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".label2").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".label3").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".label8").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".label12").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".pointer-line").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".pointer-circle").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                d3.selectAll(".grade7line").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
+                
+                // clear intermediate bars
+                for(var c = 2; c < 12; c++ ) {
+                    
+                    d3.selectAll(".grade" + c)
+                        .transition()
+                        .duration(1000)
+                        .style("opacity", 0)
+                        .on("end", function () { 
+                            d3.select(this).remove();
+                        })
+                        
+                    
+                }
+                
+                // move grade 12 bar
+                d3.selectAll(".grade12")
+                    .each( function (d, i) { 
+                        var curX = d3.select(this).attr("cx");
+                        d3.select(this).transition().duration(2000).attr("cx", curX - xDiff)
+                        
+                    })
+                
+                
+                // move grade one to center
+//                startXpos + ((radius * 2 + spacing) * colLimit) / 2
+                var startXpos = d3.select(".grade1").attr("cx");
+                var g1x = d3.select(".grade1").attr("cx");
+                
+                
+                var startXpos = width/2 - (startXpos + ((radius * 2 + spacing) * colLimit /5));
+                
+                var g1Diff = startXpos - g1x; 
+                
+                
+                d3.selectAll(".grade1")
+                    .each( function (d, i) { 
+                        var curX = d3.select(this).attr("cx")
+                        d3.select(this).transition().duration(2000).attr("cx", curX + g1Diff);
+                    })
+                    
+                    
+                
             }
             
         }

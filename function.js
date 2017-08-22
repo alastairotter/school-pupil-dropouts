@@ -4,7 +4,7 @@
     for(var c = 0; c < gradeCount; c++) {
 
         svg.append("circle")
-            .attr("cx", xPos)
+            .attr("cx", 50)
             .attr("cy", yPos)
             .attr("r", 2)
             .attr("class", className)
@@ -18,7 +18,7 @@
 
 var spreadCircles = function () { 
         var newX = 0, 
-            newY = height - 30,
+            newY = height - 10,
             newColCount = 0,
             newRowCount = 0,
             newColCountLimit = 100,
@@ -27,39 +27,82 @@ var spreadCircles = function () {
         
         // calculate values
         
-        var circles = d3.selectAll("circle").size();
-        var area = (width) * (height / 2.2); 
-        console.log(area);
-        var squares = area / circles;
-        squares = Math.sqrt(squares); 
-        console.log(squares);
+//        var circles = d3.selectAll(".grade1").size();
+//        var area = (width) * (height /2.6); 
+//        console.log(area);
+//        var squares = area / circles;
+//        squares = Math.sqrt(squares); 
+//        console.log(squares);
 //        newRadius = squares * 0.5; 
 //        newSpacing = squares * 0.5; 
-        newColCountLimit = (width - 7) / (newRadius * 2 + newSpacing);
+//        newColCountLimit = (width - 7) / (newRadius * 2 + newSpacing);
+//        
+//        d3.selectAll(".grade1")
+//            .attr("cx", function (d, i) { 
+//                newColCount++;
+//                if(newColCount > newColCountLimit) { newColCount = 0; newX = 0; }
+//                 
+//                newX = newX + newRadius * 2 + newSpacing; 
+//            
+//                return newX;
+//                
+//            })
+//            .attr("cy", function (d) { 
+//                newRowCount++; 
+//                
+//                if(newRowCount > newColCountLimit) { newRowCount = 0;  newY = newY - newRadius * 2 - newSpacing; }
+//                
+//                return newY;
+//            })
+//            .attr("r", newRadius)
+//            .style("opacity", 0)
+//            .style("fill", "fffcbc")
+//            .transition()
+//            .delay( function (d, i) { 
+//                return i * 10; 
+//            })
+//            .style("opacity", 0.8)
         
-        d3.selectAll("circle")
-            .attr("cx", function (d, i) { 
-                
-                newColCount++;
-                if(newColCount > newColCountLimit) { newColCount = 0; newX = 0; }
-                 
-                newX = newX + newRadius * 2 + newSpacing; 
-            
-                return newX - width;
-                
-            })
-//            .attr("cx", width + 20)
-            .attr("cy", function (d) { 
-                newRowCount++; 
-                
-                if(newRowCount > newColCountLimit) { newRowCount = 0;  newY = newY - newRadius * 2 - newSpacing; }
-                
-                return newY;
-            })
-//            .attr("cy", -20)
-            .attr("r", newRadius)
-            .style("opacity", 0)
-            .style("fill", "fffcbc")
+//    svg.append("circle")
+//        .attr("class", "placeHolder")
+//        .attr("cx", width/2)    
+//        .attr("cy", height/2)
+//        .attr("r", 40)
+//        .style("fill", "#fffcbc")
+//    
+//    d3.selectAll(".grade1")
+//        .attr("cx", width/2)
+//        .attr("cy", height/2)
+//        .attr("r", function (d, i) { 
+//            if(i > 0 ) return 3; 
+//            else return 5;
+//        })
+//        .style("opacity", function (d, i) { 
+//            if(i > 0) return 1; 
+//            else return 1;
+//        })
+//        .style("fill", "#fffcbc")
+//        .style("stroke", "gray")
+   
+    
+    var xx = 0, yy = height/4*3, colc = 0;
+    
+    d3.selectAll(".grade1")
+        .each( function (d, i) { 
+            d3.select(this).attr("cx", xx).attr("cy", yy).attr("r", 3).style("fill", "#fffcbc").style("opacity", 0)
+                if(colc > 100) { xx = 0; yy = yy + 9; colc = 0; } 
+                else { xx = xx + 8.7; colc++; }
+        
+        })
+        .transition()
+        .delay(500)
+        .duration(1000)
+        .style("opacity", 1)
+    
+        
+
+       
+    
     
    
     
@@ -98,9 +141,11 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
     d3.selectAll(className)
         .each( function (d, i) { 
             d3.select(this)
+//                .attr("cx", xPos + 50)
                 .transition()
                 .delay( function () { 
                     return randomInt(5,500);
+//                    return i * 1.5;
                 })
                 .duration(2000)
                 .attr("cx", xPos)
@@ -108,6 +153,7 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
                 .attr("r", radius)
                 .style("fill", col)
                 .style("opacity", 1)
+                .style("stroke","none")
         
             xPos = xPos + spacing + radius * 2;
             colCount++; 
@@ -118,6 +164,11 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
                 yPos = yPos - spacing - radius * 2;
             }
         })
+        
+//        d3.select(".placeHolder")
+//        .transition()
+//        .duration(3000)
+//        .style("opacity", 0)
         
     }
     
@@ -200,6 +251,7 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
             .style("stroke-width", 1)
             .attr("class", function () { 
                 if(ref) { return "grade7line"}
+                else return "pointer-circle";
             })
     
         labels.append("circle")
@@ -207,6 +259,7 @@ var makeBars = function (className, labelName, year, labelClass, start, label, r
             .attr("cy", yPos - 10 - 80)
             .attr("r", 4)
             .style("fill", "#fff")
+            .attr("class", "pointer-line")
             
         
 //        labels.append("text")
