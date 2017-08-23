@@ -130,6 +130,8 @@
             font-size: 105%;
             font-weight: 300;
             width: 400px;
+            display: none;
+            opacity: 0;
             
             
         }
@@ -192,7 +194,7 @@
 </div>
 
 
-<div class="annotations annotation1">This is annotation 1 and some more text and even some more and an emphasis <span class="em">Bold</span></div>
+    <div class="annotations annotation1">In 2005, <span class="em">1.2 million</span> children started Grade 1, the start of their school careers.</div>
 
 
 <div id="chart">
@@ -309,7 +311,7 @@
         el: "#nav", 
         data: {
             stage: 1,
-            label1: "This is a label for stage 1"
+            annotation1: "This is a label for stage 1"
 //            , 
 //            label1: "In 2004 1,207,996 pupils entered Grade 1",
 //            label2: "A year later there were 151,755 fewer pupils that started Grade 2"
@@ -325,9 +327,6 @@
                 
 //                this.stage = 6;
 //                makeBars(".grade12", ".grade12Label", "Gr1 (2005)", ".label12", true, false);
-//                    
-                
-                
                 // TESTING /////////
                 
                 d3.select("#text")
@@ -336,6 +335,7 @@
                     .style("opacity", 0)
                     .on("end", function () { 
                         d3.select(this).style("display", "none")
+                        d3.select(".annotation1").style("display", "block").transition().duration(1000).style("opacity", 1)
                     })
                     
                     svg.append("line")
