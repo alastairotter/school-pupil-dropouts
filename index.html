@@ -115,10 +115,22 @@
             padding: 2px;
         }
         
-        .label .em { 
+        .annotations .em { 
             font-size: 110%;
             font-weight: 700;
             color: #fff;
+            
+        }
+        
+        .annotations { 
+            position: absolute; 
+            left: 30%; 
+            top: 10%;
+            color: #c1f0ff;
+            font-size: 105%;
+            font-weight: 300;
+            width: 400px;
+            
             
         }
     </style>
@@ -126,9 +138,11 @@
 <body>
 
 
+<!--
     <div class="label label1">In 2004 <span class="em">1,207,996</span> pupils entered Grade 1</div>
     <div class="label label2">A year later there were <span class="em">151,755</span> fewer pupils that started Grade 2</div>
     <div class="label label3">This downward trend continues throughout primary school and by Grade 7 there are <span class="em">910,994</span> pupils registered for the final year of primary school </div>
+-->
     <div class="label label4">7 years after starting school in 2004 there are now <span class="em">297,002</span> fewer pupils in Grade 7 than entered Grade 1 in 2004. <br />
 <ul>
     <li>Grade 1: 1,207,996</li>
@@ -149,11 +163,13 @@
     
     
 </ul></div>
+<!--
 <div class="label label8">From Grade 8 to 10 this trend reverses rapidly and by Grade 10 there are <span class="em">1,100,877</span> pupils ... </div>
 
     <div class="label label12">... before plummeting in Grade 11 and 12. By Grade 12 there are just <span class="em">665,355</span> learners, just <span class="em">55%</span> of the number of learners that started Grade 1 12 years earlier</div>
 
    <div class="label label20"></div>
+-->
     
     
     
@@ -174,6 +190,11 @@
    </div>
     
 </div>
+
+
+<div class="annotations annotation1">This is annotation 1 and some more text and even some more and an emphasis <span class="em">Bold</span></div>
+
+
 <div id="chart">
     
     
@@ -214,25 +235,7 @@
         labels;
     
     
-    // set text spacing
-    $("document").ready( function () { 
-        
-        var pos = $("svg").position();
-        var dim = $("svg").width();
-        var right = pos.left + dim;
-        console.log(pos)
-        console.log(dim)
-        console.log(right);
-        
-//        $("#text").css("left", pos.left + "px")
-        
-        
-//        $("#nav")
-//        .css("width", width + "px")
-//        .css("left", pos.left + "px")
-        
-    
-    })
+
     
     
  
@@ -255,6 +258,7 @@
         .attr("transform", "translate(" + padding + " , " + padding + ")")
     
     
+    var pos = $("svg").position(); 
     
     
     
@@ -262,7 +266,7 @@
         data.forEach( function (d) { 
             d.pupils = +d.pupils / gradeBuckets;
         })
-        console.log(data);
+      
 
         
 
@@ -289,9 +293,7 @@
     })
     
     
-    
-    
-    
+
     
     
     // Navigation
@@ -299,14 +301,15 @@
     var content = new Vue({ 
         el: "#text", 
         data: { 
-            content: "Tracking Schools"
+            content: ""
         }
     })
     
     var nav = new Vue({ 
         el: "#nav", 
         data: {
-            stage: 1
+            stage: 1,
+            label1: "This is a label for stage 1"
 //            , 
 //            label1: "In 2004 1,207,996 pupils entered Grade 1",
 //            label2: "A year later there were 151,755 fewer pupils that started Grade 2"
@@ -314,6 +317,7 @@
         methods: { 
             stage1: function () { 
                 this.stage = 2;
+                console.log("stage1");
                 
                 
                 // TESTING //////////
@@ -330,6 +334,9 @@
                     .transition() 
                     .duration(1000)
                     .style("opacity", 0)
+                    .on("end", function () { 
+                        d3.select(this).style("display", "none")
+                    })
                     
                     svg.append("line")
                         .attr("x1", 0)
@@ -343,76 +350,55 @@
                         .duration(5000)
                         .style("opacity", 0.7)
                 
-                    makeBars(".grade1", "1,207,996", ".grade1Label", "Gr1 (2005)", ".label1", true, true);
+                    makeBars(".grade1", "1,207,996", ".grade1Label", "Gr1 (2005)", ".label1", true);
                 
-                    $(".label").css("opacity", 1)
-                
-                    // Add labels
-//                    var label = svg.append("text")
-//                    .attr("x", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
+
 
                 }, 
             
             stage2: function () {
                 this.stage = 3;
-                    d3.select(".label2").style("width", "250px")
-                    makeBars(".grade2", "1,056,241", ".grade2Label", "Gr2 (2006)", ".label2", false, true)
-//                    makeBars(".grade3", "Gr3 (2006)")
-//                    makeBars(".grade4", "Gr4 (2007)")
-//                    makeBars(".grade5", "Gr5 (2008)")
-//                    makeBars(".grade6", "Gr6 (2009)")
-//                    makeBars(".grade7", "Gr7 (2010)")
-//                    makeBars(".grade8", "Gr8 (2011)")
-//                    makeBars(".grade9", "Gr9 (2012)")
-//                    makeBars(".grade10", "Gr10 (2013)")
-//                    makeBars(".grade11", "Gr11 (2014)")
-//                    makeBars(".grade12", "Gr12 (2015)")
+                console.log("stage 2");
+                makeBars(".grade2", "1,056,241", ".grade2Label", "Gr2 (2006)", ".label2", false)
+
                 
             }, 
             stage3: function () { 
                 this.stage = 4;
-                console.log("stage3")
-                makeBars(".grade3", "1,040,022", ".grade3Label", "Gr3 (2007)", ".label3", false, false)
-                makeBars(".grade4", "1,023,963", ".grade4Label", "Gr4 (2008)", ".label4", false, false)
-                makeBars(".grade5", "980,945", ".grade5Label", "Gr5 (2009)", ".label5", false, false)
-                makeBars(".grade6", "948,213", ".grade6Label", "Gr6 (2010)", ".label6", false, false)
+                console.log("stage 3")
+                makeBars(".grade3", "1,040,022", ".grade3Label", "Gr3 (2007)", ".label3", false)
+                makeBars(".grade4", "1,023,963", ".grade4Label", "Gr4 (2008)", ".label4", false)
+                makeBars(".grade5", "980,945", ".grade5Label", "Gr5 (2009)", ".label5", false)
+                makeBars(".grade6", "948,213", ".grade6Label", "Gr6 (2010)", ".label6", false)
+                makeBars(".grade1ref", "910,994",".grade3Label", "Gr7 (2011)", ".label3", false, true, true) 
                 
-                makeBars(".grade1ref", "910,994",".grade3Label", "Gr7 (2011)", ".label3", false, true, true)       
             },
             
             stage4: function () { 
                 console.log("stage4")
                 this.stage = 5;
-                var pos = $("svg").position();
-                d3.selectAll(".diff").transition().duration(2000).style("opacity", 1)
-                d3.select(".grade7line").transition().duration(2000).attr("y2", yPos - 10)
-                d3.select(".label4")
-                    .style("opacity", 0)
-                    
-                    .style("left", pos.left + 70 + startXpos + ((radius * 2 + spacing) * colLimit) / 2 + "px")
-                    .style("top", yPos + 40 + "px")
-                    .transition()
-                    .delay(2000)
-                    
-                    .style("opacity", 1)
+                d3.selectAll(".diff").transition().duration(2000).style("opacity", 1);
+                var curX = d3.select(".diff").attr("cx");
+                curX = +curX + pos.left + (radius * 2 + spacing) * (colLimit + 14);
+
+                d3.select(".label4").style("left", curX + "px").style("top", yPos + 20 + "px").style("opacity", 1)
+                
             
             }, 
             stage5: function () { 
                 this.stage = 6;
                 console.log("stage 5");
-                d3.select(".label4").transition(). duration(1000).style("opacity", 0)
-                var pos = $(".label3").position()
-                d3.select(".label3").transition().duration(500).style("top", pos.top - 40 + "px").style("left", pos.left - 20 + "px").style("width", "400px")
-                makeBars(".grade8", "934,588", ".grade8Label", "Gr8 (2012)", ".label77", false, false)
-                makeBars(".grade9", "1,036,555", ".grade9Label", "Gr9 (2013)", ".label9", false, false)
-                makeBars(".grade10","1,100,877", ".grade10Label", "Gr10 (2014)", ".label8", false, true)
+                
+                makeBars(".grade8", "934,588", ".grade8Label", "Gr8 (2012)", ".label77", false)
+                makeBars(".grade9", "1,036,555", ".grade9Label", "Gr9 (2013)", ".label9", false)
+                makeBars(".grade10","1,100,877", ".grade10Label", "Gr10 (2014)", ".label8", false)
             },
             
             stage6: function () { 
                 this.stage = 7; 
                 console.log("stage6")
                 d3.select(".label12").style("width", "200px")
-                makeBars(".grade11", "890,971", ".grade11Label", "Gr11 (2015)", ".label11", false, false)
+                makeBars(".grade11", "890,971", ".grade11Label", "Gr11 (2015)", ".label11", false)
                 makeBars(".grade12", "665,355", ".grade12Label", "Gr12 (2016)", ".label12", false, true)
                 
             },
