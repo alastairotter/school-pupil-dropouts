@@ -350,7 +350,17 @@
                         .duration(5000)
                         .style("opacity", 0.7)
                 
-                    makeBars(".grade1", "1,207,996", ".grade1Label", "Gr1 (2005)", ".label1", true);
+//                    makeBars(".grade1", "1,207,996", ".grade1Label", "Gr1 (2005)", ".label1", true);
+                
+                    var selection = d3.selectAll(".grade1");
+                    selection[0].reverse(); 
+                    selection.each( function (d, i) { 
+                        d3.select(this)
+                            .style("opacity", function () { 
+                                if(i > 100) { return 1; }
+                                else { return 0; }
+                            })
+                    })
                 
 
 
