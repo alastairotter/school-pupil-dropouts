@@ -1,0 +1,172 @@
+ body { 
+            margin: 0;
+            background: #388aa3;
+            font-family: "Roboto Condensed", Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+
+.passmark { 
+    font-size: 90%;
+    
+}
+
+.passmark a { 
+    color: #fff;
+    color: #93e6ff;
+    text-decoration: none;
+}
+        #chart { 
+            position: fixed; 
+            top: 20px;
+            
+            margin-left: auto;
+            margin-right: auto;
+            background: #388aa3;
+/*            background: dodgerblue;*/
+            opacity: 0;
+        }
+        
+        #nav { 
+            position: absolute; 
+            bottom: 40px;
+            width: 100%;
+            text-align: center;
+           
+            z-index: 300;
+        }
+        .nav { 
+            width: 100%;
+            text-transform: uppercase;
+            font-size: 200%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .nav:hover { 
+            cursor: pointer;
+            cursor: hand;
+        }
+                
+        .barLabels, .barNumbers { 
+            font-size: 80%; 
+/*            font-weight: 700;*/
+            fill: #fff;
+        }
+        .barNumbers { 
+            fill: #c1f0ff;
+        }
+        
+        
+        #slides { 
+            position: absolute; 
+            top: 0px;
+            z-index:500; 
+            width: 650px;
+            text-align: center;
+            font-weight: 300;
+            font-size: 120%; 
+            color: #c1f0ff;
+            padding-top: 50px;
+            opacity: 0;
+            height: 100vh;
+            line-height: 130%;
+            
+            
+            
+        }
+
+    .stuck {
+      position:fixed;
+      top:0;
+    }
+
+
+
+
+
+        
+/*
+        #text { 
+            position: absolute; 
+            top: 60px; 
+            
+            z-index: 200;
+
+            font-size: 120%;
+            width: 100%;
+            text-align: center;
+            transition:all 0.3s ease;
+            background: #eee;
+        }
+*/
+        .slide-title { 
+            width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 300%; 
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 50px;
+            font-family: Merriweather, serif;
+            font-weight: 700;
+            line-height: 130%;
+            margin-top: 70px;
+        }
+        .slide-inner { 
+/*            font-size: 90%;*/
+            width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #c1f0ff;
+            font-weight: 300;
+            padding-top: 70px;
+            
+            
+        }
+        .label {
+            font-weight: 300;
+            color: #c1f0ff;
+/*            font-size: 90%; */
+            width: 280px;
+            position: absolute; 
+            top: 100px;
+            left: -300px;
+            z-index: 150;
+            opacity: 0;
+            font-size: 90%;
+/*            transition:all 2s ease;*/
+            
+        }
+        .chartLabels { 
+            stroke: none;
+            fill: #fff;
+        }
+        
+        .label li { 
+            font-size: 90%;
+            padding: 2px;
+        }
+        
+        .em { 
+            font-size: 110%;
+            font-weight: 700;
+            color: #fff;
+            
+        }
+        
+        .annotations { 
+            position: absolute; 
+            left: 30%; 
+            top: 10%;
+            color: #c1f0ff;
+            font-size: 105%;
+            font-weight: 300;
+            width: 400px;
+            display: none;
+            opacity: 0;
+            
+            
+        }

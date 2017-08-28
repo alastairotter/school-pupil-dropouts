@@ -34,10 +34,7 @@ var spreadCircles = function () {
                 else { xx = xx + 8.7; colc++; }
         
         })
-        .transition()
-        .delay(500)
-        .duration(1000)
-        .style("opacity", 1)
+        
     
 }
 
@@ -45,15 +42,21 @@ var spreadCircles = function () {
 //////// MAKE BARS 
 
 
-var makeBars = function (className, pupilCount, labelName, year, labelClass, start, label, ref) { 
-        if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2);  yPos = height - 30; } 
+var makeBars = function (groupName, className, barNo, pupilCount, year, labelClass, start, label, ref) { 
+       
+    
+    if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2);  yPos = height - 30; } 
         
         else { xPos = 0;  }
         startXpos = xPos,
             colCount = 0;
     
-   // barlabels
-    svg.append("text")
+   
+    var bar = svg.append("g")
+        .attr("class", "." + groupName);
+    
+    // barlabels
+    bar.append("text")
         .attr("x", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
         .attr("y", height - 5)
         .html(year)
@@ -68,27 +71,29 @@ var makeBars = function (className, pupilCount, labelName, year, labelClass, sta
 
            
     
-    var c = d3.selectAll(".grade7").size();
+//    var c = d3.selectAll(".grade7").size();
     
 
     var col = "fffcbc";
     
-    if(!ref) { 
+    
     
     d3.selectAll(className)
         .each( function (d, i) { 
             d3.select(this)
-//                .attr("cx", xPos + 50)
                 .transition()
                 .delay( function () { 
                     return randomInt(5,500);
-//                    return i * 1.5;
                 })
                 .duration(2000)
                 .attr("cx", xPos)
                 .attr("cy", yPos)
                 .attr("r", radius)
-                .style("fill", col)
+                .style("fill", function () { 
+                    if(className === ".grade13") { return "crimson"; }
+                    else if(className === ".grade14") { return "crimson"; }
+                    else { return col; }
+                })
                 .style("opacity", 1)
                 .style("stroke","none")
         
@@ -104,48 +109,9 @@ var makeBars = function (className, pupilCount, labelName, year, labelClass, sta
         
 
         
-    }
     
-    else { 
-        
-        d3.selectAll(className)
-        .each( function (d, i) { 
-            d3.select(this)
-                .classed("diff", function () { 
-                    if(i < c) return "false";
-                    else return true;
-                })
-                .transition()
-                .delay( function () { 
-                    return randomInt(5,500);
-                })
-                .duration(2000)
-                .attr("cx", xPos)
-                .attr("cy", yPos)
-                .attr("r", radius)
-                .style("fill", col)
-                
-                .style("opacity", function () { 
-                    if(i < c) return 1;
-                    else return 0; 
-                })
-                .style("fill", function () { 
-                    if(i < c) return "#fffcbc";
-                    else return "#85f2e0";
-                })
-        
-            xPos = xPos + spacing + radius * 2;
-            colCount++; 
-            
-            if(colCount === colLimit) { 
-                colCount = 0; 
-                xPos = startXpos;
-                yPos = yPos - spacing - radius * 2;
-            }
-        })
-        
     
-    }
+
     
     
     
@@ -153,7 +119,7 @@ var makeBars = function (className, pupilCount, labelName, year, labelClass, sta
     
     
     //    barNumbers
-    svg.append("text")
+    bar.append("text")
         .attr("x", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
         .attr("y", function() { 
         
@@ -161,7 +127,8 @@ var makeBars = function (className, pupilCount, labelName, year, labelClass, sta
             else return yPos - 10;
         })
         .html(pupilCount)
-        .attr("class", "barNumbers")
+        .attr("class", "barNumbers " + barNo)
+//        .classed("barNumbers", true)
         .style("text-anchor", "middle")
         .style("opacity", 0)
         .transition() 
