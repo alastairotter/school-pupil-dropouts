@@ -539,10 +539,17 @@ var slide8 = new Waypoint({
          
         var getStartX = d3.select(".grade12").attr("cx");
          var curX = d3.select(".grade13").attr("cx");
+         var startXdiff = curX - getStartX;
          var xDiff = curX - getStartX - (radius * 2 + spacing) * (colLimit + 2);
          var newLabelX = getStartX + (radius * 2 + spacing) * (colLimit + 2);
          
         //get diff
+         
+//         d3.selectAll(".grade13")
+//            .each( function () { 
+//                var cX = d3.select(this).attr("cx")
+//                d3.select(this).attr("cx", cX - startXdiff);
+//            })
         
          d3.selectAll(".grade13")
 

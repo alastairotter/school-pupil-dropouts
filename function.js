@@ -96,8 +96,8 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
                 .attr("cy", yPos)
                 .attr("r", radius)
                 .style("fill", function () { 
-                    if(className === ".grade13") { return "crimson"; }
-                    else if(className === ".grade14") { return "crimson"; }
+                    if(className === ".grade13") { return "white"; }
+                    else if(className === ".grade14") { return "white"; }
                     else { return col; }
                 })
                 .style("opacity", function () { 
