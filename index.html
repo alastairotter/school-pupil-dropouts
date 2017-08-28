@@ -427,6 +427,10 @@ var slide8 = new Waypoint({
         makeBars("bar10",".grade10", "barNo10", "1,100,877", "Gr10 (2014)", ".label8", false)
         makeBars("bar11",".grade11", "barNo11",  "890,971",  "Gr11 (2015)", ".label11", false)
         makeBars("bar12",".grade12", "barNo2",  "665,355",  "Gr12 (2016)", ".label12", false, true)
+        
+        makeBars("bar13",".grade13", "barNo13",  "442,672", "", ".label13", false)
+        makeBars("bar14",".grade14", "barNo14",  "162,374", "", ".label14", false)
+        
 
         
 
@@ -493,6 +497,10 @@ var slide8 = new Waypoint({
         
         d3.select(".barNumbersOne").transition().duration(2000).attr("x", width/2 - 60 ).style("text-anchor", "end")
         d3.select(".barNumbersTwo").transition().duration(2000).attr("x", width/2 - 30 ).style("text-anchor", "start")
+//        
+//        
+        
+//        moveBarNumber(".barNo12", xDiff);
         
             
 
@@ -527,16 +535,54 @@ var slide8 = new Waypoint({
     
      function slide_seven() { 
     
-        makeBars("bar13",".grade13", "barNo13",  "442,672", "", ".label13", false)
-    
+        
+         
+        var getStartX = d3.select(".grade12").attr("cx");
+         var curX = d3.select(".grade13").attr("cx");
+         var xDiff = curX - getStartX - (radius * 2 + spacing) * (colLimit + 2);
+         var newLabelX = getStartX + (radius * 2 + spacing) * (colLimit + 2);
+         
+        //get diff
+        
+         d3.selectAll(".grade13")
+
+            .each( function (d, i) { 
+                
+                var curX = d3.select(this).attr("cx");
+                d3.select(this).transition().duration(1000).style("opacity", 1).attr("cx", curX - xDiff)
+             
+            })
+        
+         
+         
+         moveBarNumber(".barNo13", xDiff);
+        
         
     }
     
     
     
    function slide_eight() { 
+       
+       
+        var getStartX = d3.select(".grade13").attr("cx");
+         var curX = d3.select(".grade14").attr("cx");
+         var xDiff = curX - getStartX - (radius * 2 + spacing) * (colLimit + 2);
+        //get diff
+        
+         d3.selectAll(".grade14")
+
+            .each( function (d, i) { 
+                
+                var curX = d3.select(this).attr("cx");
+                d3.select(this).transition().duration(1000).style("opacity", 1).attr("cx", curX - xDiff)
+             
+            })
+       
+       moveBarNumber(".barNo14", xDiff);
+         
     
-        makeBars("bar14",".grade14", "barNo14",  "162,374", "", ".label14", false)
+        
     
         
     }

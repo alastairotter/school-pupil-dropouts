@@ -51,6 +51,9 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
         startXpos = xPos,
             colCount = 0;
     
+    
+    
+    
    
     var bar = svg.append("g")
         .attr("class", "." + groupName);
@@ -66,7 +69,10 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
         .transition() 
         .delay(1000)
         .duration(1000)
-        .style("opacity", 1)
+        .style("opacity", function () { 
+            if(groupName === "bar13" || groupName === "bar14") { return 0; }
+            else { return 1; }
+        })
     
 
            
@@ -94,7 +100,10 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
                     else if(className === ".grade14") { return "crimson"; }
                     else { return col; }
                 })
-                .style("opacity", 1)
+                .style("opacity", function () { 
+                    if(groupName === "bar13" || groupName === "bar14") { return 0; }
+                    else { return 1; }
+                })
                 .style("stroke","none")
         
             xPos = xPos + spacing + radius * 2;
@@ -116,7 +125,7 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
     
     
    
-    
+    console.log(barNo)
     
     //    barNumbers
     bar.append("text")
@@ -127,14 +136,18 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
             else return yPos - 10;
         })
         .html(pupilCount)
-        .attr("class", "barNumbers " + barNo)
+        .attr("class", "barNumbers")
+        .classed(barNo, true )
 //        .classed("barNumbers", true)
         .style("text-anchor", "middle")
         .style("opacity", 0)
         .transition() 
         .delay(1000)
         .duration(1000)
-        .style("opacity", 1)
+        .style("opacity", function () { 
+            if(groupName === "bar13" || groupName === "bar14") { return 0; }
+            else { return 1; }
+        })
             
     
     
@@ -145,3 +158,19 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
             
 
     }
+
+
+
+function moveBarNumber (barNo, xDiff) { 
+    
+    d3.select(barNo)
+            .transition()
+            .duration(1000)
+            .attr("x", function () { 
+                var cX = d3.select(this).attr("x");
+                return cX - xDiff; 
+             
+            })
+            .style("opacity", 1)
+    
+}
