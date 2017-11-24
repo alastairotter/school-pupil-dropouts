@@ -5,13 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SA Schools</title>
-    <!--    <link rel="stylesheet" href=".css">-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather:700|Roboto+Condensed:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 
-
-    <script src="../lib/vue.js"></script>
     <script src="../lib/d3v4/d3.min.js"></script>
     <script src="../lib/jquery-3.2.1.min.js"></script>
     <script src="../lib/utilityfunctions.js"></script>
@@ -46,15 +43,14 @@
             <p>In January every year millions of children enter grade one, the start of an expected 12 years of primary and
                 secondary schooling. In an ideal world the majority of these children will emerge with a matric certificate
                 12 years later. Unfortunately this is far from the reality in South Africa's school system.</p>
-
+<a id="link">Next</a>
         </div>
 
         <div id="slide-two" class="slide">
             <div class="slide-inner">
                 <p>
                     In January 2005
-                    <span class="em">1.2 million</span> children started grade one. We followed this class through their 12 years of schooling.
-                    Each of the circles below represents 1,000 learners that started grade one in 2005.</p>
+                    <span class="em">1.2 million</span> children started grade one. Each of the circles below represents 1,000 learners that started grade one in 2005.</p>
             </div>
 
         </div>
@@ -62,8 +58,7 @@
 
         <div id="slide-three" class="slide">
             <div class="slide-inner">
-                In 2005,
-                <span class="em">1.2 million</span> children started Grade 1, the start of their school careers.
+                In 2005, <span class="em">1.2 million</span> children started Grade 1, the start of their school careers.
             </div>
 
         </div>
@@ -243,14 +238,26 @@
                         d3.selectAll(".grade1")
                             .transition()
                             .delay(function (d, i) {
-                                return randomInt(200, 2000);
+                                return randomInt(100, 1000);
                             })
                             .style("opacity", 1)
                         //                slide_two(); 
                     }
+                    else {
+                        slideTwoDone = false;
+                        d3.selectAll(".grade1")
+                            .transition()
+                            .delay(function (d, i) {
+                                return randomInt(100, 1000);
+                            })
+                            .style("opacity", 0)
+
+                    }
                 },
                 offset: window.innerHeight / 2
             })
+
+
 
 
             var slide3 = new Waypoint({
@@ -259,10 +266,14 @@
 
                     if (direction === "down" && !slideThreeDone) {
                         slideThreeDone = true;
-                        //                sticky2.destroy();
+                
                         slide_three();
 
 
+                    }
+                    else { 
+                        slideThreeDone = false;
+                        slide_three_reverse(); 
                     }
 
                 }, offset: window.innerHeight / 2
@@ -279,6 +290,10 @@
                         //                sticky3.destroy();
                         slide_four();
 
+                    }
+                    else { 
+                        slideFourDone = false;
+                        slide_four_reverse();
                     }
 
                 }, offset: 200
@@ -367,6 +382,27 @@
 
         }
 
+        function slide_three_reverse() {
+            svg.selectAll("line")
+                .transition()
+                .duration(1000)
+                .style("opacity", 0)
+
+            svg.selectAll(".barLabels")
+                .remove()
+            svg.selectAll(".barNumbers")
+                .remove();
+
+            
+                spreadCirclesReverse();
+                svg.selectAll(".grade1")
+                .style("opacity", 1)
+
+            // makeBars(".bar1", ".grade1", "barNo1", "1,207,996", "Gr1 (2005)", ".label1", true);
+
+
+        }
+
 
         function slide_four() {
 
@@ -378,6 +414,11 @@
             makeBars("bar7", ".grade7", "barNo7", "910,994", "Gr7 (2011)", ".label3", false, true)
 
 
+        }
+
+        function slide_four_reverse() { 
+            console.log("slide_four_reverse");
+            svg.selectAll(".grade2").remove();
         }
 
 
@@ -561,8 +602,25 @@
 
 
 
+        $(window).on('beforeunload', function(){
+            $(window).scrollTop(0);
+          });
 
+        $("#link").click(function() {
+            $('html, body').animate({
+                scrollTop: $("#slide-two").offset().top
+            }, 1000);
+        });
 
+        function noscroll() {
+        // window.scrollTo( 0, 0 );
+        }
+
+        // add listener to disable scroll
+        window.addEventListener('scroll', noscroll);
+
+        // Remove listener to disable scroll
+        // window.removeEventListener('scroll', noscroll);
 
 
     </script>

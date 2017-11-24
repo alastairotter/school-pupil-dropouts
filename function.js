@@ -38,6 +38,31 @@ var spreadCircles = function () {
     
 }
 
+var spreadCirclesReverse = function () { 
+    var newX = 0, 
+        newY = height - 10,
+        newColCount = 0,
+        newRowCount = 0,
+        newColCountLimit = 100,
+        newRadius = 1.5,
+        newSpacing = 2;
+    
+var xx = 0, yy = height/4*3, colc = 0;
+
+d3.selectAll(".grade1")
+    .each( function (d, i) { 
+        d3.select(this).transition()
+            .delay( function () { return randomInt(50, 200); })
+            .duration( function () { return randomInt(100, 500); })
+            .attr("cx", xx).attr("cy", yy).attr("r", 3).style("fill", "#fffcbc").style("opacity", 1)
+            if(colc > 100) { xx = 0; yy = yy + 9; colc = 0; } 
+            else { xx = xx + 8.7; colc++; }
+    
+    })
+    
+
+}
+
 
 //////// MAKE BARS 
 
@@ -47,7 +72,7 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
     
     if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2);  yPos = height - 30; } 
         
-        else { xPos = 0;  }
+        else { xPos = 0;  yPos = height - 30; }
         startXpos = xPos,
             colCount = 0;
     
@@ -91,6 +116,7 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
                 .delay( function () { 
                     return randomInt(5,500);
                 })
+                
                 .duration(2000)
                 .attr("cx", xPos)
                 .attr("cy", yPos)
