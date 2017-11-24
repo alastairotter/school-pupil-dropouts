@@ -122,6 +122,11 @@
 
     <script>
 
+        // for reverse
+        var startPositions = []; 
+        var slide4reverse = false;
+        var slide5reverse = false;
+
         //    $(window).on('beforeunload', function(){
         //      $(window).scrollTop(0);
         //    });
@@ -130,7 +135,7 @@
             // slide setup
             var slideWidth = $("#slides").width();
             var chartWidth = $("#chart").width();
-            console.log(chartWidth)
+            
             $(".slide").height(window.innerHeight);
             $("#slides").css("left", window.innerWidth / 2 - slideWidth / 2 + "px");
             $("#chart").css("left", (window.innerWidth / 2 - (chartWidth / 2)) + "px");
@@ -145,14 +150,14 @@
             height = 480,
             padding = 20;
 
-        var gradeBuckets = 1000,
+        var gradeBuckets = 2000,
             colCount = 0,
             rowCount = 0,
-            colLimit = 18,
+            colLimit = 12,
             xPos = 10,
             yPos = height - 30,
-            radius = 1.6,
-            spacing = 0.3,
+            radius = 2,
+            spacing = 0.8,
             startXpos = xPos,
             labelXpos = startXpos,
             labels;
@@ -207,7 +212,7 @@
             spreadCircles();
 
             var count = d3.selectAll(".grade2").size();
-            console.log(count)
+           
 
 
 
@@ -308,6 +313,10 @@
                         slideFiveDone = true;
                         slide_five();
                     }
+                    else { 
+                        slideFiveDone = false; 
+                        slide_five_reverse();
+                    }
 
                 }, offset: 200
             })
@@ -320,6 +329,10 @@
                     if (direction === "down" && !slideSixDone) {
                         slideSixDone = true;
                         slide_six();
+                    }
+                    else { 
+                        slideSixDone = false;
+                        slide_six_reverse();
                     }
 
                 }, offset: 200
@@ -334,6 +347,10 @@
                     if (direction === "down" && !slideSevenDone) {
                         slideSevenDone = true;
                         slide_seven();
+                    }
+                    else { 
+                        slideSevenDone = false; 
+                        slide_seven_reverse();
                     }
 
                 }, offset: 200
@@ -405,38 +422,68 @@
 
 
         function slide_four() {
-
-            makeBars("bar2", ".grade2", "barNo2", "1,056,241", "Gr2 (2006)", ".label2", false)
-            makeBars("bar3", ".grade3", "barNo3", "1,040,022", "Gr3 (2007)", ".label3", false)
-            makeBars("bar4", ".grade4", "barNo4", "1,023,963", "Gr4 (2008)", ".label4", false)
-            makeBars("bar5", ".grade5", "barNo5", "980,945", "Gr5 (2009)", ".label5", false)
-            makeBars("bar6", ".grade6", "barNo6", "948,213", "Gr6 (2010)", ".label6", false)
-            makeBars("bar7", ".grade7", "barNo7", "910,994", "Gr7 (2011)", ".label3", false, true)
+            if(slide4reverse) { 
+                svg.selectAll(".grade2group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade3group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade4group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade5group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade6group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade7group").transition().duration( 500 ).style("opacity", 1);
+            }
+            else { 
+                makeBars("bar2", ".grade2", "barNo2", "1,056,241", "Gr2 (2006)", ".label2", false)
+                makeBars("bar3", ".grade3", "barNo3", "1,040,022", "Gr3 (2007)", ".label3", false)
+                makeBars("bar4", ".grade4", "barNo4", "1,023,963", "Gr4 (2008)", ".label4", false)
+                makeBars("bar5", ".grade5", "barNo5", "980,945", "Gr5 (2009)", ".label5", false)
+                makeBars("bar6", ".grade6", "barNo6", "948,213", "Gr6 (2010)", ".label6", false)
+                makeBars("bar7", ".grade7", "barNo7", "910,994", "Gr7 (2011)", ".label3", false, true)
+            }
 
 
         }
 
         function slide_four_reverse() { 
-            console.log("slide_four_reverse");
-            svg.selectAll(".grade2").remove();
+            
+            svg.selectAll(".grade2group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade3group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade4group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade5group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade6group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade7group").transition().duration( 500 ).style("opacity", 0);
+            
+
+            slide4reverse = true; 
         }
 
 
         function slide_five() {
+            if(slide5reverse) {
+                svg.selectAll(".grade8group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade9group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade10group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade11group").transition().duration( 500 ).style("opacity", 1);
+                svg.selectAll(".grade12group").transition().duration( 500 ).style("opacity", 1); 
+            }
+            else { 
+                makeBars("bar8", ".grade8", "barNo8", "934,588", "Gr8 (2012)", ".label7", false)
+                makeBars("bar9", ".grade9", "barNo9", "1,036,555", "Gr9 (2013)", ".label9", false)
+                makeBars("bar10", ".grade10", "barNo10", "1,100,877", "Gr10 (2014)", ".label8", false)
+                makeBars("bar11", ".grade11", "barNo11", "890,971", "Gr11 (2015)", ".label11", false)
+                makeBars("bar12", ".grade12", "barNo2", "665,355", "Gr12 (2016)", ".label12", false, true)
+                makeBars("bar13", ".grade13", "barNo13", "442,672", "", ".label13", false)
+                makeBars("bar14", ".grade14", "barNo14", "162,374", "", ".label14", false)
+            }
 
-            makeBars("bar8", ".grade8", "barNo8", "934,588", "Gr8 (2012)", ".label7", false)
-            makeBars("bar9", ".grade9", "barNo9", "1,036,555", "Gr9 (2013)", ".label9", false)
-            makeBars("bar10", ".grade10", "barNo10", "1,100,877", "Gr10 (2014)", ".label8", false)
-            makeBars("bar11", ".grade11", "barNo11", "890,971", "Gr11 (2015)", ".label11", false)
-            makeBars("bar12", ".grade12", "barNo2", "665,355", "Gr12 (2016)", ".label12", false, true)
+        }
 
-            makeBars("bar13", ".grade13", "barNo13", "442,672", "", ".label13", false)
-            makeBars("bar14", ".grade14", "barNo14", "162,374", "", ".label14", false)
+        function slide_five_reverse() { 
+            svg.selectAll(".grade8group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade9group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade10group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade11group").transition().duration( 500 ).style("opacity", 0);
+            svg.selectAll(".grade12group").transition().duration( 500 ).style("opacity", 0);
 
-
-
-
-
+            slide5reverse = true; 
         }
 
 
@@ -455,9 +502,9 @@
                     .transition()
                     .duration(1000)
                     .style("opacity", 0)
-                    .on("end", function () {
-                        d3.select(this).remove();
-                    })
+                    // .on("end", function () {
+                    //     d3.select(this).remove();
+                    // })
 
 
             }
@@ -465,7 +512,7 @@
             d3.selectAll(".grade1ref").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this).remove(); })
 
 
-            d3.selectAll(".barLabels").remove();
+            d3.selectAll(".barLabels").style("opacity", 0);
             d3.selectAll(".barNumbers")
                 .classed("barremove", function (d, i) {
                     if (i > 0 && i < 11) {
@@ -473,8 +520,7 @@
                     }
                 })
 
-            d3.selectAll(".barremove").remove();
-
+            d3.selectAll(".barremove").style("opacity", 0);
 
             // move grade 12 bar
             var labelX;
@@ -491,7 +537,7 @@
             // move grade 12 labels
             d3.selectAll(".barNumbers")
                 .classed("barNumbersTwo", function (d, i) {
-                    if (i === 1) return true;
+                    if (i === 11) return true;
                     else return false;
                 })
             d3.selectAll(".barNumbers")
@@ -543,6 +589,72 @@
 
         }
 
+        function slide_six_reverse() { 
+
+            //move grade 1 to start
+            var newX = 0; 
+            var newStartX = newX;
+
+            // var newStartX = newX = newX + (radius * 2 + spacing) * (colLimit + 2), 
+            var newY = height - 30, colCount = 0;
+            console.log(newX);
+
+            d3.selectAll(".grade1")
+                .each(function (d, i) {
+                    d3.select(this).transition()
+                        .delay(function () {
+
+                            return randomInt(200, 1000);
+
+                        })
+                        .duration(1000).attr("cx", newX).attr("cy", newY)
+
+                    newX = newX + spacing + radius * 2;
+                    colCount++;
+
+                    if (colCount === colLimit) {
+                        newX = newStartX;
+                        colCount = 0;
+                        newY = newY - spacing - radius * 2;
+                    }
+
+                })
+
+                var newStartX = newX = startPositions[10] + (radius * 2 + spacing) * (colLimit + 2);
+                var newY = height - 30, colCount = 0;
+
+                d3.selectAll(".grade12")
+                .each(function (d, i) {
+                    d3.select(this).transition()
+                        .delay(function () {
+
+                            return randomInt(200, 1000);
+
+                        })
+                        .duration(1000).attr("cx", newX).attr("cy", newY)
+
+                    newX = newX + spacing + radius * 2;
+                    colCount++;
+
+                    if (colCount === colLimit) {
+                        newX = newStartX;
+                        colCount = 0;
+                        newY = newY - spacing - radius * 2;
+                    }
+
+                })
+
+            // move bar Numebrs
+            d3.select(".barNumbersOne").transition().duration(2000).attr("x", ).style("text-anchor", "start")
+            d3.select(".barNumbersTwo").transition().duration(2000).attr("x", startPositions[11]).style("text-anchor", "start")
+
+            d3.selectAll(".barremove").style("opacity", 1);
+            for(var x = 2; x < 12; x++) { 
+                svg.selectAll(".grade" + x).transition().delay(500).duration(500).style("opacity",1);
+            }
+
+        }
+
 
         function slide_seven() {
 
@@ -568,6 +680,30 @@
 
 
             moveBarNumber(".barNo13", xDiff);
+
+
+        }
+
+        function slide_seven_reverse() { 
+
+            console.log("slide_seven_reverse");
+
+            var curX = d3.select(".grade13").attr("cx");
+            var endX = startPositions[12];
+            var xDiff = endX - curX; 
+
+            d3.selectAll(".grade13")
+                .each( function (d, i) { 
+                    var curX = +d3.select(this).attr("cx");
+                    curX.toFixed(2);
+
+                    d3.select(this).transition().duration(1000).style("opacity", 0).attr("cx", curX + xDiff)
+                })
+
+            // move bar number
+            var textPos = endX + ((radius * 2 + spacing) * colLimit) / 2;
+            d3.select(".barNo13")
+                .transition(). duration(1000).attr("x", textPos).style("text-anchor", "middle").style("opacity", 0);
 
 
         }

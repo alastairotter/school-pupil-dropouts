@@ -1,15 +1,22 @@
+
+ 
  var addCircles = function (gradeCount, className) { 
-    console.log(className + " : " + Math.floor(gradeCount));
+
+    var bar = svg.append("g")
+        .attr("class", className + "group");
+ 
 
     for(var c = 0; c < gradeCount; c++) {
 
-        svg.append("circle")
+        bar.append("circle")
             .attr("cx", 50)
             .attr("cy", yPos)
             .attr("r", 2)
             .attr("class", className)
             .style("opacity", 0)
         }
+
+        
 
 }
 
@@ -73,15 +80,25 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
     if(!start) { xPos = startXpos = startXpos + (radius * 2 + spacing) * (colLimit + 2);  yPos = height - 30; } 
         
         else { xPos = 0;  yPos = height - 30; }
+
+        // if(!startPositions[1] && groupName == "bar2") { xPos = startPositions[1]; }
+        if(startPositions[1] && groupName == "bar2") {
+            xPos = startPositions[1];
+         }
+
+         startPositions.push(xPos);
+
         startXpos = xPos,
             colCount = 0;
-    
+
+      
+
     
     
     
    
-    var bar = svg.append("g")
-        .attr("class", "." + groupName);
+    var bar = svg.select(className + "group");
+   
     
     // barlabels
     bar.append("text")
@@ -151,7 +168,7 @@ var makeBars = function (groupName, className, barNo, pupilCount, year, labelCla
     
     
    
-    console.log(barNo)
+
     
     //    barNumbers
     bar.append("text")
