@@ -7,13 +7,20 @@
 
 .passmark { 
     font-size: 90%;
+    font-family: "Open Sans", sans-serif, helvetica, arial;
+    font-weight: 600;
+
     
 }
 
 .passmark a { 
     color: #fff;
-    color: #93e6ff;
+    /* color: #93e6ff; */
     text-decoration: none;
+    opacity: 0.5;
+}
+.passmark a:hover { 
+    opacity: 1;
 }
         #chart { 
             position: fixed; 
@@ -87,21 +94,7 @@
 
 
 
-        
-/*
-        #text { 
-            position: absolute; 
-            top: 60px; 
-            
-            z-index: 200;
 
-            font-size: 120%;
-            width: 100%;
-            text-align: center;
-            transition:all 0.3s ease;
-            background: #eee;
-        }
-*/
         .slide-title { 
             width: 500px;
             margin-left: auto;
