@@ -1,17 +1,52 @@
 (function () {
-    "use scrict";
-    
+    'use scrict';
+
+
+    // for reverse
+    var startPositions = [],
+        slide4reverse = false,
+        slide5reverse = false;
+
+    // config
+    var width = 880,
+        height = 480,
+        padding = 20,
+        gradeBuckets = 2500,
+        colCount = 0,
+        rowCount = 0,
+        colLimit = 10,
+        xPos = 10,
+        yPos = height - 30,
+        radius = 2,
+        spacing = 1.5,
+        startXpos = xPos,
+        labelXpos = startXpos,
+        labels,
+        slideOffset = window.innerHeight / 3,
+        transition = 500;
+
+    d3.select("#chart")
+        .style("width", width + padding * 2 + "px")
+        .style("height", height + padding * 2 + "px");
+
+    var svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", width + padding * 2)
+        .attr("height", height + padding * 2)
+        .append("g")
+        .attr("transform", "translate(" + padding + " , " + padding + ")"),
+        pos = $("svg").position();
 
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     function addCircles(gradeCount, className) {
-
+        var c;
         var bar = svg.append("g")
             .attr("class", className + "group");
 
-        for (var c = 0; c < gradeCount; c++) {
+        for (c = 0; c < gradeCount; c++) {
 
             bar.append("circle")
                 .attr("cx", 50)
@@ -36,7 +71,7 @@
                     .delay(function () {
                         return randomInt(50, 500);
                     })
-                    .style("opacity", 1)
+                    .style("opacity", 1);
 
                 colc > 50 ? (xx = 200, yy += 9, colc = 0) : (xx += 8.7, colc++);
 
@@ -181,19 +216,6 @@
 
     }
 
-
-
-    ////
-
-
-
-    // for reverse
-    var startPositions = [];
-    var slide4reverse = false;
-    var slide5reverse = false;
-
-
-
     $("document").ready(function () {
         // slide setup
         var slideWidth = $("#slides").width();
@@ -207,25 +229,6 @@
 
     });
 
-    // config
-
-    var width = 880,
-        height = 480,
-        padding = 20;
-
-    var gradeBuckets = 2500,
-        colCount = 0,
-        rowCount = 0,
-        colLimit = 10,
-        xPos = 10,
-        yPos = height - 30,
-        radius = 2,
-        spacing = 1.5,
-        startXpos = xPos,
-        labelXpos = startXpos,
-        labels,
-        slideOffset = window.innerHeight / 3,
-        transition = 500;
 
 
 
@@ -235,18 +238,8 @@
 
 
 
-    d3.select("#chart")
-        .style("width", width + padding * 2 + "px")
-        .style("height", height + padding * 2 + "px")
 
-    var svg = d3.select("#chart")
-        .append("svg")
-        .attr("width", width + padding * 2)
-        .attr("height", height + padding * 2)
-        .append("g")
-        .attr("transform", "translate(" + padding + " , " + padding + ")")
 
-    var pos = $("svg").position();
 
     d3.csv("students.csv", function (data) {
         data.forEach(function (d) {
