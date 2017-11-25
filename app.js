@@ -1,7 +1,6 @@
 (function () {
     'use scrict';
 
-
     // for reverse
     var startPositions = [],
         slide4reverse = false,
@@ -77,7 +76,6 @@
 
             })
 
-
     }
 
     function spreadCirclesReverse() {
@@ -98,7 +96,6 @@
                 colc > 50 ? (xx = 200, yy += 9, colc = 0) : (xx += 8.7, colc++);
 
             })
-
 
     }
 
@@ -133,8 +130,6 @@
                     return 1;
                 }
             })
-
-        // var col = "red";
 
         // bar circles
         d3.selectAll(className)
@@ -228,16 +223,6 @@
         $("#chart").css("opacity", 1);
 
     });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -397,13 +382,6 @@
     }); // document ready
 
 
-
-
-
-
-
-
-
     // slide functions
 
     function slide_three() {
@@ -440,7 +418,6 @@
         svg.selectAll(".grade1")
             .style("opacity", 1)
 
-        // makeBars(".bar1", ".grade1", "barNo1", "1,207,996", "Gr1 (2005)", ".label1", true);
 
 
     }
@@ -448,12 +425,12 @@
 
     function slide_four() {
         if (slide4reverse) {
-            svg.selectAll(".grade2group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade3group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade4group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade5group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade6group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade7group").transition().duration(transition).style("opacity", 1);
+            svg.selectAll(".grade2group").transition().duration(transition * 3).style("opacity", 1);
+            svg.selectAll(".grade3group").transition().duration(transition * 3).style("opacity", 1);
+            svg.selectAll(".grade4group").transition().duration(transition * 3).style("opacity", 1);
+            svg.selectAll(".grade5group").transition().duration(transition * 3).style("opacity", 1);
+            svg.selectAll(".grade6group").transition().duration(transition * 3).style("opacity", 1);
+            svg.selectAll(".grade7group").transition().duration(transition * 3).style("opacity", 1);
         } else {
             makeBars("bar2", ".grade2", "barNo2", "1,056,241", "Gr2 (2006)", ".label2", false)
             makeBars("bar3", ".grade3", "barNo3", "1,040,022", "Gr3 (2007)", ".label3", false)
@@ -468,12 +445,12 @@
 
     function slide_four_reverse() {
 
-        svg.selectAll(".grade2group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade3group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade4group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade5group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade6group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade7group").transition().duration(transition).style("opacity", 0);
+        svg.selectAll(".grade2group").transition().duration(transition * 3).style("opacity", 0);
+        svg.selectAll(".grade3group").transition().duration(transition * 3).style("opacity", 0);
+        svg.selectAll(".grade4group").transition().duration(transition * 3).style("opacity", 0);
+        svg.selectAll(".grade5group").transition().duration(transition * 3).style("opacity", 0);
+        svg.selectAll(".grade6group").transition().duration(transition * 3).style("opacity", 0);
+        svg.selectAll(".grade7group").transition().duration(transition * 3).style("opacity", 0);
 
 
         slide4reverse = true;
@@ -482,11 +459,11 @@
 
     function slide_five() {
         if (slide5reverse) {
-            svg.selectAll(".grade8group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade9group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade10group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade11group").transition().duration(transition).style("opacity", 1);
-            svg.selectAll(".grade12group").transition().duration(transition).style("opacity", 1);
+            svg.selectAll(".grade8group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
+            svg.selectAll(".grade9group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
+            svg.selectAll(".grade10group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
+            svg.selectAll(".grade11group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
+            svg.selectAll(".grade12group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
         } else {
             makeBars("bar8", ".grade8", "barNo8", "934,588", "Gr8 (2012)", ".label7", false)
             makeBars("bar9", ".grade9", "barNo9", "1,036,555", "Gr9 (2013)", ".label9", false)
@@ -500,11 +477,11 @@
     }
 
     function slide_five_reverse() {
-        svg.selectAll(".grade8group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade9group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade10group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade11group").transition().duration(transition).style("opacity", 0);
-        svg.selectAll(".grade12group").transition().duration(transition).style("opacity", 0);
+        svg.selectAll(".grade8group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
+        svg.selectAll(".grade9group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
+        svg.selectAll(".grade10group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
+        svg.selectAll(".grade11group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
+        svg.selectAll(".grade12group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
 
         slide5reverse = true;
     }
