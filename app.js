@@ -39,7 +39,7 @@
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
+  
     function addCircles(gradeCount, className) {
         var c;
         var bar = svg.append("g")
