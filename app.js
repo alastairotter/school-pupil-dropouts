@@ -16,13 +16,22 @@
         colLimit = 10,
         xPos = 10,
         yPos = height - 30,
-        radius = 2,
-        spacing = 1.8,
+        radius = 2.2,
+        spacing = 1.6,
         startXpos = xPos,
         labelXpos = startXpos,
         labels,
         slideOffset = window.innerHeight / 3,
-        transition = 500;
+        transition = 500, 
+        percentLines = [],
+        pLinesExist = false, 
+        gradeOneMarkers = [],
+        gradeTwelveMarkers = [],
+        gradeThirteenMarkers = [],
+        gradeFourteenMarkers = [],
+        slideNineRun = false;
+
+    var percentages = [ 100, 51, 40, 25 ];
 
     d3.select("#chart")
         .style("width", width + padding * 2 + "px")
@@ -35,6 +44,10 @@
         .append("g")
         .attr("transform", "translate(" + padding + " , " + padding + ")"),
         pos = $("svg").position();
+
+    // add group for lines
+    var pLines = svg.append("g")
+        .attr("class", "p-lines");
 
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -232,6 +245,7 @@
         })
 
         addCircles(data[0].pupils, "grade1", "crimson");
+        addCircles(data[0].pupils, "grade1ref", "crimson");
 
 
         for (var c = 1; c < 14; c++) {
@@ -251,7 +265,8 @@
         slideFiveDone = false,
         slideSixDone = false,
         slideSevenDone = false,
-        slideEightDone = false;
+        slideEightDone = false,
+        slideNineDone = false;
 
 
     /////// WAYPOINTS
@@ -359,8 +374,6 @@
             offset: slideOffset
         })
 
-
-
         var slide8 = new Waypoint({
             element: document.getElementById("slide-eight"),
             handler: function (direction) {
@@ -371,6 +384,22 @@
                 } else {
                     slideEightDone = false;
                     slide_eight_reverse();
+                }
+
+            },
+            offset: slideOffset
+        })
+
+        var slide9 = new Waypoint({
+            element: document.getElementById("slide-nine"),
+            handler: function (direction) {
+
+                if (direction === "down" && !slideNineDone) {
+                    slideNineDone = true;
+                    slide_nine();
+                } else {
+                    slideNineDone = false;
+                    slide_nine_reverse();
                 }
 
             },
@@ -517,14 +546,27 @@
 
         // move grade 12 bar
         var labelX;
+        var lineX = 0,
+            lineY = 3000;
+            
         d3.selectAll(".grade12")
             .each(function (d, i) {
-                var curX = d3.select(this).attr("cx");
+                var curX = d3.select(this).attr("cx"),
+                    curY = +d3.select(this).attr("cy");
+
                 d3.select(this).transition().delay(function (d, i) {
                         return randomInt(200, 1000);
                     })
-                    .duration(transition).attr("cx", curX - xDiff)
+                    .duration(transition).attr("cx", function () { 
+                        curX - xDiff > lineX ? lineX = curX - xDiff : lineX = lineX;
+                        curY < lineY ? lineY = curY : lineY = lineY;
+                        return curX - xDiff; 
+                    })
 
+            })
+            percentLines.push({ 
+                x: lineX, 
+                y: +lineY
             })
 
         // move grade 12 labels
@@ -550,15 +592,25 @@
         var newStartX = newX = width / 2 - (radius * 2 + spacing) * (colLimit + 2) - 40,
             newY = height - 30,
             colCount = 0;
+
+        // line markers
+        var lineX = 0,
+            lineY;    
+
         d3.selectAll(".grade1")
             .each(function (d, i) {
                 d3.select(this).transition()
                     .delay(function () {
-
+                        
                         return randomInt(200, 1000);
 
                     })
-                    .duration(transition).attr("cx", newX).attr("cy", newY)
+                    .duration(transition).attr("cx", newX).attr("cy", function() { 
+                        newX > lineX ? lineX = newX : lineX = lineX;
+                        lineY = newY;
+                        
+                        return newY; 
+                    })
 
                 newX = newX + spacing + radius * 2;
                 colCount++;
@@ -568,15 +620,33 @@
                     colCount = 0;
                     newY = newY - spacing - radius * 2;
                 }
+                
 
             })
+
+            
+            percentLines.push({ 
+                x: lineX, 
+                y: lineY
+            })
+
+
+           
+        
+        
+            
 
 
 
     }
 
+
+   
+
     function slide_six_reverse() {
 
+       
+        
         //move grade 1 to start
         var newX = 0;
         var newStartX = newX;
@@ -652,16 +722,30 @@
         var xDiff = curX - getStartX - (radius * 2 + spacing) * (colLimit + 2);
         // var newLabelX = getStartX + (radius * 2 + spacing) * (colLimit + 2);
 
+        var lineX = 0, 
+            lineY = 3000;
+
         d3.selectAll(".grade13")
 
             .each(function (d, i) {
-                var curX = d3.select(this).attr("cx");
+                var curX = d3.select(this).attr("cx"),
+                    curY = d3.select(this).attr("cy");
+                    
                 d3.select(this)
                     .transition()
                     .delay(randomInt(5, 500))
                     .duration(transition)
                     .style("opacity", 1)
-                    .attr("cx", curX - xDiff)
+                    .attr("cx", function () { 
+                        curX - xDiff > lineX ? lineX = curX - xDiff : lineX = lineX;
+                        curY < lineY ? lineY = curY : lineY = lineY;
+                        return curX - xDiff; 
+                    })
+            })
+
+            percentLines.push({
+                x: lineX,
+                y: lineY
             })
 
         moveBarNumber(".barNo13", xDiff);
@@ -705,27 +789,109 @@
         var curX = d3.select(".grade14").attr("cx");
         var xDiff = curX - getStartX - (radius * 2 + spacing) * (colLimit + 2);
         //get diff
+        var lineX = 0, 
+            lineY = 3000; 
 
         d3.selectAll(".grade14")
 
             .each(function (d, i) {
 
                 var curX = d3.select(this).attr("cx");
+                var curY = d3.select(this).attr("cy");
                 d3.select(this)
                     .transition()
                     .delay(randomInt(5, 500))
                     .duration(transition)
                     .style("opacity", 1)
-                    .attr("cx", curX - xDiff)
+                    .attr("cx", function () { 
+                        curX - xDiff > lineX ? lineX = curX - xDiff : lineX = lineX;
+                        curY < lineY ? lineY = curY : lineY = lineY;
+                        return curX - xDiff; 
+                    })
 
+            })
+
+            percentLines.push({
+                x: lineX,
+                y: lineY
             })
 
         moveBarNumber(".barNo14", xDiff);
 
 
+        // add percent lines
+        if(pLinesExist) {
+            pLines.transition().duration(transition).style("opacity", 1);
+        }
+        else { 
+            percentLines.forEach( function (d, i) { 
+               addPercentLines(d.x, d.y, i);
+            })
+            pLinesExist = true;
+        }
+
+
+        // get positions
+        
+                d3.selectAll(".grade1")
+                    .each( function (d, i) { 
+                        var curX = d3.select(this).attr("cx"),
+                            curY = d3.select(this).attr("cy");
+                        gradeOneMarkers.push({
+                            x: curX,
+                            y: curY
+                        })
+        
+                    });
+
+                d3.selectAll(".grade12")
+                .each( function (d, i) { 
+                    var curX = d3.select(this).attr("cx"),
+                        curY = d3.select(this).attr("cy");
+                    gradeTwelveMarkers.push({
+                        x: curX,
+                        y: curY
+                    })
+    
+                });
+
+                d3.selectAll(".grade13")
+                .each( function (d, i) { 
+                    var curX = d3.select(this).attr("cx"),
+                        curY = d3.select(this).attr("cy");
+                    gradeThirteenMarkers.push({
+                        x: curX,
+                        y: curY
+                    })
+    
+                });
+
+                d3.selectAll(".grade14")
+                .each( function (d, i) { 
+                    var curX = d3.select(this).attr("cx"),
+                        curY = d3.select(this).attr("cy");
+                    gradeFourteenMarkers.push({
+                        x: curX,
+                        y: curY
+                    })
+    
+                });
+
+               
+                    // console.log(gradeOneMarkers);
+                    // console.log(gradeTwelveMarkers);
+                    // console.log(gradeThirteenMarkers);
+                    // console.log(gradeFourteenMarkers);
+
+
+  
+
     }
 
     function slide_eight_reverse() {
+
+        pLines.transition().duration(transition * 3).style("opacity", 0);
+
         var curX = d3.select(".grade14").attr("cx");
         var endX = startPositions[12];
         var xDiff = endX - curX;
@@ -748,6 +914,110 @@
         d3.select(".barNo14")
             .transition().duration(1000).attr("x", textPos).style("text-anchor", "middle").style("opacity", 0);
 
+        
+
+            console.log(slideEightMarkers);
+            
+
+    }
+
+
+    function slide_nine () { 
+        
+        if(!slideNineRun) { 
+
+        pLines.transition().duration(transition * 2).style("opacity", 0);
+        d3.selectAll(".barNumbers").transition().duration(transition * 2).style("opacity", 0); 
+
+        d3.selectAll(".grade12")
+            .transition()
+            .delay(randomInt(5, 500))
+            .duration(transition)
+            .style("opacity", 0)
+
+        d3.selectAll(".grade13")
+            .transition()
+            .delay(randomInt(5, 500))
+            .duration(transition)
+            .style("opacity", 0)
+
+        d3.selectAll(".grade14")
+            .transition()
+            .delay(randomInt(5, 500))
+            .duration(transition)
+            .style("opacity", 0)
+            
+
+            // move markers
+            d3.selectAll(".grade1")
+                .each( function (d,i) { 
+                    // if(i < 5) { }
+                    // else { 
+                        d3.select(this)
+                            .transition()
+                            .delay( randomInt(5, 500))
+                            .duration(transition * 4)
+                            .attr("cy", function () { 
+                                return height/2;
+                            })
+                            .attr("cx", function () { 
+                                return i * (radius * 2) + spacing;
+                            })
+                            // .attr("r", 1)
+                            // .attr("r", 5)
+                            // .style("stroke", "#0D8CA5")
+                            // .style("stroke-width", 1)
+                    // }
+                })
+
+
+            // d3.selectAll(".grade1ref").transition().duration(transition).style("opacity", 1)
+
+            slideNineRun = true;
+
+
+        }
+        else { 
+            d3.select(".summary-group")
+                .transition()
+                .duration(transition * 3)
+                .style("opacity", 1)
+        }
+
+    }
+
+    function slide_nine_reverse () { 
+        console.log("slide 9 reverse");
+        d3.select(".summary-group")
+            .transition()
+            .duration(transition * 3)
+            .style("opacity", 0);
+    }
+
+
+
+    function addPercentLines (x, y, i) { 
+        console.log(x + " - " + y);
+
+        pLines.append("line")
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", y)
+        .attr("y2", y)
+        .style("stroke", "#11abc6")
+        .style("stroke-width", 1)
+        .style("shape-rendering", "crispEdges")
+        .style("stroke-dasharray", "3, 3")
+        .transition()
+        .duration(transition * 3)
+        .attr("x2", percentLines[3].x + 50);
+
+        pLines.append("text")
+            .attr("x", percentLines[3].x + 60)
+            .attr("y", y + 10)
+            .text(percentages[i] + "%")
+            .style("font-size", "80%")
+    
     }
 
 

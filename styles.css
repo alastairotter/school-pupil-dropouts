@@ -108,6 +108,10 @@ p {
     margin-right: auto;
     font-weight: 100;
     padding-top: 70px;
+    background: #0D8CA5;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0.8;
 }
 
 .bylines { 
@@ -161,6 +165,8 @@ p {
 
 text { 
     font-family: "Roboto Condensed", arial, sans-serif;
+    stroke: none; 
+    fill: #fff;
 }
 
 circle { 
