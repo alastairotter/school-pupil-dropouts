@@ -1,6 +1,6 @@
 body { 
     margin: 0;
-    background: #388aa3;
+    background: #036f82;
     font-family: "Slabo 27px", "Roboto Condensed", Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -28,7 +28,7 @@ p {
     
     margin-left: auto;
     margin-right: auto;
-    background: #388aa3;
+    background: #036f82;
     opacity: 0;
 }
 
@@ -77,8 +77,9 @@ p {
     color: #e0f7ff;
     padding-top: 50px;
     opacity: 0;
-    height: 100vh;
-    line-height: 130%;   
+    min-height: 130vh;
+    line-height: 130%;  
+    
 }
 
 .stuck {
@@ -112,6 +113,15 @@ p {
     padding: 10px;
     border-radius: 5px;
     opacity: 0.8;
+    border: solid 1px #34aabc; 
+}
+
+#slide-two .slide-inner  { 
+    opacity: 0;
+}
+
+.clear { 
+    clear: both;
 }
 
 .bylines { 
@@ -171,4 +181,9 @@ text {
 
 circle { 
     fill: #fffcbc;
+}
+
+/* slide adjustments */
+#slide-five { 
+    min-height: 180vh;
 }

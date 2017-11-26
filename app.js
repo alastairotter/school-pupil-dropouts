@@ -74,6 +74,11 @@
         var xx = 200,
             yy = height / 4 * 3,
             colc = 0;
+
+        var testData = d3.range(0,100);
+        console.log(testData);
+        console.log(d3.selectAll(".grade1").size());
+
         d3.selectAll(".grade1")
             .each(function (d, i) {
                 d3.select(this)
@@ -460,6 +465,7 @@
             svg.selectAll(".grade5group").transition().duration(transition * 3).style("opacity", 1);
             svg.selectAll(".grade6group").transition().duration(transition * 3).style("opacity", 1);
             svg.selectAll(".grade7group").transition().duration(transition * 3).style("opacity", 1);
+            d3.selectAll(".grade1").transition().duration(transition).style("fill", "#fff").style("opacity", 0.5);
         } else {
             makeBars("bar2", ".grade2", "barNo2", "1,056,241", "Gr2 (2006)", ".label2", false)
             makeBars("bar3", ".grade3", "barNo3", "1,040,022", "Gr3 (2007)", ".label3", false)
@@ -467,6 +473,17 @@
             makeBars("bar5", ".grade5", "barNo5", "980,945", "Gr5 (2009)", ".label5", false)
             makeBars("bar6", ".grade6", "barNo6", "948,213", "Gr6 (2010)", ".label6", false)
             makeBars("bar7", ".grade7", "barNo7", "910,994", "Gr7 (2011)", ".label3", false, true)
+            d3.selectAll(".grade1").style("fill", "white").style("opacity", "0.5");
+            setTimeout( function () { 
+                // d3.selectAll(".grade7").style("fill", "white");
+                
+                d3.selectAll(".grade2").style("fill", "white").style("opacity", "0.5");
+                d3.selectAll(".grade3").style("fill", "white").style("opacity", "0.5");
+                d3.selectAll(".grade4").style("fill", "white").style("opacity", "0.5");
+                d3.selectAll(".grade5").style("fill", "white").style("opacity", "0.5");
+                d3.selectAll(".grade6").style("fill", "white").style("opacity", "0.5");
+
+            }, 2000);
         }
 
 
@@ -480,6 +497,7 @@
         svg.selectAll(".grade5group").transition().duration(transition * 3).style("opacity", 0);
         svg.selectAll(".grade6group").transition().duration(transition * 3).style("opacity", 0);
         svg.selectAll(".grade7group").transition().duration(transition * 3).style("opacity", 0);
+        d3.selectAll(".grade1").transition().duration(transition).style("fill", "#fffcbc").style("opacity", 1);
 
 
         slide4reverse = true;
@@ -501,6 +519,16 @@
             makeBars("bar12", ".grade12", "barNo2", "665,355", "Gr12 (2016)", ".label12", false, true)
             makeBars("bar13", ".grade13", "barNo13", "442,672", "", ".label13", false)
             makeBars("bar14", ".grade14", "barNo14", "162,374", "", ".label14", false)
+
+            setTimeout( function () { 
+                d3.selectAll(".grade7").style("fill", "#fff").style("opacity", 0.5);
+                d3.selectAll(".grade9").style("fill", "#fff").style("opacity", 0.5);
+                d3.selectAll(".grade10").style("fill", "#fff").style("opacity", 0.5);
+                d3.selectAll(".grade11").style("fill", "#fff").style("opacity", 0.5);
+                d3.selectAll(".grade12").style("fill", "#fff").style("opacity", 0.5);
+
+
+            }, 2000)
         }
 
     }
