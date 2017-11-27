@@ -29,7 +29,11 @@
         gradeTwelveMarkers = [],
         gradeThirteenMarkers = [],
         gradeFourteenMarkers = [],
-        slideNineRun = false;
+        slideNineRun = false,
+        ignoreTrigger = true, 
+        debug = false; 
+
+    const scroller = scrollama();
 
     var percentages = [ 100, 51, 40, 25 ];
 
@@ -66,6 +70,7 @@
                 .attr("r", 3)
                 .attr("class", className)
                 .style("opacity", 0)
+                
         }
 
     }
@@ -88,7 +93,8 @@
                     .delay(function () {
                         return randomInt(50, 500);
                     })
-                    .style("opacity", 1);
+                    .style("opacity", 1)
+                    
 
                 colc > 50 ? (xx = 200, yy += 9, colc = 0) : (xx += 8.7, colc++);
 
@@ -97,6 +103,8 @@
     }
 
     function spreadCirclesReverse() {
+
+        console.log("got here as well");
 
         var xx = 200,
             yy = height / 4 * 3,
@@ -108,7 +116,7 @@
                     .delay(function () {
                         return randomInt(5, 500);
                     })
-                    .duration(transition * 3)
+                    .duration(transition)
                     .attr("cx", xx).attr("cy", yy).attr("r", 3).style("fill", "#fffcbc").style("opacity", 1)
 
                 colc > 50 ? (xx = 200, yy += 9, colc = 0) : (xx += 8.7, colc++);
@@ -249,8 +257,8 @@
             d.pupils = +d.pupils / gradeBuckets;
         })
 
-        addCircles(data[0].pupils, "grade1", "crimson");
-        addCircles(data[0].pupils, "grade1ref", "crimson");
+        addCircles(data[0].pupils, "grade1");
+        addCircles(data[0].pupils, "grade1ref");
 
 
         for (var c = 1; c < 14; c++) {
@@ -274,142 +282,335 @@
         slideNineDone = false;
 
 
+
+
+
+
     /////// WAYPOINTS
 
     $("document").ready(function () {
 
-        var slide2 = new Waypoint({
-            element: document.getElementById("slide-two"),
-            handler: function (direction) {
+        // add debug wrapper div
+        if(debug === true) { 
+            $(".slide").wrap("<div class='debug-wrap'></div>");
+        }
 
-                if (direction === "down" && !slideTwoDone) {
-                    slideTwoDone = true;
-                    spreadCircles();
-                } else {
-                    slideTwoDone = false;
-                    spreadCirclesReverse();
-                }
-            },
-            offset: slideOffset
-        })
+        // SCROLLAMA
 
-        var slide3 = new Waypoint({
-            element: document.getElementById("slide-three"),
-            handler: function (direction) {
+        function init () { 
+            
+        scroller
+            .setup({
+                step: '.step', 
+                offset: 0.5, 
+                debug: true, 
+                progress: true
+            })
+            .onStepEnter(handleStepEnter)
+            // .onStepExit(handleStepExit);
+            
+    
+            
+            // window.addEventListener('resize', scroller.resize);
+    
+        }
+    
+        function handleStepEnter (response) {
+           
+            var el = d3.select(response.element);
+            var val = el.attr('data-step');
+            console.log(val);
+            
+            switch (val) { 
+                case 'slide1': 
+                    console.log("----------------------------");
+                    console.log(response.direction);
+                    console.log(ignoreTrigger);
+                    console.log("----------------------------");
+                    if(ignoreTrigger) { 
 
-                if (direction === "down" && !slideThreeDone) {
-                    slideThreeDone = true;
-                    slide_three();
-                } else {
-                    slideThreeDone = false;
-                    slide_three_reverse();
-                }
+                    }
+                    else if(response.direction === "up" ) { 
+                        slideTwoDone = false; 
+                        // spreadCirclesReverse();
+                        d3.selectAll(".grade1")
+                            .transition()
+                            .delay( randomInt(5, 500))
+                            .duration(transition)
+                            .style("opacity", 0)
 
-            },
-            offset: slideOffset
-        })
+                        break;
+                    }
+                case 'slide2': 
+                    if(response.direction === "down") { 
+                        slideTwoDone = true;
+                        spreadCircles();
+                        ignoreTrigger = false;
+                        
+                    }
+                    else { 
+                        if(!ignoreTrigger) { 
+                            slideThreeDone = false; 
+                            slide_three_reverse();
+                        }
+                        
+                    }
+                    break;
+                
+                case 'slide3': 
+                    if(response.direction === "down") { 
+                        slideThreeDone = true; 
+                        slide_three()
+                        
+                    }
+                    else { 
+                        slideFourDone = false;
+                        slide_four_reverse();
+                    }
+                    break;
+
+                
+                case 'slide4': 
+                    if(response.direction === "down") { 
+                        slideFourDone = true; 
+                        slide_four() 
+                    }
+                    else { 
+                        slideFiveDone = false; 
+                        slide_five_reverse();
+                    }
+                    break;
+
+                case 'slide5': 
+                    if(response.direction === "down") { 
+                        slideFiveDone = true; 
+                        slide_five();
+                    }
+                    else { 
+                        slideSixDone = false; 
+                        slide_six_reverse();
+                    }
+                    break;
+
+                case 'slide6': 
+                    if(response.direction === "down") { 
+                        slideSixDone = true; 
+                        slide_six();
+                    }
+                    else { 
+                        slideSevenDone = false; 
+                        slide_seven_reverse();
+                    }
+                    break;
+
+                case 'slide7': 
+                    if(response.direction === "down") { 
+                        slideSevenDone = true; 
+                        slide_seven();
+                    }
+                    else { 
+                        slideEightDone = false; 
+                        slide_eight_reverse();
+                    }
+                    break;
+                    
+                case 'slide8': 
+                    if(response.direction === "down") { 
+                        slideEightDone = true; 
+                        slide_eight();
+                    }
+                    else { 
+                        slideNineDone = false; 
+                        slide_nine_reverse();
+                    }
+                    break;
+
+                case 'slide9': 
+                    if(response.direction === "down") { 
+                        slideNineDone = true; 
+                        slide_nine();
+                    }
+
+            }
+
+
+            
+            // if(response.direction === "down" && val === "slide2") { 
+            //     slideTwoDone = true;
+            //     spreadCircles();
+            //     ignoreTrigger = false;
+
+            // }
+        }
 
 
 
-        var slide4 = new Waypoint({
-            element: document.getElementById("slide-four"),
-            handler: function (direction) {
+        // function handleStepExit (response) {
+            
+        //      var el = d3.select(response.element);
+        //      var val = el.attr('data-step');
+             
 
-                if (direction === "down" && !slideFourDone) {
-                    slideFourDone = true;
-                    slide_four();
-                } else {
-                    slideFourDone = false;
-                    slide_four_reverse();
-                }
+        //      switch (val) { 
 
-            },
-            offset: slideOffset
-        })
+        //         case 'slide2': 
+        //             console.log("Gothere");
+        //             if(response.direction === "up" && ignoreTrigger == false) { 
+        //                 slideTwoDone = false; 
+        //                 spreadCirclesReverse();
+        //             }
+        //      }
+
+        // }
+    
+        // function handleStepExit (response) { 
+        //     // console.log(response);
+        //     var el = d3.select(response.element);
+        //     var val = el.attr('data-step');
+        //     if(response.direction === "up" & val === "slide2" && !ignoreTrigger) { 
+        //         console.log("SpreadCirclesReverse");
+        //         slideTwoDone = false; 
+        //         spreadCirclesReverse();
+        //     }
+            
+        //     // console.log(val);
+        //     // console.log(response.direction);
+        // }
+
+        init();
+// WAYPOINTS
+        // var slide2 = new Waypoint({
+        //     element: document.getElementById("slide-two"),
+        //     handler: function (direction) {
+
+        //         if (direction === "down" && !slideTwoDone) {
+        //             slideTwoDone = true;
+        //             spreadCircles();
+        //         } else {
+        //             slideTwoDone = false;
+        //             spreadCirclesReverse();
+        //         }
+        //     },
+        //     offset: slideOffset
+        // })
+
+        // var slide3 = new Waypoint({
+        //     element: document.getElementById("slide-three"),
+        //     handler: function (direction) {
+
+        //         if (direction === "down" && !slideThreeDone) {
+        //             slideThreeDone = true;
+        //             slide_three();
+        //         } else {
+        //             slideThreeDone = false;
+        //             slide_three_reverse();
+        //         }
+
+        //     },
+        //     offset: slideOffset
+        // })
 
 
-        var slide5 = new Waypoint({
-            element: document.getElementById("slide-five"),
-            handler: function (direction) {
 
-                if (direction === "down" && !slideFiveDone) {
-                    slideFiveDone = true;
-                    slide_five();
-                } else {
-                    slideFiveDone = false;
-                    slide_five_reverse();
-                }
+        // var slide4 = new Waypoint({
+        //     element: document.getElementById("slide-four"),
+        //     handler: function (direction) {
 
-            },
-            offset: slideOffset
-        })
+        //         if (direction === "down" && !slideFourDone) {
+        //             slideFourDone = true;
+        //             slide_four();
+        //         } else {
+        //             slideFourDone = false;
+        //             slide_four_reverse();
+        //         }
 
-
-        var slide6 = new Waypoint({
-            element: document.getElementById("slide-six"),
-            handler: function (direction) {
-
-                if (direction === "down" && !slideSixDone) {
-                    slideSixDone = true;
-                    slide_six();
-                } else {
-                    slideSixDone = false;
-                    slide_six_reverse();
-                }
-
-            },
-            offset: slideOffset
-        })
+        //     },
+        //     offset: slideOffset
+        // })
 
 
+        // var slide5 = new Waypoint({
+        //     element: document.getElementById("slide-five"),
+        //     handler: function (direction) {
 
-        var slide7 = new Waypoint({
-            element: document.getElementById("slide-seven"),
-            handler: function (direction) {
+        //         if (direction === "down" && !slideFiveDone) {
+        //             slideFiveDone = true;
+        //             slide_five();
+        //         } else {
+        //             slideFiveDone = false;
+        //             slide_five_reverse();
+        //         }
 
-                if (direction === "down" && !slideSevenDone) {
-                    slideSevenDone = true;
-                    slide_seven();
-                } else {
-                    slideSevenDone = false;
-                    slide_seven_reverse();
-                }
+        //     },
+        //     offset: slideOffset
+        // })
 
-            },
-            offset: slideOffset
-        })
 
-        var slide8 = new Waypoint({
-            element: document.getElementById("slide-eight"),
-            handler: function (direction) {
+        // var slide6 = new Waypoint({
+        //     element: document.getElementById("slide-six"),
+        //     handler: function (direction) {
 
-                if (direction === "down" && !slideEightDone) {
-                    slideEightDone = true;
-                    slide_eight();
-                } else {
-                    slideEightDone = false;
-                    slide_eight_reverse();
-                }
+        //         if (direction === "down" && !slideSixDone) {
+        //             slideSixDone = true;
+        //             slide_six();
+        //         } else {
+        //             slideSixDone = false;
+        //             slide_six_reverse();
+        //         }
 
-            },
-            offset: slideOffset
-        })
+        //     },
+        //     offset: slideOffset
+        // })
 
-        var slide9 = new Waypoint({
-            element: document.getElementById("slide-nine"),
-            handler: function (direction) {
 
-                if (direction === "down" && !slideNineDone) {
-                    slideNineDone = true;
-                    slide_nine();
-                } else {
-                    slideNineDone = false;
-                    slide_nine_reverse();
-                }
 
-            },
-            offset: slideOffset
-        })
+        // var slide7 = new Waypoint({
+        //     element: document.getElementById("slide-seven"),
+        //     handler: function (direction) {
+
+        //         if (direction === "down" && !slideSevenDone) {
+        //             slideSevenDone = true;
+        //             slide_seven();
+        //         } else {
+        //             slideSevenDone = false;
+        //             slide_seven_reverse();
+        //         }
+
+        //     },
+        //     offset: slideOffset
+        // })
+
+        // var slide8 = new Waypoint({
+        //     element: document.getElementById("slide-eight"),
+        //     handler: function (direction) {
+
+        //         if (direction === "down" && !slideEightDone) {
+        //             slideEightDone = true;
+        //             slide_eight();
+        //         } else {
+        //             slideEightDone = false;
+        //             slide_eight_reverse();
+        //         }
+
+        //     },
+        //     offset: slideOffset
+        // })
+
+        // var slide9 = new Waypoint({
+        //     element: document.getElementById("slide-nine"),
+        //     handler: function (direction) {
+
+        //         if (direction === "down" && !slideNineDone) {
+        //             slideNineDone = true;
+        //             slide_nine();
+        //         } else {
+        //             slideNineDone = false;
+        //             slide_nine_reverse();
+        //         }
+
+        //     },
+        //     offset: slideOffset
+        // })
 
 
 
@@ -1055,7 +1256,9 @@
 
 
     $(window).on("beforeunload", function () {
+       
         $(window).scrollTop(0);
+        
     });
 
 
