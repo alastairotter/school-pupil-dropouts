@@ -1,0 +1,189 @@
+body { 
+    margin: 0;
+    background: #036f82;
+    font-family: "Slabo 27px", "Roboto Condensed", Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+p { 
+    font-weight: 400;
+}
+.passmark { 
+    color: #388aa3;
+    font-size: 90%;
+    font-family: "Open Sans", sans-serif, helvetica, arial;
+    font-weight: 600;
+}
+
+.passmark a { 
+    color: #62d1e5;
+    text-decoration: none;
+}
+
+.passmark a:hover { 
+    opacity: 1;
+}
+#chart { 
+    position: fixed; 
+    top: 20px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    background: #036f82;
+    opacity: 0;
+}
+
+#nav { 
+    position: absolute; 
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    z-index: 300;
+}
+
+.nav { 
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 200%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.nav:hover { 
+    cursor: pointer;
+    cursor: hand;
+}
+        
+.barLabels, .barNumbers { 
+    font-size: 80%; 
+    fill: #fff;
+}
+
+.barNumbers { 
+    fill: #c1f0ff;
+}
+
+#slides { 
+    position: absolute; 
+    top: 0px;
+    z-index:500; 
+    width: 650px;
+    text-align: center;
+    font-weight: 100;
+    font-size: 130%; 
+    color: #e0f7ff;
+    padding-top: 50px;
+    opacity: 0;
+    min-height: 130vh;
+    line-height: 130%;  
+    
+}
+
+.stuck {
+    position:fixed;
+    top:0;
+}
+
+.slide-title { 
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 250%; 
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 25px;
+    font-family: Merriweather, serif;
+    font-weight: 700;
+    line-height: 130%;
+    margin-top: 70px;
+    text-shadow: 3px 2px 2px rgba(0, 2, 0, 0.5);
+    color: #fffcbc;
+}
+
+.slide-inner { 
+    width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 100;
+    padding-top: 70px;
+    background: #0D8CA5;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0.8;
+    border: solid 1px #34aabc; 
+}
+
+#slide-two .slide-inner  { 
+    opacity: 0;
+}
+
+.clear { 
+    clear: both;
+}
+
+.bylines { 
+    font-size: 90%;
+    color: #62d1e5;
+    margin-bottom: 10%;
+    width: 100%; 
+    border-top: solid 1px #10adc9;
+    padding-top: 25px;
+}
+
+.label {
+    font-weight: 300;
+    color: #c1f0ff;
+    width: 280px;
+    position: absolute; 
+    top: 100px;
+    left: -300px;
+    z-index: 150;
+    opacity: 0;
+    font-size: 90%; 
+}
+
+.chartLabels { 
+    stroke: none;
+    fill: #fff;
+}
+
+.label li { 
+    font-size: 90%;
+    padding: 2px;
+}
+
+.em { 
+    font-size: 110%;
+    font-weight: 700;
+    color: #fffcbc;
+}
+
+.annotations { 
+    position: absolute; 
+    left: 30%; 
+    top: 10%;
+    color: #c1f0ff;
+    font-size: 105%;
+    font-weight: 300;
+    width: 400px;
+    display: none;
+    opacity: 0;
+}
+
+text { 
+    font-family: "Roboto Condensed", arial, sans-serif;
+    stroke: none; 
+    fill: #fff;
+}
+
+circle { 
+    fill: #fffcbc;
+}
+
+/* slide adjustments */
+#slide-five { 
+    min-height: 180vh;
+}

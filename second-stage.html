@@ -1,0 +1,43 @@
+<style>
+    body { 
+        background: #000;
+    }
+</style>
+<script src="lib/d3v4/d3.min.js"></script>
+
+
+<svg></svg>
+
+<script>
+var width= 800, 
+    height = 500, 
+    radius = 2, 
+    spacing = 1.6;
+
+var svg = d3.select("svg")
+    .attr("width", 800)
+    .attr("height", 500);
+
+var testData = d3.range(0,403);
+        console.log(testData);
+
+var circles = svg.selectAll("circle")
+    .data(testData)
+    .enter()
+    .append("circle")
+    .attr("cx", width/2)
+    .attr("cy", function (d, i) { 
+       return i * (radius * 2) + spacing;
+    })
+    .attr("r", radius)
+    .style("fill", "crimson")
+    .transition()
+    .delay(2000)
+    .duration(2000)
+    .attr("cx", function (d, i) { 
+        return i * (radius * 2) + spacing; 
+    })
+    .attr("cy", height/ 2)
+
+
+</script>

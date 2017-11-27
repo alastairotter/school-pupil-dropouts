@@ -1,596 +1,115 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled Document</title>
-<!--    <link rel="stylesheet" href=".css">-->
-   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
-   <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>SA Schools</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:700|Roboto+Condensed:300,400,700|Slabo+27px:100,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
 
-
-   <script src="../lib/vue.js"></script>
-    <script src="../lib/d3v4/d3.min.js"></script>
-    <script src="../lib/jquery-3.2.1.min.js"></script>
-    <script src="../lib/utilityfunctions.js"></script>
-    <script src="function.js"></script>
-    
-    <style>
-        body { 
-            margin: 0;
-            background: #388aa3;
-            font-family: "Roboto Condensed", Arial, "Helvetica Neue", Helvetica, sans-serif;
-        }
-        #chart { 
-            margin-left: auto;
-            margin-right: auto;
-            background: #388aa3;
-/*            background: dodgerblue;*/
-        }
-        
-        #nav { 
-            position: absolute; 
-            bottom: 40px;
-            width: 100%;
-            text-align: center;
-           
-            z-index: 300;
-        }
-        .nav { 
-            width: 100%;
-            text-transform: uppercase;
-            font-size: 200%;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #fff;
-        }
-        .nav:hover { 
-            cursor: pointer;
-            cursor: hand;
-        }
-                
-        .barLabels, .barNumbers { 
-            font-size: 80%; 
-/*            font-weight: 700;*/
-            fill: #fff;
-        }
-        .barNumbers { 
-            fill: #c1f0ff;
-        }
-        
-        #text { 
-            position: absolute; 
-            top: 60px; 
-            
-            z-index: 200;
-
-            font-size: 120%;
-            width: 100%;
-            text-align: center;
-            transition:all 0.3s ease;
-/*            background: #eee;*/
-        }
-        .text-title { 
-            width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 180%; 
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 30px;
-        }
-        .text-inner { 
-            font-size: 90%;
-            width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            color: #c1f0ff;
-            font-weight: 300;
-            
-        }
-        .label {
-            font-weight: 300;
-            color: #c1f0ff;
-/*            font-size: 90%; */
-            width: 280px;
-            position: absolute; 
-            top: 100px;
-            left: -300px;
-            z-index: 150;
-            opacity: 0;
-            font-size: 90%;
-/*            transition:all 2s ease;*/
-            
-        }
-        .chartLabels { 
-            stroke: none;
-            fill: #fff;
-        }
-        
-        .label li { 
-            font-size: 90%;
-            padding: 2px;
-        }
-        
-        .label .em { 
-            font-size: 110%;
-            font-weight: 700;
-            color: #fff;
-            
-        }
-    </style>
 </head>
+
 <body>
 
+    <div id="text"></div>
 
-    <div class="label label1">In 2004 <span class="em">1,207,996</span> pupils entered Grade 1</div>
-    <div class="label label2">A year later there were <span class="em">151,755</span> fewer pupils that started Grade 2</div>
-    <div class="label label3">This downward trend continues throughout primary school and by Grade 7 there are <span class="em">910,994</span> pupils registered for the final year of primary school </div>
-    <div class="label label4">7 years after starting school in 2004 there are now <span class="em">297,002</span> fewer pupils in Grade 7 than entered Grade 1 in 2004. <br />
-<ul>
-    <li>Grade 1: 1,207,996</li>
-    <li>Grade 2: 1,056,241 ( -12.6% )</li>
-    <li>Grade 3: 1,040,022 ( -1.54% )</li>
-    
-<li>Grade 4: 1,023,963 ( -1.54% )</li>
-<li>Grade 5: 980,945 ( -4.20% )</li>
-<li>Grade 6: 948,213 ( -3.34% )</li>
-<li>Grade 7: 910,994 ( -3.93% )</li>
-<!--
-8,934588,2.59%
-9,1036555,10.91%
-10,1100877,6.21%
-11,890971,-19.07%
-12,665355,-25.32%
--->
-    
-    
-</ul></div>
-<div class="label label8">From Grade 8 to 10 this trend reverses rapidly and by Grade 10 there are <span class="em">1,100,877</span> pupils ... </div>
+    <div id="slides">
 
-    <div class="label label12">... before plummeting in Grade 11 and 12. By Grade 12 there are just <span class="em">665,355</span> learners, just <span class="em">55%</span> of the number of learners that started Grade 1 12 years earlier</div>
+        <div id="slide-one" class="slide">
+            <div class="passmark">
+                <a href="http://passmark.org.za">Passmark
+                    <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="slide-title">Twelve years in South Africa's schools</div>
 
-   <div class="label label20"></div>
-    
-    
-    
-    
-<div id ="text">
- <div class="text-title">Tracking learners through 12 years of schooling in South Africa</div>
-  
-   <div class="text-inner">
+            <div class="bylines">
+                Laura Grant & Alastair Otter
+            </div>
+
+            <p>This is a story about South Africa’s schoolchildren. The ones who started school in 2005 when they enrolled in grade one in one of the thousands of government schools around the country. In an ideal world, the majority of these children would have emerged at the end of 2016, after 12 years of schooling, with a national senior certificate (what used to be known as a matric). Unfortunately, this is far from the reality in South Africa's school system.</p>
+            <p>
+                    In January 2005  <span class="em">1.2 million</span> children started grade one in South Africa’s government schools. Each of the circles below represents 2,500 pupils.</p>
+
+            <div class="clear"></div>
+        </div>
+
+        <div id="slide-two" class="slide">
+            <div class="slide-inner">
+                <!-- <p>
+                    In January 2005  <span class="em">1.2 million</span> children started grade one in South Africa’s government schools. Each of the circles below represents 2,500 pupils.</p> -->
+            </div>
+
+        </div>
+
+        <div id="slide-three" class="slide">
+            <div class="slide-inner">
+                In 2005, <span class="em">1.2 million</span> children started Grade 1, the start of their school careers.
+            </div>
+
+        </div>
+
+        <div id="slide-four" class="slide">
+
+            <div class="slide-inner">
+                    Six years later, in 2011, those children should have been in their last year of primary school, grade seven. But <span class="em">one out of every five</span> children who started in 2005 didn’t make it to grade seven. In 2011, <span class="em">910,994</span> pupils were enrolled in grade 7. That's <span class="em">297,002 fewer</span> pupils in grade seven than started grade one in 2005. 
+                
+            </div>
+        </div>
+
+        <div id="slide-four-two" class="slide">
+                <div class="slide-inner">
+        <p>A high number of learners have to repeat grades in South Africa. Research has shown that about <span class="em">one in three</span> children in SA had to repeat a grade at school. Grade repetition gets worse in the higher grades. The grades with the highest percentage of repeaters are grades 9, 10 and 11.</p>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="slide-five" class="slide">
+            <div class="slide-inner">
+                    <p>When those kids from the grade one class of 2005 started high school (grade 8) in 2012, their ranks were swollen by an extra <span class="em">23,500 learners</span> who were most likely repeaters – children who had failed grade eight the previous year and had to repeat it. </p>
+            </div>
+            <div class="clear"></div>
+        </div>
+
        
-       <p>In January every year millions of children enter grade one, the start of an expected 12 years of primary and secondary schooling. In an ideal world the majority of these children will emerge with a matric certificate 12 years later. Unfortunately this is far from the reality in South Africa's school system.</p>
-       <p>
-         In January 2004 1.2 million children started grade one. We followed this class through their 12 years of schooling. 
-       </p> 
-       <p>Each of the circles below represents 1,000 learners that started grade one in 2004.</p>
-      
-      
-       
-   </div>
-    
-</div>
-<div id="chart">
-    
-    
-    
-</div>
-   
-   <div id="nav">
-    <div class="nav stage1" v-if="stage === 1" v-on:click="stage1"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage2" v-if="stage === 2" v-on:click="stage2"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage3" v-if="stage === 3" v-on:click="stage3"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage4" v-if="stage === 4" v-on:click="stage4"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage5" v-if="stage === 5" v-on:click="stage5"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage6" v-if="stage === 6" v-on:click="stage6"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage7" v-if="stage === 7" v-on:click="stage7"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-    <div class="nav stage8" v-if="stage === 8" v-on:click="stage8"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
-</div>
-    
+
+        <div id="slide-six" class="slide">
+            <div class="slide-inner">
+                Slide 6: Comparing Grade 1 with Grade 12.
+            </div>
+        </div>
+
+        <div id="slide-seven" class="slide">
+            <div class="slide-inner">
+                Slide 7: Pupils that passed matric.
+            </div>
+        </div>
+
+        <div id="slide-eight" class="slide">
+            <div class="slide-inner">
+                Slide 8: Pupils with a university pass.
+            </div>
+        </div>
 
 
-<script>
-    
-    // config
-    
-    var width = 880,
-        height = 480,
-        padding = 20;
-    
-    var gradeBuckets = 1000, 
-        colCount = 0,
-        rowCount = 0,
-        colLimit = 16,
-        xPos = 10,
-        yPos = height - 30,
-        radius = 1.6, 
-        spacing = 0.3,
-        startXpos = xPos,
-        labelXpos = startXpos, 
-        labels;
-    
-    
-    // set text spacing
-    $("document").ready( function () { 
-        
-        var pos = $("svg").position();
-        var dim = $("svg").width();
-        var right = pos.left + dim;
-        console.log(pos)
-        console.log(dim)
-        console.log(right);
-        
-//        $("#text").css("left", pos.left + "px")
-        
-        
-//        $("#nav")
-//        .css("width", width + "px")
-//        .css("left", pos.left + "px")
-        
-    
-    })
-    
-    
- 
+        <div id="slide-nine" class="slide">
+            <div class="slide-inner">
+                Slide 9: Summary.
+            </div>
+        </div>
 
+    </div><div id="chart">
 
-    
-    d3.select("#chart")
-        .style("width", width + padding * 2 + "px")
-        .style("height", height + padding * 2 + "px")
-    
-    
+    </div>
 
-        
+    <script src="lib/d3v4/d3.min.js"></script>
+    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="lib/waypoints/jquery.waypoints.min.js"></script>
+    <script src="app.js"></script>
     
-    var svg = d3.select("#chart")
-        .append("svg")
-        .attr("width", width + padding * 2)
-        .attr("height", height + padding * 2)
-        .append("g")
-        .attr("transform", "translate(" + padding + " , " + padding + ")")
-    
-    
-    
-    
-    
-    d3.csv("students.csv", function (data) { 
-        data.forEach( function (d) { 
-            d.pupils = +d.pupils / gradeBuckets;
-        })
-        console.log(data);
-
-        
-
-        addCircles(data[0].pupils, "grade1", "crimson", true);
-        addCircles(data[0].pupils, "grade1ref", "black", true);
-        
-        
-        for(var c = 1; c < 12; c++) { 
-            var i = c + 1; 
-        
-            addCircles(data[c].pupils, "grade" + i, "#045a8d")
-            
-        }
-        
-        spreadCircles();
-        
-        var count = d3.selectAll(".grade2").size(); 
-        console.log(count)
-
-
-  
-        
-       
-    })
-    
-    
-    
-    
-    
-    
-    
-    // Navigation
-    
-    var content = new Vue({ 
-        el: "#text", 
-        data: { 
-            content: "Tracking Schools"
-        }
-    })
-    
-    var nav = new Vue({ 
-        el: "#nav", 
-        data: {
-            stage: 1
-//            , 
-//            label1: "In 2004 1,207,996 pupils entered Grade 1",
-//            label2: "A year later there were 151,755 fewer pupils that started Grade 2"
-        },
-        methods: { 
-            stage1: function () { 
-                this.stage = 2;
-                
-                
-                // TESTING //////////
-                // Remove for production
-                
-//                this.stage = 6;
-//                makeBars(".grade12", ".grade12Label", "Gr1 (2005)", ".label12", true, false);
-//                    
-                
-                
-                // TESTING /////////
-                
-                d3.select("#text")
-                    .transition() 
-                    .duration(1000)
-                    .style("opacity", 0)
-                    
-                    svg.append("line")
-                        .attr("x1", 0)
-                        .attr("x2", width - 100)
-                        .attr("y1", height - 28)
-                        .attr("y2", height - 28)
-                        .style("stroke", "#fff")
-                        .style("stroke-width", 1)
-                        .style("opacity", 0)
-                        .transition()
-                        .duration(5000)
-                        .style("opacity", 0.7)
-                
-                    makeBars(".grade1", "1,207,996", ".grade1Label", "Gr1 (2005)", ".label1", true, true);
-                
-                    $(".label").css("opacity", 1)
-                
-                    // Add labels
-//                    var label = svg.append("text")
-//                    .attr("x", startXpos + ((radius * 2 + spacing) * colLimit) / 2)
-
-                }, 
-            
-            stage2: function () {
-                this.stage = 3;
-                    d3.select(".label2").style("width", "250px")
-                    makeBars(".grade2", "1,056,241", ".grade2Label", "Gr2 (2006)", ".label2", false, true)
-//                    makeBars(".grade3", "Gr3 (2006)")
-//                    makeBars(".grade4", "Gr4 (2007)")
-//                    makeBars(".grade5", "Gr5 (2008)")
-//                    makeBars(".grade6", "Gr6 (2009)")
-//                    makeBars(".grade7", "Gr7 (2010)")
-//                    makeBars(".grade8", "Gr8 (2011)")
-//                    makeBars(".grade9", "Gr9 (2012)")
-//                    makeBars(".grade10", "Gr10 (2013)")
-//                    makeBars(".grade11", "Gr11 (2014)")
-//                    makeBars(".grade12", "Gr12 (2015)")
-                
-            }, 
-            stage3: function () { 
-                this.stage = 4;
-                console.log("stage3")
-                makeBars(".grade3", "1,040,022", ".grade3Label", "Gr3 (2007)", ".label3", false, false)
-                makeBars(".grade4", "1,023,963", ".grade4Label", "Gr4 (2008)", ".label4", false, false)
-                makeBars(".grade5", "980,945", ".grade5Label", "Gr5 (2009)", ".label5", false, false)
-                makeBars(".grade6", "948,213", ".grade6Label", "Gr6 (2010)", ".label6", false, false)
-                
-                makeBars(".grade1ref", "910,994",".grade3Label", "Gr7 (2011)", ".label3", false, true, true)       
-            },
-            
-            stage4: function () { 
-                console.log("stage4")
-                this.stage = 5;
-                var pos = $("svg").position();
-                d3.selectAll(".diff").transition().duration(2000).style("opacity", 1)
-                d3.select(".grade7line").transition().duration(2000).attr("y2", yPos - 10)
-                d3.select(".label4")
-                    .style("opacity", 0)
-                    
-                    .style("left", pos.left + 70 + startXpos + ((radius * 2 + spacing) * colLimit) / 2 + "px")
-                    .style("top", yPos + 40 + "px")
-                    .transition()
-                    .delay(2000)
-                    
-                    .style("opacity", 1)
-            
-            }, 
-            stage5: function () { 
-                this.stage = 6;
-                console.log("stage 5");
-                d3.select(".label4").transition(). duration(1000).style("opacity", 0)
-                var pos = $(".label3").position()
-                d3.select(".label3").transition().duration(500).style("top", pos.top - 40 + "px").style("left", pos.left - 20 + "px").style("width", "400px")
-                makeBars(".grade8", "934,588", ".grade8Label", "Gr8 (2012)", ".label77", false, false)
-                makeBars(".grade9", "1,036,555", ".grade9Label", "Gr9 (2013)", ".label9", false, false)
-                makeBars(".grade10","1,100,877", ".grade10Label", "Gr10 (2014)", ".label8", false, true)
-            },
-            
-            stage6: function () { 
-                this.stage = 7; 
-                console.log("stage6")
-                d3.select(".label12").style("width", "200px")
-                makeBars(".grade11", "890,971", ".grade11Label", "Gr11 (2015)", ".label11", false, false)
-                makeBars(".grade12", "665,355", ".grade12Label", "Gr12 (2016)", ".label12", false, true)
-                
-            },
-            
-            stage7: function () { 
-                this.stage = 8; 
-                console.log("stage7");
-                
-                d3.selectAll(".label").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-                d3.selectAll(".pointer-line").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-                d3.selectAll(".pointer-circle").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-                d3.selectAll(".grade7line").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); }) 
-                
-                
-                
-            },
-            
-            stage8: function () { 
-                this.stage = 9; 
-                console.log("stage8")
-                
-                // get origin xpos
-//                var origX = d3.select(".grade2").attr("cx");
-                var origX12 = d3.select(".grade12").attr("cx");
-                var xDiff = origX12 - width/2; 
-                
-                
-                
-                // clear bar labels
-//                d3.selectAll(".barLabels").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this).remove(); });
-                d3.selectAll(".grade1ref").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".label2").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".label3").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".label8").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".label12").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".pointer-line").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".pointer-circle").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-//                d3.selectAll(".grade7line").transition().duration(1000).style("opacity", 0).on("end", function () { d3.select(this). remove(); })
-                labels.remove();
-                
-                // clear intermediate bars
-                for(var c = 2; c < 12; c++ ) {
-                    
-                    d3.selectAll(".grade" + c)
-                        .transition()
-                        .duration(1000)
-                        .style("opacity", 0)
-                        .on("end", function () { 
-                            d3.select(this).remove();
-                        })
-                        
-                    
-                }
-                
-                // move grade 12 bar
-                d3.selectAll(".grade12")
-                    .each( function (d, i) { 
-                        var curX = d3.select(this).attr("cx");
-                        d3.select(this).transition().duration(2000).attr("cx", curX - xDiff)
-                        
-                    })
-                
-                
-                // move grade one to center
-//                startXpos + ((radius * 2 + spacing) * colLimit) / 2
-                var startXpos = d3.select(".grade1").attr("cx");
-                var xDiff = width/2 - startXpos; 
-                
-                d3.selectAll(".barLabels").remove();
-                
-                var newStartX = newX = width / 2 - (radius * 2 + spacing) * (colLimit + 2) , newY = height - 30, colCount = 0;
-                d3.selectAll(".grade1")
-                      .each( function (d, i) { 
-                        d3.select(this).transition().duration(2000).attr("cx", newX).attr("cy", newY)
-                        
-                        newX = newX + spacing + radius * 2;
-                        colCount++; 
-                    
-                        if(colCount === colLimit) { 
-                            newX = newStartX; 
-                            colCount = 0; 
-                            newY = newY - spacing - radius * 2;
-                            }
-                        
-                    })
-                
-                
-                    var sx = d3.select(".grade1").attr("cx")
-                    var sx2 = d3.select(".grade12").attr("cx")
-                            
-                        svg.append("text")
-                            .attr("x", newStartX + ((radius * 2 + spacing) * colLimit) / 2)
-                            .attr("y", height - 14)
-                            .text("Grade 1")
-                            .attr("class", "barLabels")
-                            .style("text-anchor", "middle")
-                            .style("opacity", 0)
-                            .transition() 
-                            .delay(1000)
-                            .duration(1000)
-                            .style("opacity", 1)
-                
-                        svg.append("text")
-                            .attr("x", newStartX + ((radius * 2 + spacing) * colLimit) / 2)
-                            .attr("y", height)
-                            .text("2005")
-                            .attr("class", "barLabels")
-                            .style("text-anchor", "middle")
-                            .style("opacity", 0)
-                            .transition() 
-                            .delay(1000)
-                            .duration(1000)
-                            .style("opacity", 1)
-                
-                
-                        svg.append("text")
-                            .attr("x", width/2 + ((radius * 2 + spacing) * colLimit) / 2)
-                            .attr("y", height - 14)
-                            .text("Grade 12")
-                            .attr("class", "barLabels")
-                            .style("text-anchor", "middle")
-                            .style("opacity", 0)
-                            .transition() 
-                            .delay(1000)
-                            .duration(1000)
-                            .style("opacity", 1)
-                    
-                        svg.append("text")
-                            .attr("x", width/2 + ((radius * 2 + spacing) * colLimit) / 2)
-                            .attr("y", height)
-                            .text("2016")
-                            .attr("class", "barLabels")
-                            .style("text-anchor", "middle")
-                            .style("opacity", 0)
-                            .transition() 
-                            .delay(1000)
-                            .duration(1000)
-                            .style("opacity", 1)
-                
-                    
-                d3.selectAll(".label")
-                    .transition()
-                    .duration(1000)
-                    .style("opacity", 0)
-                    .on("end", function () { 
-                        d3.select(this).style("display", "none")
-                    })
-                
-                   
-                    
-                
-            }, // END STAGE 7 
-            
-            stage8: function () { 
-                this.stage = 9; 
-                
-                
-                
-                
-                
-            }
-            
-            
-            
-        }
-            
-            
-        
-        
-    })
-    
-    
-  
-    
-    
-</script>
-
-
-
 </body>
+
 </html>
