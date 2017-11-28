@@ -1,5 +1,7 @@
-(function () {
-    'use scrict';
+
+
+(function loadScript () {
+    'use strict';
 
     // for reverse
     var startPositions = [],
@@ -31,7 +33,9 @@
         gradeFourteenMarkers = [],
         slideNineRun = false,
         ignoreTrigger = true, 
-        debug = false; 
+        debug = false, 
+        circlesAdded = false, 
+        circlesReady = false;
 
     const scroller = scrollama();
 
@@ -250,6 +254,19 @@
 
     });
 
+    function scrollInit () { 
+        
+    scroller
+        .setup({
+            step: '.step', 
+            offset: 0.3, 
+            debug: true, 
+            progress: true
+        })
+        .onStepEnter(handleStepEnter)
+
+    }
+
 
 
     d3.csv("students.csv", function (data) {
@@ -276,44 +293,15 @@
         slideThreeDone = false,
         slideFourDone = false,
         slideFiveDone = false,
+        slideFiveTwoDone = false,
         slideSixDone = false,
         slideSevenDone = false,
         slideEightDone = false,
         slideNineDone = false;
 
+//////////////////////////////////////////////////////////// SCROLLAMA
 
-
-
-
-
-    /////// WAYPOINTS
-
-    $("document").ready(function () {
-
-        // add debug wrapper div
-        if(debug === true) { 
-            $(".slide").wrap("<div class='debug-wrap'></div>");
-        }
-
-        // SCROLLAMA
-
-        function init () { 
-            
-        scroller
-            .setup({
-                step: '.step', 
-                offset: 0.5, 
-                debug: true, 
-                progress: true
-            })
-            .onStepEnter(handleStepEnter)
-            // .onStepExit(handleStepExit);
-            
-    
-            
-            // window.addEventListener('resize', scroller.resize);
-    
-        }
+        
     
         function handleStepEnter (response) {
            
@@ -323,10 +311,7 @@
             
             switch (val) { 
                 case 'slide1': 
-                    console.log("----------------------------");
-                    console.log(response.direction);
-                    console.log(ignoreTrigger);
-                    console.log("----------------------------");
+                   
                     if(ignoreTrigger) { 
 
                     }
@@ -387,6 +372,17 @@
                         slide_five();
                     }
                     else { 
+                        slideFiveTwoDone = false; 
+                        slide_five_two_reverse();
+                    }
+                    break;
+                    
+                case 'slide5-2': 
+                    if(response.direction === "down") { 
+                        slideFiveTwoDone = true; 
+                        slide_five_two();
+                    }
+                    else { 
                         slideSixDone = false; 
                         slide_six_reverse();
                     }
@@ -432,192 +428,10 @@
                     }
 
             }
-
-
-            
-            // if(response.direction === "down" && val === "slide2") { 
-            //     slideTwoDone = true;
-            //     spreadCircles();
-            //     ignoreTrigger = false;
-
-            // }
         }
 
 
-
-        // function handleStepExit (response) {
-            
-        //      var el = d3.select(response.element);
-        //      var val = el.attr('data-step');
-             
-
-        //      switch (val) { 
-
-        //         case 'slide2': 
-        //             console.log("Gothere");
-        //             if(response.direction === "up" && ignoreTrigger == false) { 
-        //                 slideTwoDone = false; 
-        //                 spreadCirclesReverse();
-        //             }
-        //      }
-
-        // }
-    
-        // function handleStepExit (response) { 
-        //     // console.log(response);
-        //     var el = d3.select(response.element);
-        //     var val = el.attr('data-step');
-        //     if(response.direction === "up" & val === "slide2" && !ignoreTrigger) { 
-        //         console.log("SpreadCirclesReverse");
-        //         slideTwoDone = false; 
-        //         spreadCirclesReverse();
-        //     }
-            
-        //     // console.log(val);
-        //     // console.log(response.direction);
-        // }
-
-        init();
-// WAYPOINTS
-        // var slide2 = new Waypoint({
-        //     element: document.getElementById("slide-two"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideTwoDone) {
-        //             slideTwoDone = true;
-        //             spreadCircles();
-        //         } else {
-        //             slideTwoDone = false;
-        //             spreadCirclesReverse();
-        //         }
-        //     },
-        //     offset: slideOffset
-        // })
-
-        // var slide3 = new Waypoint({
-        //     element: document.getElementById("slide-three"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideThreeDone) {
-        //             slideThreeDone = true;
-        //             slide_three();
-        //         } else {
-        //             slideThreeDone = false;
-        //             slide_three_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-
-
-        // var slide4 = new Waypoint({
-        //     element: document.getElementById("slide-four"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideFourDone) {
-        //             slideFourDone = true;
-        //             slide_four();
-        //         } else {
-        //             slideFourDone = false;
-        //             slide_four_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-
-        // var slide5 = new Waypoint({
-        //     element: document.getElementById("slide-five"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideFiveDone) {
-        //             slideFiveDone = true;
-        //             slide_five();
-        //         } else {
-        //             slideFiveDone = false;
-        //             slide_five_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-
-        // var slide6 = new Waypoint({
-        //     element: document.getElementById("slide-six"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideSixDone) {
-        //             slideSixDone = true;
-        //             slide_six();
-        //         } else {
-        //             slideSixDone = false;
-        //             slide_six_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-
-
-        // var slide7 = new Waypoint({
-        //     element: document.getElementById("slide-seven"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideSevenDone) {
-        //             slideSevenDone = true;
-        //             slide_seven();
-        //         } else {
-        //             slideSevenDone = false;
-        //             slide_seven_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-        // var slide8 = new Waypoint({
-        //     element: document.getElementById("slide-eight"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideEightDone) {
-        //             slideEightDone = true;
-        //             slide_eight();
-        //         } else {
-        //             slideEightDone = false;
-        //             slide_eight_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-        // var slide9 = new Waypoint({
-        //     element: document.getElementById("slide-nine"),
-        //     handler: function (direction) {
-
-        //         if (direction === "down" && !slideNineDone) {
-        //             slideNineDone = true;
-        //             slide_nine();
-        //         } else {
-        //             slideNineDone = false;
-        //             slide_nine_reverse();
-        //         }
-
-        //     },
-        //     offset: slideOffset
-        // })
-
-
-
-    }); // document ready
-
-
-    // slide functions
+      
 
     function slide_three() {
         svg.append("line")
@@ -742,6 +556,16 @@
         svg.selectAll(".grade12group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
 
         slide5reverse = true;
+    }
+
+    function slide_five_two () { 
+
+        d3.selectAll(".grade8").style("fill", "#fff").style("opacity", 0.5);
+        d3.selectAll(".grade9").style("fill", "#FDFFB9").style("opacity", 1);
+        d3.selectAll(".grade10").style("fill", "#FDFFB9").style("opacity", 1);
+        d3.selectAll(".grade11").style("fill", "#FDFFB9").style("opacity", 1);
+
+        
     }
 
 
@@ -1107,10 +931,7 @@
                 });
 
                
-                    // console.log(gradeOneMarkers);
-                    // console.log(gradeTwelveMarkers);
-                    // console.log(gradeThirteenMarkers);
-                    // console.log(gradeFourteenMarkers);
+              
 
 
   
@@ -1192,15 +1013,11 @@
                             .attr("cx", function () { 
                                 return i * (radius * 2) + spacing;
                             })
-                            // .attr("r", 1)
-                            // .attr("r", 5)
-                            // .style("stroke", "#0D8CA5")
-                            // .style("stroke-width", 1)
-                    // }
+                            
                 })
 
 
-            // d3.selectAll(".grade1ref").transition().duration(transition).style("opacity", 1)
+           
 
             slideNineRun = true;
 
@@ -1261,6 +1078,15 @@
         
     });
 
-
+    $("document").ready( function () { 
+        setTimeout( function () { 
+            $(".loading").css("display", "none");
+            $("html").css("overflow", "auto");
+            scrollInit();
+        },0);
+    })
 
 })();
+
+
+

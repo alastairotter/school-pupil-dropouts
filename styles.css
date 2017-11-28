@@ -1,3 +1,11 @@
+
+
+html, body { 
+    overflow: hidden;
+    height: 100%;
+    /* opacity: 0.5; */
+}
+
 body { 
     margin: 0;
     background: #036f82;
@@ -6,6 +14,24 @@ body {
 
 p { 
     font-weight: 400;
+}
+
+.loading { 
+    position: absolute; 
+    z-index: 900;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    color: #FDFFB9;
+    opacity: 1;
+    background: #007184;
+    opacity: 0.5;
+    text-align: center;
+}
+
+.fa-spinner, .fa-circle-o-notch { 
+    margin-top: 25%;
 }
 
 .debug-wrap { 
