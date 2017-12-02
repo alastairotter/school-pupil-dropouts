@@ -12,12 +12,18 @@
 </head>
 
 <body>
+    <div class="loading">
+            
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+
+    </div>
 
     <div id="text"></div>
 
     <div id="slides">
 
-        <div id="slide-one" class="slide">
+        <div id="slide-one" class="slide step" data-step="slide1">
             <div class="passmark">
                 <a href="http://passmark.org.za">Passmark
                     <i class="fa fa-check-square-o" aria-hidden="true"></i>
@@ -28,15 +34,16 @@
             <div class="bylines">
                 Laura Grant & Alastair Otter
             </div>
-
+<div>
             <p>This is a story about South Africa’s schoolchildren. The ones who started school in 2005 when they enrolled in grade one in one of the thousands of government schools around the country. In an ideal world, the majority of these children would have emerged at the end of 2016, after 12 years of schooling, with a national senior certificate (what used to be known as a matric). Unfortunately, this is far from the reality in South Africa's school system.</p>
             <p>
                     In January 2005  <span class="em">1.2 million</span> children started grade one in South Africa’s government schools. Each of the circles below represents 2,500 pupils.</p>
+                    </div>
 
-            <div class="clear"></div>
+           <div style="clear: both;"></div>
         </div>
 
-        <div id="slide-two" class="slide">
+        <div id="slide-two" class="slide step" data-step="slide2">
             <div class="slide-inner">
                 <!-- <p>
                     In January 2005  <span class="em">1.2 million</span> children started grade one in South Africa’s government schools. Each of the circles below represents 2,500 pupils.</p> -->
@@ -44,14 +51,14 @@
 
         </div>
 
-        <div id="slide-three" class="slide">
+        <div id="slide-three" class="slide step" data-step="slide3">
             <div class="slide-inner">
                 In 2005, <span class="em">1.2 million</span> children started Grade 1, the start of their school careers.
             </div>
 
         </div>
 
-        <div id="slide-four" class="slide">
+        <div id="slide-four" class="slide step" data-step="slide4">
 
             <div class="slide-inner">
                     Six years later, in 2011, those children should have been in their last year of primary school, grade seven. But <span class="em">one out of every five</span> children who started in 2005 didn’t make it to grade seven. In 2011, <span class="em">910,994</span> pupils were enrolled in grade 7. That's <span class="em">297,002 fewer</span> pupils in grade seven than started grade one in 2005. 
@@ -59,55 +66,69 @@
             </div>
         </div>
 
-        <div id="slide-four-two" class="slide">
-                <div class="slide-inner">
-        <p>A high number of learners have to repeat grades in South Africa. Research has shown that about <span class="em">one in three</span> children in SA had to repeat a grade at school. Grade repetition gets worse in the higher grades. The grades with the highest percentage of repeaters are grades 9, 10 and 11.</p>
+       
 
-            </div>
-            <div class="clear"></div>
-        </div>
-
-        <div id="slide-five" class="slide">
+        <div id="slide-five" class="slide step" data-step="slide5">
             <div class="slide-inner">
                     <p>When those kids from the grade one class of 2005 started high school (grade 8) in 2012, their ranks were swollen by an extra <span class="em">23,500 learners</span> who were most likely repeaters – children who had failed grade eight the previous year and had to repeat it. </p>
             </div>
             <div class="clear"></div>
         </div>
 
+        <div id="slide-five-two" class="slide step" data-step="slide5-2">
+                <div class="slide-inner">
+        <p>A high number of learners have to repeat grades in South Africa. Research has shown that about <span class="em">one in three</span> children in SA had to repeat a grade at school. Grade repetition gets worse in the higher grades. The grades with the highest percentage of repeaters are <span class="em">grades 9, 10 and 11</span>.</p>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+       
+        
+
        
 
-        <div id="slide-six" class="slide">
+        <div id="slide-five-three" class="slide step" data-step="slide5-3">
             <div class="slide-inner">
-                Slide 6: Comparing Grade 1 with Grade 12.
+                    By the time our 2005 grade ones reached grade 10 there were 1,1-million pupils in their grade. At least another 100,000 repeaters join them grade nine, and an additional 64,000 in grade 10. Research has shown that <span class="em">just over half</span> of the learners in South Africa’s schools had <span class="em">repeated at least one grade</span> by the time they reached grades 10 to 12. <span class="em">One in 10</span> of them has repeated a grade at least <span class="em">three times</span>.
             </div>
         </div>
 
-        <div id="slide-seven" class="slide">
+        <div id="slide-six" class="slide step" data-step="slide6">
             <div class="slide-inner">
-                Slide 7: Pupils that passed matric.
+                    After grade 10 the numbers drop rapidly. By Grade 12 there were just <span class="em">665,355 learners</span>, which means that at least half the class of 2005 didn’t make it to grade 12 within 12 years.
             </div>
         </div>
 
-        <div id="slide-eight" class="slide">
+        <div id="slide-seven" class="slide step" data-step="slide7">
             <div class="slide-inner">
-                Slide 8: Pupils with a university pass.
+                And of those who did make it, one in every three will fail their national senior certificate exams.
             </div>
         </div>
 
 
-        <div id="slide-nine" class="slide">
+        <div id="slide-8" class="slide step" data-step="slide8">
             <div class="slide-inner">
-                Slide 9: Summary.
+                And only one in every four who wrote the grade 12 exams got a university pass.
             </div>
         </div>
 
-    </div><div id="chart">
+        <div id="slide-9" class="slide step" data-step="slide9">
+            <div class="slide-inner">
+                
+            </div>
+        </div>
+
+    </div> <!-- #SLIDES -->
+
+    <div id="chart">
 
     </div>
 
     <script src="lib/d3v4/d3.min.js"></script>
     <script src="lib/jquery-3.2.1.min.js"></script>
-    <script src="lib/waypoints/jquery.waypoints.min.js"></script>
+    <!-- <script src="lib/waypoints/jquery.waypoints.min.js"></script> -->
+    <script src="lib/scrollama.min.js"></script>
     <script src="app.js"></script>
     
 </body>
