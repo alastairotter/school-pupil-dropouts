@@ -308,7 +308,9 @@
         slideSixDone = false,
         slideSevenDone = false,
         slideEightDone = false,
-        slideNineDone = false;
+        slideNineDone = false,
+        slideElevenDone = false,
+        slideTwelveDone = false;
 
 //////////////////////////////////////////////////////////// SCROLLAMA
 
@@ -444,6 +446,21 @@
                         slideNineDone = true; 
                         slide_nine();
                     }
+                    break; 
+                
+                case 'slide11': 
+                    if(response.direction === "down") { 
+                        slideElevenDone = true; 
+                        slide_eleven();
+                    }
+                    break; 
+
+                case 'slide12': 
+                    if(response.direction === "down") {
+                        slideTwelveDone = true; 
+                        slide_twelve(); 
+                    }
+                    break; 
 
             }
         }
@@ -1191,6 +1208,12 @@ console.log(slide9passed);
                             .attr("cx", function () { 
                                 return i * (radius * 2) + spacing;
                             })
+                            .attr("r", 12)
+                            .style("opacity", function (){ 
+                                if(i < 100) { return 1; }
+                                else { return 0; }
+                            })
+                            .style("fill", "#31D5E8")
                             
                 })
 
@@ -1273,6 +1296,92 @@ console.log(slide9passed);
             d3.select(".legend3").transition().duration(1000).style("opacity", 1)
 
     }
+
+    function slide_eleven () { 
+
+        // get y pos of top bar
+        var curY = d3.select(".grade1").attr("cy");
+
+
+        d3.selectAll(".grade1")
+            .each( function (d, i) { 
+
+                d3.select(this)
+                    .transition()
+                    .duration( randomInt(50, 1000) )
+                    .style("fill", function () { 
+                        if(i < 40) { return "#FDFFB9"; }
+                        else { return "#31D5E8"; }
+                    })
+
+            })
+
+        // add text
+
+        var labels = svg.append("g").attr("class", "end-bar-labels");
+
+        labels.append("text")
+            .attr("x", 10)
+            .attr("y", curY - 30)
+            .text("% of youth employed")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+            
+
+
+    }
+
+function slide_twelve() { 
+    var prevR = d3.select(".grade1").attr("r"),
+        prevY = d3.select(".grade1").attr("cy");
+        console.log('----');
+        
+       
+        
+        
+
+    var endBarTwo = svg.append("g").attr("class", "end-bar-two");
+
+    for(var c = 0; c < 100; c++) { 
+        endBarTwo.append("circle")
+        
+            .attr("cx", function () { 
+                return c * (radius * 2) + spacing;
+                
+            })
+            .attr("cy", +prevY + 70)
+            .attr("r", prevR)
+            .style("fill", function () { 
+                if(c < 87 ) { return "#FDFFB9"; }
+                else { return "#31D5E8"; }
+
+            })
+            // function () { 
+            //     if(c < 87) { return "red"; } 
+            //     else { 
+            //         return "#31D5E8"; 
+            //     })
+    }
+
+
+    var labels = svg.append("g").attr("class", "end-bar-labels2");
+    
+            labels.append("text")
+                .attr("x", 10)
+                .attr("y", +prevY + 40)
+                .text("Graduates employed")
+                .style("fill", "#fff")
+                .style("font-size", "90%")
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .style("opacity", 1)
+
+}
 
 
 
