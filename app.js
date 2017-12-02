@@ -6,7 +6,18 @@
     // for reverse
     var startPositions = [],
         slide4reverse = false,
-        slide5reverse = false;
+        slide5reverse = false,
+        slide6reverse = false,
+        slide7reverse = false,
+        slide8reverse = false; 
+
+
+    var slide9Grade1 = [],
+        slide9Grade12 = [],
+        slide9passed = [],
+        slide9university = [];
+
+        
 
     // config
     var width = 880,
@@ -39,7 +50,7 @@
 
     const scroller = scrollama();
 
-    var percentages = [ 100, 51, 40, 25 ];
+    var percentages = [ 55, 100, 37, 13 ];
 
     d3.select("#chart")
         .style("width", width + padding * 2 + "px")
@@ -382,8 +393,15 @@
                         slideFiveTwoDone = true; 
                         slide_five_two();
                     }
-                    else { 
-                        slideSixDone = false; 
+                //    else { 
+                //         slideSixDone = false; 
+                //         slide_six_reverse();
+                //     } 
+                    break;
+
+                case 'slide5-3':
+                    if(response.direction === "up") { 
+                        slideSixDone = true; 
                         slide_six_reverse();
                     }
                     break;
@@ -439,6 +457,7 @@
             .attr("x2", width - 100)
             .attr("y1", height - 28)
             .attr("y2", height - 28)
+            .attr("class", "graph-line")
             .style("stroke", "#fff")
             .style("stroke-width", 1)
             .style("opacity", 0)
@@ -480,7 +499,7 @@
             svg.selectAll(".grade5group").transition().duration(transition * 3).style("opacity", 1);
             svg.selectAll(".grade6group").transition().duration(transition * 3).style("opacity", 1);
             svg.selectAll(".grade7group").transition().duration(transition * 3).style("opacity", 1);
-            d3.selectAll(".grade1").transition().duration(transition).style("fill", "#fff").style("opacity", 0.5);
+            // d3.selectAll(".grade1").transition().duration(transition).style("fill", "#fff").style("opacity", 0.5);
         } else {
             makeBars("bar2", ".grade2", "barNo2", "1,056,241", "Gr2 (2006)", ".label2", false)
             makeBars("bar3", ".grade3", "barNo3", "1,040,022", "Gr3 (2007)", ".label3", false)
@@ -488,15 +507,15 @@
             makeBars("bar5", ".grade5", "barNo5", "980,945", "Gr5 (2009)", ".label5", false)
             makeBars("bar6", ".grade6", "barNo6", "948,213", "Gr6 (2010)", ".label6", false)
             makeBars("bar7", ".grade7", "barNo7", "910,994", "Gr7 (2011)", ".label3", false, true)
-            d3.selectAll(".grade1").style("fill", "white").style("opacity", "0.5");
+            // d3.selectAll(".grade1").style("fill", "white").style("opacity", "0.5");
             setTimeout( function () { 
                 // d3.selectAll(".grade7").style("fill", "white");
                 
-                d3.selectAll(".grade2").style("fill", "white").style("opacity", "0.5");
-                d3.selectAll(".grade3").style("fill", "white").style("opacity", "0.5");
-                d3.selectAll(".grade4").style("fill", "white").style("opacity", "0.5");
-                d3.selectAll(".grade5").style("fill", "white").style("opacity", "0.5");
-                d3.selectAll(".grade6").style("fill", "white").style("opacity", "0.5");
+                // d3.selectAll(".grade2").style("fill", "white").style("opacity", "0.5");
+                // d3.selectAll(".grade3").style("fill", "white").style("opacity", "0.5");
+                // d3.selectAll(".grade4").style("fill", "white").style("opacity", "0.5");
+                // d3.selectAll(".grade5").style("fill", "white").style("opacity", "0.5");
+                // d3.selectAll(".grade6").style("fill", "white").style("opacity", "0.5");
 
             }, 2000);
         }
@@ -526,29 +545,56 @@
             svg.selectAll(".grade10group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
             svg.selectAll(".grade11group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
             svg.selectAll(".grade12group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 1);
+
+
+             
+                d3.selectAll(".grade1").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade2").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade3").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade4").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade5").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade6").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade7").transition().duration(1000).style("opacity", 0.5);
+
+
+           
         } else {
             makeBars("bar8", ".grade8", "barNo8", "934,588", "Gr8 (2012)", ".label7", false)
             makeBars("bar9", ".grade9", "barNo9", "1,036,555", "Gr9 (2013)", ".label9", false)
             makeBars("bar10", ".grade10", "barNo10", "1,100,877", "Gr10 (2014)", ".label8", false)
             makeBars("bar11", ".grade11", "barNo11", "890,971", "Gr11 (2015)", ".label11", false)
-            makeBars("bar12", ".grade12", "barNo2", "665,355", "Gr12 (2016)", ".label12", false, true)
+            makeBars("bar12", ".grade12", "barNo12", "665,355", "Gr12 (2016)", ".label12", false, true)
             makeBars("bar13", ".grade13", "barNo13", "442,672", "", ".label13", false)
             makeBars("bar14", ".grade14", "barNo14", "162,374", "", ".label14", false)
 
             setTimeout( function () { 
-                d3.selectAll(".grade7").style("fill", "#fff").style("opacity", 0.5);
-                d3.selectAll(".grade9").style("fill", "#fff").style("opacity", 0.5);
-                d3.selectAll(".grade10").style("fill", "#fff").style("opacity", 0.5);
-                d3.selectAll(".grade11").style("fill", "#fff").style("opacity", 0.5);
-                d3.selectAll(".grade12").style("fill", "#fff").style("opacity", 0.5);
+                d3.selectAll(".grade1").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade2").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade3").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade4").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade5").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade6").transition().duration(1000).style("opacity", 0.5);
+                d3.selectAll(".grade7").transition().duration(1000).style("opacity", 0.5);
 
 
-            }, 2000)
+            }, 100)
         }
 
     }
 
     function slide_five_reverse() {
+        setTimeout( function () { 
+            d3.selectAll(".grade1").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade2").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade3").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade4").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade5").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade6").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade7").transition().duration(1000).style("opacity", 1);
+
+
+        }, 100)
+
         svg.selectAll(".grade8group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
         svg.selectAll(".grade9group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
         svg.selectAll(".grade10group").transition().delay( randomInt(5, 500)).duration(transition).style("opacity", 0);
@@ -560,12 +606,19 @@
 
     function slide_five_two () { 
 
-        d3.selectAll(".grade8").style("fill", "#fff").style("opacity", 0.5);
-        d3.selectAll(".grade9").style("fill", "#FDFFB9").style("opacity", 1);
-        d3.selectAll(".grade10").style("fill", "#FDFFB9").style("opacity", 1);
-        d3.selectAll(".grade11").style("fill", "#FDFFB9").style("opacity", 1);
+        d3.selectAll(".grade8").transition().duration(1000).style("opacity", 0.5);
+        d3.selectAll(".grade11").transition().duration(1000).style("opacity", 0.5);
+        d3.selectAll(".grade12").transition().duration(1000).style("opacity", 0.5);
 
         
+    }
+
+    function slide_five_two_reverse () { 
+
+        d3.selectAll(".grade8").transition().duration(1000).style("opacity", 1);
+        d3.selectAll(".grade11").transition().duration(1000).style("opacity", 1);
+        d3.selectAll(".grade12").transition().duration(1000).style("opacity", 1);
+
     }
 
 
@@ -613,10 +666,18 @@
                     .duration(transition).attr("cx", function () { 
                         curX - xDiff > lineX ? lineX = curX - xDiff : lineX = lineX;
                         curY < lineY ? lineY = curY : lineY = lineY;
+                        slide9Grade12.push({ 
+                            x: curX - xDiff,
+                            y: curY
+                        })
                         return curX - xDiff; 
                     })
+                    .style("opacity", 1)
+                    .style("fill", "#31D5E8")
 
-            })
+            });
+            
+
             percentLines.push({ 
                 x: lineX, 
                 y: +lineY
@@ -661,9 +722,14 @@
                     .duration(transition).attr("cx", newX).attr("cy", function() { 
                         newX > lineX ? lineX = newX : lineX = lineX;
                         lineY = newY;
-                        
+                        slide9Grade1.push({ 
+                            x: newX,
+                            y: newY
+                        })
                         return newY; 
                     })
+                    .style("opacity", 1)
+                    
 
                 newX = newX + spacing + radius * 2;
                 colCount++;
@@ -684,7 +750,44 @@
             })
 
 
-           
+         if(!slide6reverse) {  
+        // ADD legend
+        var legend = svg.append("g").attr("class", "legend1");
+
+        legend.append("rect")
+            .attr("x", 50)
+            .attr("y", window.innerHeight / 3)
+            .attr("width", 10)
+            .attr("height", 10)
+            .style("fill","#FDFFB9")
+
+        legend.append("text")
+            .attr("x", 70)
+            .attr("y", window.innerHeight / 3 + 10)
+            .style("fill", "#FDFFB9")
+            .text("STARTED GRADE 1")
+            .style("font-size", "75%")
+
+        legend.append("rect")
+            .attr("x", 50)
+            .attr("y", window.innerHeight / 3 + 20)
+            .attr("width", 10)
+            .attr("height", 10)
+            .style("fill","#31D5E8")
+
+        legend.append("text")
+            .attr("x", 70)
+            .attr("y", window.innerHeight / 3 + 30)
+            .style("fill", "#31D5E8")
+            .text("STARTED GRADE 12")
+            .style("font-size", "75%")
+
+         }
+         else { 
+             d3.select(".legend1").style("opacity", 1);
+
+         }
+
         
         
             
@@ -700,6 +803,7 @@
 
        
         
+
         //move grade 1 to start
         var newX = 0;
         var newStartX = newX;
@@ -741,6 +845,7 @@
 
                     })
                     .duration(transition).attr("cx", newX).attr("cy", newY)
+                    .style("fill", "#FDFFB9")
 
                 newX = newX + spacing + radius * 2;
                 colCount++;
@@ -753,6 +858,13 @@
 
             })
 
+        
+
+        d3.select(".legend1").style("opacity", 0);
+        d3.select(".legend2").style("opacity", 0);
+        d3.select(".legend3").style("opacity", 0);
+
+
         // move bar Numebrs
         d3.select(".barNumbersOne").transition().duration(transition).attr("x", startPositions[0]).style("text-anchor", "start");
         d3.select(".barNumbersTwo").transition().duration(transition).attr("x", startPositions[11]).style("text-anchor", "start");
@@ -761,6 +873,8 @@
         for (var x = 2; x < 12; x++) {
             svg.selectAll(".grade" + x).transition().delay(500).duration(transition).style("opacity", 1);
         }
+
+        slide6reverse = true; 
 
     }
 
@@ -792,6 +906,10 @@
                     .attr("cx", function () { 
                         curX - xDiff > lineX ? lineX = curX - xDiff : lineX = lineX;
                         curY < lineY ? lineY = curY : lineY = lineY;
+                        slide9passed.push({
+                            x: curX - xDiff,
+                            y: curY
+                        })
                         return curX - xDiff; 
                     })
             })
@@ -803,6 +921,30 @@
 
         moveBarNumber(".barNo13", xDiff);
 
+    if(!slide7reverse) {
+
+    var legend = svg.append("g").attr("class", "legend2");
+
+    legend.append("rect")
+        .attr("x", 50)
+        .attr("y", window.innerHeight / 3 + 40)
+        .attr("width", 10)
+        .attr("height", 10)
+        .style("fill","#fff")
+
+    legend.append("text")
+        .attr("x", 70)
+        .attr("y", window.innerHeight / 3 + 50)
+        .style("fill", "#fff")
+        .text("PASSED MATRIC")
+        .style("font-size", "75%")
+
+    }
+    else { 
+        d3.select(".legend2").style("opacity", 1);
+    }
+    
+console.log(slide9passed);
 
     }
 
@@ -830,7 +972,9 @@
         d3.select(".barNo13")
             .transition().duration(1000).attr("x", textPos).style("text-anchor", "middle").style("opacity", 0);
 
+        d3.select(".legend2").style("opacity", 0);
 
+        slide7reverse = true; 
     }
 
 
@@ -859,6 +1003,10 @@
                     .attr("cx", function () { 
                         curX - xDiff > lineX ? lineX = curX - xDiff : lineX = lineX;
                         curY < lineY ? lineY = curY : lineY = lineY;
+                        slide9university.push({ 
+                            x: curX - xDiff,
+                            y: curY
+                        })
                         return curX - xDiff; 
                     })
 
@@ -879,6 +1027,7 @@
         else { 
             percentLines.forEach( function (d, i) { 
                addPercentLines(d.x, d.y, i);
+               console.log(i);
             })
             pLinesExist = true;
         }
@@ -930,11 +1079,30 @@
     
                 });
 
-               
-              
+            if(!slide8reverse) {
+            var legend = svg.append("g").attr("class", "legend3");
+
+            legend.append("rect")
+                .attr("x", 50)
+                .attr("y", window.innerHeight / 3 + 60)
+                .attr("width", 10)
+                .attr("height", 10)
+                .style("fill","lightgreen")
+        
+            legend.append("text")
+                .attr("x", 70)
+                .attr("y", window.innerHeight / 3 + 70)
+                .style("fill", "lightgreen")
+                .text("GOT A UNIVERSITY ENTRANCE")
+                .style("font-size", "75%")  
+                
+            }
+            else { 
+                d3.select(".legend3").style("opacity", 1);
+            }
 
 
-  
+   // get all positions
 
     }
 
@@ -964,20 +1132,27 @@
         d3.select(".barNo14")
             .transition().duration(1000).attr("x", textPos).style("text-anchor", "middle").style("opacity", 0);
 
-        
+        d3.select(".legend3").style("opacity", 0);
 
-            console.log(slideEightMarkers);
-            
+            // console.log(slideEightMarkers);
+            slide8reverse = true;  
 
     }
 
 
     function slide_nine () { 
         
-        if(!slideNineRun) { 
+        // if(!slideNineRun) { 
+
+        d3.select(".legend1").style("opacity", 0);
+        d3.select(".legend2").style("opacity", 0);
+        d3.select(".legend3").style("opacity", 0);
+
 
         pLines.transition().duration(transition * 2).style("opacity", 0);
         d3.selectAll(".barNumbers").transition().duration(transition * 2).style("opacity", 0); 
+
+        
 
         d3.selectAll(".grade12")
             .transition()
@@ -996,6 +1171,9 @@
             .delay(randomInt(5, 500))
             .duration(transition)
             .style("opacity", 0)
+
+        d3.select(".graph-line")
+            .style("opacity", 0);
             
 
             // move markers
@@ -1022,28 +1200,84 @@
             slideNineRun = true;
 
 
-        }
-        else { 
-            d3.select(".summary-group")
-                .transition()
-                .duration(transition * 3)
-                .style("opacity", 1)
-        }
+        // }
+        // else { 
+        //     d3.select(".summary-group")
+        //         .transition()
+        //         .duration(transition * 3)
+        //         .style("opacity", 1)
+        // }
 
     }
 
     function slide_nine_reverse () { 
-        console.log("slide 9 reverse");
-        d3.select(".summary-group")
-            .transition()
-            .duration(transition * 3)
-            .style("opacity", 0);
+
+        console.log(slide9Grade12);
+
+        d3.select(".graph-line")
+        .style("opacity", 1);
+        
+        d3.selectAll(".grade1")
+            .each(function (d, i) { 
+
+                d3.select(this).transition().duration(1000)
+                    .attr("cx", slide9Grade1[i].x)
+                    .attr("cy", slide9Grade1[i].y)
+
+
+            })
+
+            // d3.selectAll(".grade12")
+            // .each(function (d, i) { 
+
+            //     d3.select(this).transition().duration(1000)
+            //         .attr("cx", slide9Grade12[i].x)
+            //         .attr("cy", slide9Grade12[i].y)
+            //         .style("opacity", 1)
+
+
+            // })
+
+            // d3.selectAll(".grade13")
+            // .each(function (d, i) { 
+
+            //     d3.select(this).transition().duration(1000)
+            //         .attr("cx", slide9passed[i].x)
+            //         .attr("cy", slide9passed[i].y)
+            //         .style("opacity", 1)
+
+
+            // })
+
+            // d3.selectAll(".grade14")
+            // .each(function (d, i) { 
+
+            //     d3.select(this).transition().duration(1000)
+            //         .attr("cx", slide9university[i].x)
+            //         .attr("cy", slide9university[i].y)
+            //         .style("opacity", 1)
+
+
+            // })
+
+            d3.selectAll(".grade12").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade13").transition().duration(1000).style("opacity", 1);
+            d3.selectAll(".grade14").transition().duration(1000).style("opacity", 1);
+            pLines.transition().duration(transition * 2).style("opacity", 1);
+            d3.selectAll(".barNo1").transition().duration(transition * 2).style("opacity", 1);
+            d3.selectAll(".barNo12").transition().duration(transition * 2).style("opacity", 1);
+            d3.selectAll(".barNo13").transition().duration(transition * 2).style("opacity", 1);
+            d3.selectAll(".barNo14").transition().duration(transition * 2).style("opacity", 1);
+            d3.select(".legend1").transition().duration(1000).style("opacity", 1)
+            d3.select(".legend2").transition().duration(1000).style("opacity", 1)
+            d3.select(".legend3").transition().duration(1000).style("opacity", 1)
+
     }
 
 
 
     function addPercentLines (x, y, i) { 
-        console.log(x + " - " + y);
+        console.log(x + " - " + y + " - " + i + " - " + percentages[i]);
 
         pLines.append("line")
         .attr("x1", x)
@@ -1056,11 +1290,11 @@
         .style("stroke-dasharray", "3, 3")
         .transition()
         .duration(transition * 3)
-        .attr("x2", percentLines[3].x + 50);
+        .attr("x2", percentLines[3].x + 40);
 
         pLines.append("text")
-            .attr("x", percentLines[3].x + 60)
-            .attr("y", y + 10)
+            .attr("x", percentLines[3].x + 45)
+            .attr("y", y)
             .text(percentages[i] + "%")
             .style("font-size", "80%")
     
