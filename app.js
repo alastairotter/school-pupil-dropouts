@@ -340,8 +340,6 @@
         slideFourteenDone = false;
 
 //////////////////////////////////////////////////////////// SCROLLAMA
-
-        
     
         function handleStepEnter (response) {
            
