@@ -3,6 +3,13 @@
 (function loadScript () {
     'use strict';
 
+
+    var windowWidth = window.outerWidth, 
+        windowHeight = window.outerHeight;
+    console.log(windowWidth, windowHeight);
+    
+
+
    
 
     // for reverse
@@ -49,7 +56,21 @@
         ignoreTrigger = true, 
         debug = false, 
         circlesAdded = false, 
-        circlesReady = false;
+        circlesReady = false,
+        mobile = false;
+
+    // mobile
+    if(windowWidth < 651) { 
+        width = window.outerWidth - 50,
+        height = window.outerHeight - 50,
+        gradeBuckets = 7000,
+        radius = 2,
+        spacing = 1.3, 
+        colLimit = 7,
+        mobile = true; 
+
+    }
+
 
     const scroller = scrollama();
 
@@ -102,6 +123,11 @@
         console.log(testData);
         console.log(d3.selectAll(".grade1").size());
 
+        var dWidth = 50 * 6 + (49 * spacing);
+        console.log(dWidth);
+        if(mobile) { var origX = xx = (width - dWidth) / 3; }
+        else { var origX = xx = (width - dWidth) / 2; }
+
         d3.selectAll(".grade1")
             .each(function (d, i) {
                 d3.select(this)
@@ -112,9 +138,12 @@
                         return randomInt(50, 500);
                     })
                     .style("opacity", 1)
+
+                // calculate width of display
+                
                     
 
-                colc > 50 ? (xx = 200, yy += 9, colc = 0) : (xx += 8.7, colc++);
+                colc > 50 ? (xx = origX, yy += 9, colc = 0) : (xx += 8.7, colc++);
 
             })
 
@@ -1192,18 +1221,16 @@ console.log(slide9passed);
 
 
     function slide_nine () { 
+        var chartRad;
+        mobile ? chartRad = 8 : chartRad = 12;
         
-        // if(!slideNineRun) { 
 
         d3.select(".legend1").style("opacity", 0);
         d3.select(".legend2").style("opacity", 0);
         d3.select(".legend3").style("opacity", 0);
 
-
         pLines.transition().duration(transition * 2).style("opacity", 0);
         d3.selectAll(".barNumbers").transition().duration(transition * 2).style("opacity", 0); 
-
-        
 
         d3.selectAll(".grade12")
             .transition()
@@ -1237,12 +1264,13 @@ console.log(slide9passed);
                             .delay( randomInt(5, 500))
                             .duration(transition * 4)
                             .attr("cy", function () { 
-                                return height/2;
+                                if(mobile) { return height/3; }
+                                else { return height/2; }
                             })
                             .attr("cx", function () { 
                                 return i * (radius * 2) + spacing;
                             })
-                            .attr("r", 12)
+                            .attr("r", chartRad)
                             .style("opacity", function (){ 
                                 if(i < 100) { return 1; }
                                 else { return 0; }
@@ -1256,14 +1284,6 @@ console.log(slide9passed);
 
             slideNineRun = true;
 
-
-        // }
-        // else { 
-        //     d3.select(".summary-group")
-        //         .transition()
-        //         .duration(transition * 3)
-        //         .style("opacity", 1)
-        // }
 
     }
 
@@ -1304,7 +1324,15 @@ console.log(slide9passed);
     }
 
     function slide_eleven () { 
-
+       
+        if(mobile) { 
+            var rectW = 8;
+            var labelOffset = 18 
+         }
+         else { 
+            var rectW = 12;
+            labelOffset = 25;
+         }
         
         var curY = d3.select(".grade1").attr("cy");
 
@@ -1334,10 +1362,10 @@ console.log(slide9passed);
         var labels = svg.append("g").attr("class", "label-holder");
 
         labels.append("rect").attr("class", "rect1")
-            .attr("x", rectX - 24)
-            .attr("y", curY - 12)
-            .attr("width", 24)
-            .attr("height", 24)
+            .attr("x", rectX - rectW * 2)
+            .attr("y", curY - rectW)
+            .attr("width", rectW * 2)
+            .attr("height", rectW * 2)
             .style('fill', "#FDFFB9")
 
         // add text
@@ -1346,7 +1374,7 @@ console.log(slide9passed);
 
         labels.append("text")
             .attr("x", 10)
-            .attr("y", +curY - 30)
+            .attr("y", +curY - labelOffset)
             .text("60% of youth employed")
             .style("fill", "#fff")
             .style("font-size", "90%")
@@ -1358,7 +1386,7 @@ console.log(slide9passed);
 
         labels.append("text")
             .attr("x", +rectX + 20)
-            .attr("y", +curY  - 30)
+            .attr("y", +curY  - labelOffset)
             .text("40% of youth unemployed")
             .style("fill", "#fff")
             .style("font-size", "90%")
@@ -1387,6 +1415,21 @@ function slide_eleven_reverse () {
 }
 
 function slide_twelve() { 
+
+    if(mobile) { 
+        var rectW = 8;
+        var rectOffset = 40;
+        var labelOffset = 30 ;
+        var circleY = 48;
+     }
+     else { 
+        var rectW = 12;
+        var rectOffset = 58;
+        var labelOffset = 48;
+        var circleY = 70;
+     }
+
+
     if(!slideTwelveDone) {
     var prevR = d3.select(".grade1").attr("r"),
         prevY = d3.select(".grade1").attr("cy");
@@ -1405,7 +1448,7 @@ function slide_twelve() {
                 return c * (radius * 2) + spacing;
                 
             })
-            .attr("cy", +prevY + 70)
+            .attr("cy", +prevY + circleY)
             .attr("r", prevR)
             .style("fill", function () { 
                 if(c < 87 ) { return "#FDFFB9"; }
@@ -1420,16 +1463,16 @@ function slide_twelve() {
 
     endBarTwo.append("rect")
         .attrs({
-            "x": +rectX - 20,
-            "y": +prevY + 58,
-            "width": 24,
-            "height": 24 })
+            "x": +rectX - rectW,
+            "y": +prevY + rectOffset,
+            "width": rectW * 2,
+            "height": rectW * 2 })
             .style("fill", "#FDFFB9" )
 
 
     endBarTwo.append("text")
                 .attr("x", 10)
-                .attr("y", +prevY + 40)
+                .attr("y", +prevY + labelOffset)
                 .text("Graduates employed")
                 .style("fill", "#fff")
                 .style("font-size", "90%")
@@ -1452,6 +1495,19 @@ function slide_twelve_reverse ()  {
 
 function slide_thirteen() { 
 
+    if(mobile) { 
+        var rectW = 8;
+        var rectOffset = 86;
+        var labelOffset = 78 ;
+        var circleY = 94;
+     }
+     else { 
+        var rectW = 12;
+        var rectOffset = 128;
+        var labelOffset = 115;
+        var circleY = 140;
+     }
+
     if(!slideThirteenDone) { 
     var prevR = d3.select(".grade1").attr("r"),
         prevY = d3.select(".grade1").attr("cy");
@@ -1465,7 +1521,7 @@ function slide_thirteen() {
                 return c * (radius * 2) + spacing;
                 
             })
-            .attr("cy", +prevY + 140)
+            .attr("cy", +prevY + circleY)
             .attr("r", prevR)
             .style("fill", function () { 
                 if(c < 66 ) { return "#FDFFB9"; }
@@ -1479,10 +1535,10 @@ function slide_thirteen() {
     var rectX = d3.select(".circle3:nth-child(65)").attr("cx");
     endBarTwo.append("rect")
         .attrs({
-            width: 24,
-            height: 24,
-            x: +rectX - 20,
-            y: +prevY + 128
+            width: rectW * 2,
+            height: rectW * 2,
+            x: +rectX - rectW,
+            y: +prevY + rectOffset
         })
         .style("fill", "#FDFFB9")
         
@@ -1492,7 +1548,7 @@ function slide_thirteen() {
     
             endBarTwo.append("text")
                 .attr("x", 10)
-                .attr("y", +prevY + 110)
+                .attr("y", +prevY + labelOffset)
                 .text("Matric certification employed")
                 .style("fill", "#fff")
                 .style("font-size", "90%")
@@ -1519,6 +1575,19 @@ function slide_thirteen_reverse () {
 
 function slide_fourteen() { 
 
+    if(mobile) { 
+        var rectW = 8;
+        var rectOffset = 132;
+        var labelOffset = 125 ;
+        var circleY = 140;
+     }
+     else { 
+        var rectW = 12;
+        var rectOffset = 128;
+        var labelOffset = 185;
+        var circleY = 210;
+     }
+
     if(!slideFourteenDone) { 
     var prevR = d3.select(".grade1").attr("r"),
         prevY = d3.select(".grade1").attr("cy");
@@ -1532,7 +1601,7 @@ function slide_fourteen() {
                 return c * (radius * 2) + spacing;
                 
             })
-            .attr("cy", +prevY + 210)
+            .attr("cy", +prevY + circleY)
             .attr("r", prevR)
             .style("fill", function () { 
                 if(c < 55 ) { return "#FDFFB9"; }
@@ -1545,10 +1614,10 @@ function slide_fourteen() {
     var rectX = d3.select(".circle4:nth-child(54)").attr("cx");
     endBarTwo.append("rect")
         .attrs({ 
-            x: +rectX - 20,
-            y: +prevY + 198,
-            width: 24,
-            height: 24
+            x: +rectX - rectW,
+            y: +prevY + rectOffset,
+            width: rectW * 2,
+            height: rectW * 2
         })
         .style("fill", "#FDFFB9")
 
@@ -1557,7 +1626,7 @@ function slide_fourteen() {
     
         endBarTwo.append("text")
             .attr("x", 10)
-            .attr("y", +prevY + 180)
+            .attr("y", +prevY + labelOffset)
             .text("No matric certificate")
             .style("fill", "#fff")
             .style("font-size", "90%")
