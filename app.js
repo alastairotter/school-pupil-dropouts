@@ -1280,6 +1280,9 @@ console.log(slide9passed);
                 d3.select(this).transition().duration(1000)
                     .attr("cx", slide9Grade1[i].x)
                     .attr("cy", slide9Grade1[i].y)
+                    .attr("r", radius)
+                    .style("opacity",1)
+                    .style("fill", "#FDFFB9")
 
 
             })
