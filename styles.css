@@ -227,3 +227,50 @@ circle {
 #slide-five { 
     min-height: 180vh;
 }
+
+
+
+
+
+
+
+@media only screen and (max-width: 650px) {
+    #slides { 
+        /* background: red; */
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto; 
+        min-height: 60vh;
+        /* background: #eee; */
+        padding: 0;
+    }
+    .slide-title { 
+        width: 90%;
+        padding: 5%;
+        font-size: 150%;
+    }
+    .slide { 
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        /* background: green; */
+        padding: 0;
+        margin: 0;
+        font-size: 90%;
+    }
+
+    .slide-inner { 
+        width: 90%;
+        margin: 0;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 90%;
+        
+        
+    }
+
+    #chart { 
+        /* background: Red; */
+    }
+
+}
