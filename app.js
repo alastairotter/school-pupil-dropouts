@@ -3,13 +3,16 @@
 (function loadScript () {
     'use strict';
 
+   
+
     // for reverse
     var startPositions = [],
         slide4reverse = false,
         slide5reverse = false,
         slide6reverse = false,
         slide7reverse = false,
-        slide8reverse = false; 
+        slide8reverse = false,
+        slide11reverse = false; 
 
 
     var slide9Grade1 = [],
@@ -308,7 +311,11 @@
         slideSixDone = false,
         slideSevenDone = false,
         slideEightDone = false,
-        slideNineDone = false;
+        slideNineDone = false,
+        slideElevenDone = false,
+        slideTwelveDone = false,
+        slideThirteenDone = false,
+        slideFourteenDone = false;
 
 //////////////////////////////////////////////////////////// SCROLLAMA
 
@@ -444,6 +451,50 @@
                         slideNineDone = true; 
                         slide_nine();
                     }
+                    break; 
+
+                case 'slide10':
+                    if(response.direction === "up") { 
+                        slide_eleven_reverse()
+                    }
+                    break;
+                
+                case 'slide11': 
+                    if(response.direction === "down") { 
+                        slide_eleven();
+                    }
+                    else { 
+                        slide_twelve_reverse();
+                    }
+                    break; 
+
+                case 'slide12': 
+                    if(response.direction === "down") {
+                        
+                        slide_twelve(); 
+                    }
+                    else { 
+                        slide_thirteen_reverse();
+                    }
+                    break; 
+
+                case 'slide13': 
+                    if(response.direction === "down") { 
+                        
+                        slide_thirteen();
+                    }
+                    else { 
+                        slide_fourteen_reverse();
+                    }
+                    break;
+
+                case 'slide14': 
+                    if(response.direction === "down") { 
+                        
+                        slide_fourteen();
+                        
+                    }
+                    break;
 
             }
         }
@@ -1191,6 +1242,12 @@ console.log(slide9passed);
                             .attr("cx", function () { 
                                 return i * (radius * 2) + spacing;
                             })
+                            .attr("r", 12)
+                            .style("opacity", function (){ 
+                                if(i < 100) { return 1; }
+                                else { return 0; }
+                            })
+                            .style("fill", "#31D5E8")
                             
                 })
 
@@ -1223,42 +1280,14 @@ console.log(slide9passed);
                 d3.select(this).transition().duration(1000)
                     .attr("cx", slide9Grade1[i].x)
                     .attr("cy", slide9Grade1[i].y)
+                    .attr("r", radius)
+                    .style("opacity",1)
+                    .style("fill", "#FDFFB9")
 
 
             })
 
-            // d3.selectAll(".grade12")
-            // .each(function (d, i) { 
-
-            //     d3.select(this).transition().duration(1000)
-            //         .attr("cx", slide9Grade12[i].x)
-            //         .attr("cy", slide9Grade12[i].y)
-            //         .style("opacity", 1)
-
-
-            // })
-
-            // d3.selectAll(".grade13")
-            // .each(function (d, i) { 
-
-            //     d3.select(this).transition().duration(1000)
-            //         .attr("cx", slide9passed[i].x)
-            //         .attr("cy", slide9passed[i].y)
-            //         .style("opacity", 1)
-
-
-            // })
-
-            // d3.selectAll(".grade14")
-            // .each(function (d, i) { 
-
-            //     d3.select(this).transition().duration(1000)
-            //         .attr("cx", slide9university[i].x)
-            //         .attr("cy", slide9university[i].y)
-            //         .style("opacity", 1)
-
-
-            // })
+          
 
             d3.selectAll(".grade12").transition().duration(1000).style("opacity", 1);
             d3.selectAll(".grade13").transition().duration(1000).style("opacity", 1);
@@ -1273,6 +1302,286 @@ console.log(slide9passed);
             d3.select(".legend3").transition().duration(1000).style("opacity", 1)
 
     }
+
+    function slide_eleven () { 
+
+        
+        var curY = d3.select(".grade1").attr("cy");
+
+        var rectX;
+
+        d3.selectAll(".grade1")
+            .each( function (d, i) { 
+
+                // get position for rect
+                if(i === 59) { 
+                    rectX = d3.select(this).attr("cx");
+                }
+
+                d3.select(this)
+                    .transition()
+                    .duration( randomInt(50, 500) )
+                    .style("fill", function () { 
+                        if(i < 60) { return "#FDFFB9"; }
+                        else { return "#31D5E8"; }
+                    })
+
+            })
+
+        if(!slideElevenDone) {
+
+        // add rect
+        var labels = svg.append("g").attr("class", "label-holder");
+
+        labels.append("rect").attr("class", "rect1")
+            .attr("x", rectX - 24)
+            .attr("y", curY - 12)
+            .attr("width", 24)
+            .attr("height", 24)
+            .style('fill', "#FDFFB9")
+
+        // add text
+
+        // var labels = svg.append("g").attr("class", "end-bar-labels");
+
+        labels.append("text")
+            .attr("x", 10)
+            .attr("y", +curY - 30)
+            .text("60% of youth employed")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+            
+
+        labels.append("text")
+            .attr("x", +rectX + 20)
+            .attr("y", +curY  - 30)
+            .text("40% of youth unemployed")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+
+        }
+        else { 
+            d3.select(".label-holder").transition().duration(1000).style("opacity", 1);
+        }
+            
+            
+slideElevenDone = true;
+
+    }
+
+function slide_eleven_reverse () { 
+    d3.select(".label-holder").transition().duration(1000).style("opacity", 0);
+
+    d3.selectAll(".grade1")
+        .transition()
+        .duration(1000)
+        .style("fill", "#31D5E8")
+}
+
+function slide_twelve() { 
+    if(!slideTwelveDone) {
+    var prevR = d3.select(".grade1").attr("r"),
+        prevY = d3.select(".grade1").attr("cy");
+        c
+        
+       
+        
+        
+
+    var endBarTwo = svg.append("g").attr("class", "end-bar-two");
+
+    for(var c = 0; c < 100; c++) { 
+        endBarTwo.append("circle")
+            .attr("class", "circle2")
+            .attr("cx", function () { 
+                return c * (radius * 2) + spacing;
+                
+            })
+            .attr("cy", +prevY + 70)
+            .attr("r", prevR)
+            .style("fill", function () { 
+                if(c < 87 ) { return "#FDFFB9"; }
+                else { return "#31D5E8"; }
+
+            })
+          
+    }
+
+    // get rectX
+    var rectX = d3.selectAll(".circle2:nth-child(86)").attr("cx");
+
+    endBarTwo.append("rect")
+        .attrs({
+            "x": +rectX - 20,
+            "y": +prevY + 58,
+            "width": 24,
+            "height": 24 })
+            .style("fill", "#FDFFB9" )
+
+
+    endBarTwo.append("text")
+                .attr("x", 10)
+                .attr("y", +prevY + 40)
+                .text("Graduates employed")
+                .style("fill", "#fff")
+                .style("font-size", "90%")
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .style("opacity", 1)
+                
+        }
+        else { 
+            d3.select(".end-bar-two").transition().duration(1000).style("opacity", 1);
+        }
+        slideTwelveDone = true;
+}
+
+function slide_twelve_reverse ()  { 
+    d3.select(".end-bar-two").transition().duration(1000).style("opacity", 0);
+
+}
+
+function slide_thirteen() { 
+
+    if(!slideThirteenDone) { 
+    var prevR = d3.select(".grade1").attr("r"),
+        prevY = d3.select(".grade1").attr("cy");
+        
+    var endBarTwo = svg.append("g").attr("class", "end-bar-three");
+
+    for(var c = 0; c < 100; c++) { 
+        endBarTwo.append("circle")
+            .attr("class", "circle3")
+            .attr("cx", function () { 
+                return c * (radius * 2) + spacing;
+                
+            })
+            .attr("cy", +prevY + 140)
+            .attr("r", prevR)
+            .style("fill", function () { 
+                if(c < 66 ) { return "#FDFFB9"; }
+                else { return "#31D5E8"; }
+
+            })
+           
+    }
+
+    // rect
+    var rectX = d3.select(".circle3:nth-child(65)").attr("cx");
+    endBarTwo.append("rect")
+        .attrs({
+            width: 24,
+            height: 24,
+            x: +rectX - 20,
+            y: +prevY + 128
+        })
+        .style("fill", "#FDFFB9")
+        
+
+
+    
+    
+            endBarTwo.append("text")
+                .attr("x", 10)
+                .attr("y", +prevY + 110)
+                .text("Matric certification employed")
+                .style("fill", "#fff")
+                .style("font-size", "90%")
+                .style("opacity", 0)
+                .transition()
+                .duration(1000)
+                .style("opacity", 1)
+
+    }
+    else { 
+
+        d3.select(".end-bar-three").transition().duration(1000).style("opacity", 1);
+
+
+    }
+
+    slideThirteenDone = true;
+
+}
+
+function slide_thirteen_reverse () { 
+    d3.select(".end-bar-three").transition().duration(1000).style("opacity", 0);
+}
+
+function slide_fourteen() { 
+
+    if(!slideFourteenDone) { 
+    var prevR = d3.select(".grade1").attr("r"),
+        prevY = d3.select(".grade1").attr("cy");
+    
+    var endBarTwo = svg.append("g").attr("class", "end-bar-four");
+
+    for(var c = 0; c < 100; c++) { 
+        endBarTwo.append("circle")
+            .attr("class", "circle4")
+            .attr("cx", function () { 
+                return c * (radius * 2) + spacing;
+                
+            })
+            .attr("cy", +prevY + 210)
+            .attr("r", prevR)
+            .style("fill", function () { 
+                if(c < 55 ) { return "#FDFFB9"; }
+                else { return "#31D5E8"; }
+
+            })
+            
+    }
+
+    var rectX = d3.select(".circle4:nth-child(54)").attr("cx");
+    endBarTwo.append("rect")
+        .attrs({ 
+            x: +rectX - 20,
+            y: +prevY + 198,
+            width: 24,
+            height: 24
+        })
+        .style("fill", "#FDFFB9")
+
+
+    // var labels = svg.append("g").attr("class", "end-bar-labels3");
+    
+        endBarTwo.append("text")
+            .attr("x", 10)
+            .attr("y", +prevY + 180)
+            .text("No matric certificate")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+
+    }
+    else { 
+
+        d3.select(".end-bar-four").transition().duration(1000).style("opacity",1);
+
+
+    }
+
+    slideFourteenDone = true;
+
+}
+
+function slide_fourteen_reverse () { 
+    
+    d3.select(".end-bar-four").transition().duration(1000).style("opacity", 0)
+}
 
 
 
