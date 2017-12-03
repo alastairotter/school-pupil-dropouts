@@ -71,10 +71,9 @@
 
     }
 
+    var percentages = [ 55, 100, 37, 13 ];
 
     const scroller = scrollama();
-
-    var percentages = [ 55, 100, 37, 13 ];
 
     d3.select("#chart")
         .style("width", width + padding * 2 + "px")
@@ -139,10 +138,6 @@
                     })
                     .style("opacity", 1)
 
-                // calculate width of display
-                
-                    
-
                 colc > 50 ? (xx = origX, yy += 9, colc = 0) : (xx += 8.7, colc++);
 
             })
@@ -150,8 +145,6 @@
     }
 
     function spreadCirclesReverse() {
-
-        console.log("got here as well");
 
         var xx = 200,
             yy = height / 4 * 3,
