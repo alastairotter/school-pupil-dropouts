@@ -73,6 +73,12 @@
 
     var percentages = [ 55, 100, 37, 13 ];
 
+    var employment = {
+        graduates: 87,
+        matric: 66,
+        noMatric: 55
+    }
+
     const scroller = scrollama();
 
     d3.select("#chart")
@@ -513,6 +519,37 @@
                         
                         slide_fourteen();
                         
+                    }
+                    break;
+
+                case 'slide15': 
+                    if(response.direction === "down") { 
+                        
+                        slide_fifteen();
+                        
+                    }
+                    break;
+               
+                case 'slide16': 
+                    if(response.direction === "down") { 
+                        slide_sixteen();
+                    }
+                    break;
+
+                case 'slide17': 
+                    if(response.direction === "down") { 
+                        slide_seventeen();
+                    }
+                    break;
+                case 'slide18': 
+                    if(response.direction === "down") { 
+                        slide_eighteen();
+                    }
+                    break;
+
+                case 'slide19': 
+                    if(response.direction === "down") { 
+                        slide_nineteen();
                     }
                     break;
 
@@ -1669,9 +1706,364 @@ function slide_fourteen_reverse () {
     
     }
 
+var newCircles; 
+
+function slide_fifteen () { 
+
+    d3.select(".end-bar-two").transition().duration(500).style("opacity", 0);
+    d3.select(".end-bar-three").transition().duration(500).style("opacity", 0);
+    d3.select(".end-bar-four").transition().duration(500).style("opacity", 0);
+    d3.selectAll(".grade1").transition().duration(500).style("opacity", 0);
+    d3.select(".label-holder").transition().duration(500).style("opacity", 0);
+
+    // add 100 circles
+    newCircles = { 
+        radius: 7, 
+        startX: 0, 
+        startY: 0,
+        spacing: 5,
+        cols: 10,
+        rows: 10,
+        curX: 0, 
+        curY: height - 30,
+        col: 0,
+        row: 0
+    }
+
+    newCircles.startX = newCircles.curX = width/2 - (newCircles.cols / 2 * (newCircles.radius * 2 + newCircles.spacing));
+
+
+    var oneHundred = svg.append("g").attr("class", "one-hundred");
+
+    for(var c = 0; c < 100; c++) { 
+        oneHundred.append("circle")
+            .attrs({
+                cx: newCircles.curX,
+                cy: newCircles.curY,
+                r: newCircles.radius,
+                class: "the-hundred"
+            })
+            .style("fill", "none")
+            .style("stroke", "#fff")
+            .style("stroke-width", 2)
+            .style("opacity", 0)
+            .transition()
+            .delay( randomInt(50, 800))
+            .style("opacity", 1)
+
+        if(newCircles.col < newCircles.cols - 1) { 
+            newCircles.col++; 
+            newCircles.curX += (newCircles.radius * 2) + newCircles.spacing; }
+        else { 
+            newCircles.col = 0;
+            newCircles.row++; 
+            newCircles.curX = newCircles.startX; 
+            newCircles.curY -= (newCircles.radius * 2) + newCircles.spacing; 
+            }
+
+        console.log("col", newCircles.col, newCircles.curX, newCircles.curY);        
+    }
+
+    // oneHundred.append("circle")
+    //     .attr("cx", newCircles.startX)
+    //     .attr("cy", height - 30)
+    //     .attr("r", newCircles.radius)
+    //     .style("fill", "red")
+
+}
+
+var block2x; 
+
+function slide_sixteen () { 
+
+    var groupWidth = newCircles.cols * ((newCircles.radius * 2) + newCircles.spacing);
+
+    var yStart = d3.select(".the-hundred:nth-child(50)").attr("cy");
+    var yDiff = height - 10 - yStart;
+
+    
+    
+    d3.selectAll(".the-hundred")
+        .each( function (d, i) { 
+             var color = d3.select(this).style("stroke");
+             var curX = d3.select(this).attr("cx");
+             var curY = d3.select(this).attr("cy");
+             
+              
+                d3.select(this)
+                    .attr("class", function () { 
+                        if(i < 50 ) return "block2";
+                        else return "block1";
+                    })
+                    .transition()
+                    .delay( randomInt( 50, 500))
+                    .duration( function () { 
+                        return 400;
+                    }) 
+                    
+                    .style("stroke", function ()  { 
+                        if(i < 50) return "#FDFFB9"; 
+                        else return color;
+                        
+                    })
+                    .attr("cx", function () { 
+                        if(i > 49) { 
+                            return (+curX - groupWidth / 2) - 20;
+                        }
+                        else { return (+curX + groupWidth / 2 ) + 20; }
+                    })
+                    .attr("cy", function () { 
+                        if(i > 49) { 
+                            
+                            return +curY + yDiff;
+                        }
+                        else { return +curY; }
+                    })
+                    
+                    
+            
+
+
+        })
+
+
+        // ADD LABELS BLOCK1
+       setTimeout( function () {
+      
+        var pos = getBlockPoints(".block1");
+
+        var labels = svg.append("g").attr("class", "l1");
+        
+        labels.append("text")
+            .attr("x", pos.left - newCircles.radius)
+            .attr("y", pos.top - 30)
+            .text("Failed to reach grade 12")
+            .style("fill", "#13D0E8")
+            .style("stroke", "none")
+            .style("text-anchor", "start")
+            .style("text-transform", "uppercase")
+            .style("font-size", "90%")
+       
+
+
+        }, 1000);
+
+         // ADD LABELS BLOCK2
+       setTimeout( function () {
+   
+
+    var pos = getBlockPoints(".block2");
+
+    var labels = svg.append("g").attr("class", "l2");
+    
+    labels.append("text")
+        .attr("x", pos.left - newCircles.radius)
+        .attr("y", pos.top - 30 )
+        .text("Started Grade 12")
+        .style("fill", "#13D0E8")
+        .style("stroke", "none")
+        .style("text-anchor", "start")
+        .style("text-transform", "uppercase")
+        .style("font-size", "90%")
+
+
+    }, 1000);
+        
+
+
+        
+
+
+}
+
+function slide_seventeen () { 
+
+    var pos = getBlockPoints(".block1");
+    var col = 0; 
+    var incr = newCircles.radius * 2 + newCircles.spacing;
+    var curX = +pos.left; 
+    var curY = +pos.top - 80;
+
+    d3.selectAll(".block2")
+        .each( function (d, i) { 
+           
+
+
+            if(i > 50 - 35 && i < 50) { 
+                d3.select(this)
+                    .attr("class", "block3")
+                    .transition()
+                    .delay( randomInt(50, 500))
+                    .duration(500)
+                    .attr("cx", curX)
+                    .attr("cy", curY)
+                    .style("stroke", "lightpink")
+
+                    
+                    
+
+                    if(col < 9) { col++; curX += incr; }
+                    else { col = 0; curX = +pos.left; curY -= incr; }
+
+            }
+               
+            
+
+        })
+
+        
+       
+
+        
+        setTimeout( function () { 
+            var pos = getBlockPoints(".block3");
+            var posTarget = getBlockPoints(".block1");
+
+            var labels = svg.append("g").attr("class", "l4");
+            
+            labels.append("text")
+                .attr("x", posTarget.left - newCircles.radius)
+                .attr("y", pos.top - 35 )
+                .text("Passed Matric")
+                .style("fill", "#13D0E8")
+                .style("stroke", "none")
+                .style("text-anchor", "start")
+                .style("text-transform", "uppercase")
+                .style("font-size", "90%")
+        
+
+        }, 500)
+
+}
+function slide_eighteen () { 
+
+    var points = getBlockPoints(".block3");
+    var pointsTarget = getBlockPoints(".block2");
+
+
+var col = 0,
+    curX = +pointsTarget.left,
+    curY = +points.bottom,
+    incr = newCircles.radius * 2 + newCircles.spacing;
+    
+    d3.selectAll(".block3")
+        .each( function (d, i) { 
+            
+            if(i > 21) { 
+                d3.select(this)
+                    .attr("class", "block4")
+                    .transition()
+                    .delay( randomInt(50,500))
+                    .style("stroke", "lawngreen")
+                    .attr("cx", curX)
+                    .attr("cy", curY)
+                   
+                if(col < 9) { curX += incr; col++; }
+                else { curX = +pointsTarget.left; curY -= incr; col = 0; }
+            }
+
+        })
+
+        setTimeout( function () { 
+            var pos = getBlockPoints(".block2"),
+                posTarget = getBlockPoints(".block3");
+
+            var labels = svg.append("g").attr("class", "l4");
+            
+            labels.append("text")
+                .attr("x", pos.left - newCircles.radius)
+                .attr("y", posTarget.top - 55 )
+                .text("University Pass")
+                .style("fill", "#13D0E8")
+                .style("stroke", "none")
+                .style("text-anchor", "start")
+                .style("text-transform", "uppercase")
+                .style("font-size", "90%")
+        
+
+        }, 500)
+
+}
+
+
+function slide_nineteen () { 
+
+    console.log(employment);
+    var nm = Math.floor(50 * (employment.noMatric/100));
+    console.log(nm);
+    d3.selectAll(".block1")
+        .each( function (d, i) { 
+            if( i < nm) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .style("fill", "#fff")
+                    // .style("stroke", "#000")
+            }
+
+        })
+
+    var nm = Math.floor(22 * (employment.matric/100));
+    console.log(nm);
+    d3.selectAll(".block3")
+        .each( function (d, i) { 
+            if( i < nm) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .style("fill", "lightpink")
+                    // .style("stroke", "#000")
+            }
+
+        })
+
+    var nm = Math.floor(12 * (employment.graduates/100));
+    console.log(nm);
+    d3.selectAll(".block4")
+        .each( function (d, i) { 
+            if( i < nm) {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .style("fill", "lawngreen")
+                    // .style("stroke", "#000")
+            }
+
+        })
+
+}
 
 
 
+
+///////
+function getBlockPoints (className) { 
+    var top = 10000,
+        bottom = 0,
+        left = 10000,
+        right = 0;
+
+    // var color = d3.select(className).style("stroke");
+
+    d3.selectAll(className)
+        .each( function (d, i) {
+            var x = d3.select(this).attr("cx")
+            if( x < left) left = x;
+            if( x > right) right = x;
+            
+            var y = d3.select(this).attr("cy");
+            if( y < top) top = y;
+            if( y > bottom) bottom = y;
+        });
+
+       return { 
+           top: top,
+           bottom: bottom,
+           left: left, 
+           right: right
+       } 
+
+}
 
 
 
