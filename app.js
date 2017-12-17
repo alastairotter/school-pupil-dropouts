@@ -1,8 +1,6 @@
 (function loadScript() {
     'use strict';
 
-   
-
     var windowWidth = window.outerWidth,
         windowHeight = window.outerHeight;
 
@@ -117,7 +115,7 @@
             yy = height / 4 * 3,
             colc = 0;
 
-        var testData = d3.range(0, 100);
+        // var testData = d3.range(0, 100);
 
         var dWidth = 50 * 6 + (49 * spacing);
 
@@ -359,7 +357,7 @@
                 }
             case 'slide2':
                 console.log('slide2');
-                
+
                 if (response.direction === "down") {
                     slideTwoDone = true;
                     spreadCircles();
@@ -376,7 +374,7 @@
 
             case 'slide3':
                 console.log('slide3');
-                
+
                 if (response.direction === "down") {
                     slideThreeDone = true;
                     slide_three()
@@ -390,7 +388,7 @@
 
             case 'slide4':
                 console.log('slide4');
-                
+
                 if (response.direction === "down") {
                     slideFourDone = true;
                     slide_four()
@@ -402,7 +400,7 @@
 
             case 'slide5':
                 console.log('slide5');
-                
+
                 if (response.direction === "down") {
                     slideFiveDone = true;
                     slide_five();
@@ -414,7 +412,7 @@
 
             case 'slide5-2':
                 console.log('slide5-2');
-                
+
                 if (response.direction === "down") {
                     slideFiveTwoDone = true;
                     slide_five_two();
@@ -423,7 +421,7 @@
 
             case 'slide5-3':
                 console.log('slide5-3');
-                
+
                 if (response.direction === "up") {
                     slideSixDone = true;
                     slide_six_reverse();
@@ -432,7 +430,7 @@
 
             case 'slide6':
                 console.log('slide6');
-            
+
                 if (response.direction === "down") {
                     slideSixDone = true;
                     slide_six();
@@ -444,7 +442,7 @@
 
             case 'slide7':
                 console.log('slide7');
-                
+
                 if (response.direction === "down") {
                     slideSevenDone = true;
                     slide_seven();
@@ -456,7 +454,7 @@
 
             case 'slide8':
                 console.log('slide8');
-                
+
                 if (response.direction === "down") {
                     slideEightDone = true;
                     slide_eight();
@@ -468,7 +466,7 @@
 
             case 'slide9':
                 console.log('slide9');
-                
+
                 if (response.direction === "down") {
                     slideNineDone = true;
                     slide_nine();
@@ -477,7 +475,7 @@
 
             case 'slide10':
                 console.log('slide10');
-                
+
                 if (response.direction === "up") {
                     slide_eleven_reverse()
                 }
@@ -485,7 +483,7 @@
 
             case 'slide11':
                 console.log('slide11');
-                
+
                 if (response.direction === "down") {
                     slide_eleven();
                 } else {
@@ -495,7 +493,7 @@
 
             case 'slide12':
                 console.log('slide12');
-                
+
                 if (response.direction === "down") {
 
                     slide_twelve();
@@ -506,7 +504,7 @@
 
             case 'slide13':
                 console.log('slide13');
-                
+
                 if (response.direction === "down") {
 
                     slide_thirteen();
@@ -517,7 +515,7 @@
 
             case 'slide14':
                 console.log('slide14');
-                
+
                 if (response.direction === "down") {
 
                     slide_fourteen();
@@ -527,7 +525,7 @@
 
             case 'slide15':
                 console.log('slide15');
-                
+
                 if (response.direction === "down") {
 
                     slide_fifteen();
@@ -537,7 +535,7 @@
 
             case 'slide16':
                 console.log('slide16');
-                
+
                 if (response.direction === "down") {
                     slide_sixteen();
                 }
@@ -545,14 +543,14 @@
 
             case 'slide17':
                 console.log('slide17');
-                
+
                 if (response.direction === "down") {
                     slide_seventeen();
                 }
                 break;
             case 'slide18':
                 console.log('slide18');
-                
+
                 if (response.direction === "down") {
                     slide_eighteen();
                 }
@@ -560,7 +558,7 @@
 
             case 'slide19':
                 console.log('slide19');
-                
+
                 if (response.direction === "down") {
                     slide_nineteen();
                 }
@@ -570,7 +568,7 @@
     }
 
     function slide_three() {
-               
+
         svg.append("line")
             .attr("x1", 0)
             .attr("x2", width - 100)
@@ -589,7 +587,7 @@
     }
 
     function slide_three_reverse() {
-    
+
         svg.selectAll("line")
             .transition()
             .duration(transition)
@@ -607,7 +605,7 @@
     }
 
     function slide_four() {
-        
+
         if (slide4reverse) {
             var selects = ".grade2group, .grade3group, .grade4group, .grade5group, .grade6group, .grade7group";
             svg.selectAll(selects).transition().duration(transition * 3).style("opacity", 1);
@@ -624,7 +622,7 @@
     }
 
     function slide_four_reverse() {
-        
+
         var selects = ".grade2group, .grade3group, .grade4group, .grade5group, .grade6group, .grade7group";
         svg.selectAll(selects).transition().duration(transition * 3).style("opacity", 0);
         d3.selectAll(".grade1").transition().duration(transition).style("fill", "#fffcbc").style("opacity", 1);
@@ -634,7 +632,7 @@
 
 
     function slide_five() {
-        
+
         if (slide5reverse) {
             var selects = ".grade8group, .grade9group, .grade10group, .grade11group, .grade12group";
             svg.selectAll(selects).transition().delay(randomInt(5, 500)).duration(transition).style("opacity", 1);
@@ -661,7 +659,7 @@
     }
 
     function slide_five_reverse() {
-        
+
         setTimeout(function () {
             var selects = ".grade1, .grade2, .grade3, .grade4, .grade5, .grade6, .grade7";
             d3.selectAll(selects).transition().duration(1000).style("opacity", 1);
@@ -674,21 +672,21 @@
     }
 
     function slide_five_two() {
-        
+
         var selects = ".grade8, .grade11, .grade12";
         d3.selectAll(selects).transition().duration(1000).style("opacity", 0.5);
 
     }
 
     function slide_five_two_reverse() {
-        
+
         var selects = ".grade8, .grade11, .grade12";
         d3.selectAll(selects).transition().duration(1000).style("opacity", 1);
 
     }
 
     function slide_six() {
-        
+
         var origX12 = d3.select(".grade12").attr("cx");
         var xDiff = origX12 - width / 2 + 40;
 
@@ -845,7 +843,7 @@
     }
 
     function slide_six_reverse() {
-        
+
         //move grade 1 to start
         var newX = 0;
         var newStartX = newX;
