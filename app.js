@@ -1,16 +1,8 @@
-
-
 (function loadScript () {
     'use strict';
 
-
     var windowWidth = window.outerWidth, 
-        windowHeight = window.outerHeight;
-    console.log(windowWidth, windowHeight);
-    
-
-
-   
+        windowHeight = window.outerHeight;  
 
     // for reverse
     var startPositions = [],
@@ -20,14 +12,12 @@
         slide7reverse = false,
         slide8reverse = false,
         slide11reverse = false; 
-
-
+    
+    // store positions
     var slide9Grade1 = [],
         slide9Grade12 = [],
         slide9passed = [],
         slide9university = [];
-
-        
 
     // config
     var width = 880,
@@ -125,11 +115,9 @@
             colc = 0;
 
         var testData = d3.range(0,100);
-        console.log(testData);
-        console.log(d3.selectAll(".grade1").size());
 
         var dWidth = 50 * 6 + (49 * spacing);
-        console.log(dWidth);
+    
         if(mobile) { var origX = xx = (width - dWidth) / 3; }
         else { var origX = xx = (width - dWidth) / 2; }
 
@@ -351,8 +339,7 @@
            
             var el = d3.select(response.element);
             var val = el.attr('data-step');
-            console.log(val);
-            
+                       
             switch (val) { 
                 case 'slide1': 
                    
@@ -1052,7 +1039,7 @@
         d3.select(".legend2").style("opacity", 1);
     }
     
-console.log(slide9passed);
+
 
     }
 
@@ -1135,7 +1122,7 @@ console.log(slide9passed);
         else { 
             percentLines.forEach( function (d, i) { 
                addPercentLines(d.x, d.y, i);
-               console.log(i);
+               
             })
             pLinesExist = true;
         }
@@ -1242,113 +1229,39 @@ console.log(slide9passed);
 
         d3.select(".legend3").style("opacity", 0);
 
-            // console.log(slideEightMarkers);
             slide8reverse = true;  
 
     }
 
 
     function slide_nine () { 
-        var chartRad;
-        mobile ? chartRad = 8 : chartRad = 12;
         
+        var selects = ".grade1, .grade12, .grade13, .grade14, .legend1, .legend2, .legend3, .graph-line, .barNumbers";
 
-        d3.select(".legend1").style("opacity", 0);
-        d3.select(".legend2").style("opacity", 0);
-        d3.select(".legend3").style("opacity", 0);
-
-        pLines.transition().duration(transition * 2).style("opacity", 0);
-        d3.selectAll(".barNumbers").transition().duration(transition * 2).style("opacity", 0); 
-
-        d3.selectAll(".grade12")
+        d3.selectAll(selects)
             .transition()
             .delay(randomInt(5, 500))
             .duration(transition)
-            .style("opacity", 0)
-
-        d3.selectAll(".grade13")
-            .transition()
-            .delay(randomInt(5, 500))
-            .duration(transition)
-            .style("opacity", 0)
-
-        d3.selectAll(".grade14")
-            .transition()
-            .delay(randomInt(5, 500))
-            .duration(transition)
-            .style("opacity", 0)
-
-        d3.select(".graph-line")
             .style("opacity", 0);
-            
 
-            // move markers
-            d3.selectAll(".grade1")
-                .each( function (d,i) { 
-                    // if(i < 5) { }
-                    // else { 
-                        d3.select(this)
-                            .transition()
-                            .delay( randomInt(5, 500))
-                            .duration(transition * 4)
-                            .attr("cy", function () { 
-                                if(mobile) { return height/3; }
-                                else { return height/2; }
-                            })
-                            .attr("cx", function () { 
-                                return i * (radius * 2) + spacing;
-                            })
-                            .attr("r", chartRad)
-                            .style("opacity", function (){ 
-                                if(i < 100) { return 1; }
-                                else { return 0; }
-                            })
-                            .style("fill", "#31D5E8")
-                            
-                })
-
-
+            pLines.transition().duration(transition * 2).style("opacity", 0);
            
-
             slideNineRun = true;
-
 
     }
 
     function slide_nine_reverse () { 
 
-        console.log(slide9Grade12);
+        var selects = ".graph-line, .grade1, .grade12, .grade13, .grade14, .barNo1, .barNo12, .barNo13, .barNo14, .legend1, .legend2, .legend3";
 
-        d3.select(".graph-line")
-        .style("opacity", 1);
-        
-        d3.selectAll(".grade1")
-            .each(function (d, i) { 
-
-                d3.select(this).transition().duration(1000)
-                    .attr("cx", slide9Grade1[i].x)
-                    .attr("cy", slide9Grade1[i].y)
-                    .attr("r", radius)
-                    .style("opacity",1)
-                    .style("fill", "#FDFFB9")
-
-
-            })
-
-          
-
-            d3.selectAll(".grade12").transition().duration(1000).style("opacity", 1);
-            d3.selectAll(".grade13").transition().duration(1000).style("opacity", 1);
-            d3.selectAll(".grade14").transition().duration(1000).style("opacity", 1);
-            pLines.transition().duration(transition * 2).style("opacity", 1);
-            d3.selectAll(".barNo1").transition().duration(transition * 2).style("opacity", 1);
-            d3.selectAll(".barNo12").transition().duration(transition * 2).style("opacity", 1);
-            d3.selectAll(".barNo13").transition().duration(transition * 2).style("opacity", 1);
-            d3.selectAll(".barNo14").transition().duration(transition * 2).style("opacity", 1);
-            d3.select(".legend1").transition().duration(1000).style("opacity", 1)
-            d3.select(".legend2").transition().duration(1000).style("opacity", 1)
-            d3.select(".legend3").transition().duration(1000).style("opacity", 1)
-
+        d3.selectAll(selects)
+            .transition()
+            .delay( randomInt(5, 500))
+            .duration(transition)
+            .style("opacity", 1);
+            
+        pLines.transition().duration(transition * 2).style("opacity", 1);
+       
     }
 
     function slide_eleven () { 
@@ -1683,7 +1596,6 @@ function slide_fourteen_reverse () {
 
 
     function addPercentLines (x, y, i) { 
-        console.log(x + " - " + y + " - " + i + " - " + percentages[i]);
 
         pLines.append("line")
         .attr("x1", x)
@@ -1760,15 +1672,10 @@ function slide_fifteen () {
             newCircles.curX = newCircles.startX; 
             newCircles.curY -= (newCircles.radius * 2) + newCircles.spacing; 
             }
-
-        console.log("col", newCircles.col, newCircles.curX, newCircles.curY);        
+       
     }
 
-    // oneHundred.append("circle")
-    //     .attr("cx", newCircles.startX)
-    //     .attr("cy", height - 30)
-    //     .attr("r", newCircles.radius)
-    //     .style("fill", "red")
+
 
 }
 
@@ -1776,49 +1683,81 @@ var block2x;
 
 function slide_sixteen () { 
 
-    var groupWidth = newCircles.cols * ((newCircles.radius * 2) + newCircles.spacing);
+    var curX = width / 2 - 50,
+        curY = height - 30,
+        col = 0,
+        incr = newCircles.radius * 2 + newCircles.spacing;
 
-    var yStart = d3.select(".the-hundred:nth-child(50)").attr("cy");
-    var yDiff = height - 10 - yStart;
+    var curX2 = width / 2 + 50,
+        curY2 = height - 30,
+        col2 = 0;
 
     
     
     d3.selectAll(".the-hundred")
         .each( function (d, i) { 
-             var color = d3.select(this).style("stroke");
-             var curX = d3.select(this).attr("cx");
-             var curY = d3.select(this).attr("cy");
+            //  var color = d3.select(this).style("stroke");
+            //  var curX = d3.select(this).attr("cx");
+            //  var curY = d3.select(this).attr("cy");
              
-              
-                d3.select(this)
-                    .attr("class", function () { 
-                        if(i < 50 ) return "block2";
-                        else return "block1";
-                    })
+
+             if(i < 50) { 
+                 d3.select(this)
+                    .attr("class", "block1")
                     .transition()
-                    .delay( randomInt( 50, 500))
-                    .duration( function () { 
-                        return 400;
-                    }) 
+                    .delay(randomInt(50, 500))
+                    .duration( 500)
+                    .attr("cx", curX)
+                    .attr("cy", curY)
+                    .style("stroke", "lightsteelblue")
+
+                    if(col < 7) { col++; curX -= incr; }
+                    else { col = 0; curY -= incr; curX = width / 2 - 50; }
+             }
+
+             if(i > 49) { 
+                d3.select(this)
+                    .attr("class", "block2")
+                   .transition()
+                   .delay(randomInt(50, 500))
+                   .duration( 500)
+                   .attr("cx", curX2)
+                   .attr("cy", curY2)
+                   .style("stroke", "#FDFFB9")
+
+                   if(col2 < 7) { col2++; curX2 += incr; }
+                   else { col2 = 0; curY2 -= incr; curX2 = width / 2 + 50; }
+            }
+              
+                // d3.select(this)
+                //     .attr("class", function () { 
+                //         if(i < 50 ) return "block2";
+                //         else return "block1";
+                //     })
+                //     .transition()
+                //     .delay( randomInt( 50, 500))
+                //     .duration( function () { 
+                //         return 400;
+                //     }) 
                     
-                    .style("stroke", function ()  { 
-                        if(i < 50) return "#FDFFB9"; 
-                        else return color;
+                //     .style("stroke", function ()  { 
+                //         if(i < 50) return "#FDFFB9"; 
+                //         else return "lightsteelblue";
                         
-                    })
-                    .attr("cx", function () { 
-                        if(i > 49) { 
-                            return (+curX - groupWidth / 2) - 20;
-                        }
-                        else { return (+curX + groupWidth / 2 ) + 20; }
-                    })
-                    .attr("cy", function () { 
-                        if(i > 49) { 
+                //     })
+                //     .attr("cx", function () { 
+                //         if(i > 49) { 
+                //             return (+curX - groupWidth / 2) - 20;
+                //         }
+                //         else { return (+curX + groupWidth / 2 ) + 20; }
+                //     })
+                //     .attr("cy", function () { 
+                //         if(i > 49) { 
                             
-                            return +curY + yDiff;
-                        }
-                        else { return +curY; }
-                    })
+                //             return +curY + yDiff;
+                //         }
+                //         else { return +curY; }
+                //     })
                     
                     
             
@@ -1836,9 +1775,9 @@ function slide_sixteen () {
         
         labels.append("text")
             .attr("x", pos.left - newCircles.radius)
-            .attr("y", pos.top - 30)
+            .attr("y", +pos.bottom + 30)
             .text("Failed to reach grade 12")
-            .style("fill", "#13D0E8")
+            .style("fill", "#fff")
             .style("stroke", "none")
             .style("text-anchor", "start")
             .style("text-transform", "uppercase")
@@ -1857,10 +1796,11 @@ function slide_sixteen () {
     var labels = svg.append("g").attr("class", "l2");
     
     labels.append("text")
+        .attr("class", "block2label")
         .attr("x", pos.left - newCircles.radius)
-        .attr("y", pos.top - 30 )
+        .attr("y", +pos.bottom + 30 )
         .text("Started Grade 12")
-        .style("fill", "#13D0E8")
+        .style("fill", "#fff")
         .style("stroke", "none")
         .style("text-anchor", "start")
         .style("text-transform", "uppercase")
@@ -1902,7 +1842,7 @@ function slide_seventeen () {
                     
                     
 
-                    if(col < 9) { col++; curX += incr; }
+                    if(col < 7) { col++; curX += incr; }
                     else { col = 0; curX = +pos.left; curY -= incr; }
 
             }
@@ -1910,6 +1850,9 @@ function slide_seventeen () {
             
 
         })
+
+        // change label on block 2
+        d3.select(".block2label").text("Failed grade 12")
 
         
        
@@ -1923,16 +1866,16 @@ function slide_seventeen () {
             
             labels.append("text")
                 .attr("x", posTarget.left - newCircles.radius)
-                .attr("y", pos.top - 35 )
-                .text("Passed Matric")
-                .style("fill", "#13D0E8")
+                .attr("y", +pos.bottom + 30 )
+                .text("Passed Grade 12")
+                .style("fill", "#fff")
                 .style("stroke", "none")
                 .style("text-anchor", "start")
                 .style("text-transform", "uppercase")
                 .style("font-size", "90%")
         
 
-        }, 500)
+        }, 1000)
 
 }
 function slide_eighteen () { 
@@ -1958,75 +1901,86 @@ var col = 0,
                     .attr("cx", curX)
                     .attr("cy", curY)
                    
-                if(col < 9) { curX += incr; col++; }
+                if(col < 7) { curX += incr; col++; }
                 else { curX = +pointsTarget.left; curY -= incr; col = 0; }
             }
 
         })
 
         setTimeout( function () { 
-            var pos = getBlockPoints(".block2"),
+            var pos = getBlockPoints(".block4"),
                 posTarget = getBlockPoints(".block3");
 
             var labels = svg.append("g").attr("class", "l4");
             
             labels.append("text")
                 .attr("x", pos.left - newCircles.radius)
-                .attr("y", posTarget.top - 55 )
+                .attr("y", +pos.bottom + 30 )
                 .text("University Pass")
-                .style("fill", "#13D0E8")
+                .style("fill", "#fff")
                 .style("stroke", "none")
                 .style("text-anchor", "start")
                 .style("text-transform", "uppercase")
                 .style("font-size", "90%")
         
 
-        }, 500)
+        }, 1000)
 
 }
 
 
 function slide_nineteen () { 
 
-    console.log(employment);
-    var nm = Math.floor(50 * (employment.noMatric/100));
-    console.log(nm);
+    var nm = Math.floor(55 * (employment.noMatric/100));
     d3.selectAll(".block1")
         .each( function (d, i) { 
             if( i < nm) {
                 d3.select(this)
                     .transition()
-                    .duration(500)
-                    .style("fill", "#fff")
+                    .duration(1000)
+                    .style("fill", "lightsteelblue")
                     // .style("stroke", "#000")
             }
 
         })
 
+    var nm = Math.floor(55 * (16/100));
+        d3.selectAll(".block2")
+            .each( function (d, i) { 
+                if( i < nm) {
+                    d3.select(this)
+                        .transition()
+                        .duration(1000)
+                        .style("fill", "#FDFFB9")
+                        // .style("stroke", "#000")
+                }
+    
+            })
+
     var nm = Math.floor(22 * (employment.matric/100));
-    console.log(nm);
+
     d3.selectAll(".block3")
         .each( function (d, i) { 
             if( i < nm) {
                 d3.select(this)
                     .transition()
-                    .duration(500)
+                    .duration(1000)
                     .style("fill", "lightpink")
-                    // .style("stroke", "#000")
+                   
             }
 
         })
 
     var nm = Math.floor(12 * (employment.graduates/100));
-    console.log(nm);
+ 
     d3.selectAll(".block4")
         .each( function (d, i) { 
             if( i < nm) {
                 d3.select(this)
                     .transition()
-                    .duration(500)
+                    .duration(1000)
                     .style("fill", "lawngreen")
-                    // .style("stroke", "#000")
+              
             }
 
         })
@@ -2034,16 +1988,11 @@ function slide_nineteen () {
 }
 
 
-
-
-///////
 function getBlockPoints (className) { 
     var top = 10000,
         bottom = 0,
         left = 10000,
         right = 0;
-
-    // var color = d3.select(className).style("stroke");
 
     d3.selectAll(className)
         .each( function (d, i) {
