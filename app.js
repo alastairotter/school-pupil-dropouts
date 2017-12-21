@@ -1215,6 +1215,17 @@
     var newCircles;
 
     function slide_fifteen() {
+
+        var selects = ".grade1, .grade12, .grade13, .grade14, .legend1, .legend2, .legend3, .graph-line, .barNumbers";
+
+        d3.selectAll(selects)
+            .transition()
+            .delay(randomInt(5, 500))
+            .duration(transition)
+            .style("opacity", 0);
+
+        pLines.transition().duration(transition * 2).style("opacity", 0);
+        
         var selects = ".end-bar-two, .end-bar-three, .end-bar-four, .grade1, .label-holder";
         d3.select(selects).transition().duration(500).style("opacity", 0);
 
@@ -1360,7 +1371,6 @@
                 .style("text-anchor", "start")
                 .style("text-transform", "uppercase")
                 .style("font-size", "90%")
-
 
         }, 1000);
 
