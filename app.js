@@ -48,7 +48,9 @@
         circlesAdded = false,
         circlesReady = false,
         mobile = false,
-        scrollDebug = true;
+        scrollDebug = true,
+        oneHundred,
+        employed;
 
     // mobile
     if (windowWidth < 651) {
@@ -291,9 +293,9 @@
         scroller
             .setup({
                 step: '.step',
-                offset: 0.3,
-                debug: true,
-                progress: true
+                offset: 0.4,
+                debug: false
+                // progress: true
             })
             .onStepEnter(handleStepEnter)
 
@@ -330,7 +332,13 @@
         slideElevenDone = false,
         slideTwelveDone = false,
         slideThirteenDone = false,
-        slideFourteenDone = false;
+        slideFourteenDone = false,
+        slideFifteenDone = false,
+        slideSixteenDone = false,
+        slideSeventeenDone = false, 
+        slideEighteenDone = false, 
+        slideNineteenDone = false; 
+
 
     //////////////////////////////////////////////////////////// SCROLLAMA
 
@@ -540,7 +548,7 @@
                     slide_sixteen();
                 }
                 else { 
-                    slide_nineteen_reverse();
+                    
                 }
                 break;
 
@@ -549,6 +557,9 @@
 
                 if (response.direction === "down") {
                     // slide_seventeen();
+                }
+                else { 
+                    slide_nineteen_reverse();
                 }
                 break;
             case 'slide18':
@@ -565,7 +576,7 @@
                 console.log('slide19');
 
                 if (response.direction === "down") {
-                    slide_nineteen();
+                    // slide_nineteen();
                 }
                 
                 
@@ -989,6 +1000,8 @@
 
     function slide_seven_reverse() {
 
+        
+
         var curX = d3.select(".grade13").attr("cx");
         var endX = startPositions[12];
         var xDiff = endX - curX;
@@ -1136,6 +1149,8 @@
 
     function slide_eight_reverse() {
 
+        
+
         pLines.transition().duration(transition * 3).style("opacity", 0);
 
         var curX = d3.select(".grade14").attr("cx");
@@ -1183,6 +1198,7 @@
     }
 
     function slide_nine_reverse() {
+        oneHundred.transition().duration(1000).style("opacity", 0);
 
         var selects = ".graph-line, .grade1, .grade12, .grade13, .grade14, .barNo1, .barNo12, .barNo13, .barNo14, .legend1, .legend2, .legend3";
 
@@ -1236,6 +1252,7 @@
         var selects = ".end-bar-two, .end-bar-three, .end-bar-four, .grade1, .label-holder";
         d3.select(selects).transition().duration(500).style("opacity", 0);
 
+       if(!slideFifteenDone) {
         // add 100 circles
         newCircles = {
             radius: 7,
@@ -1252,7 +1269,7 @@
 
         newCircles.startX = newCircles.curX = width / 2 - (newCircles.cols / 2 * (newCircles.radius * 2 + newCircles.spacing));
 
-        var oneHundred = svg.append("g").attr("class", "one-hundred");
+        oneHundred = svg.append("g").attr("class", "one-hundred");
 
         for (var c = 0; c < 100; c++) {
             oneHundred.append("circle")
@@ -1281,12 +1298,18 @@
             }
 
         }
-
+    }
+    // else { 
+    //     oneHundred.transition()
+    // }
+slideFifteenDone = true;
     }
 
     var block2x;
 
     function slide_sixteen() {
+
+        
 
         var curX = width / 2 - 120,
             curY = height - 30,
@@ -1317,6 +1340,7 @@
                         .attr("cx", curX)
                         .attr("cy", curY)
                         .style("stroke", "lightsteelblue")
+                        .style("fill", "lightsteelblue")
 
                     if (col < 3) {
                         col++;
@@ -1337,6 +1361,7 @@
                         .attr("cx", curX2)
                         .attr("cy", curY2)
                         .style("stroke", "#FDFFB9")
+                        .style("fill", "#FDFFB9")
 
                     if (col2 < 3) {
                         col2++;
@@ -1357,6 +1382,8 @@
                         .attr("cx", curX3)
                         .attr("cy", curY3)
                         .style("stroke", "lightpink")
+                        .style("fill", "lightpink")
+                        
 
                     if (col3 < 3) {
                         col3++;
@@ -1377,6 +1404,7 @@
                         .attr("cx", curX4)
                         .attr("cy", curY4)
                         .style("stroke", "limegreen")
+                        .style("fill", "limegreen")
 
                     if (col4 < 3) {
                         col4++;
@@ -1395,9 +1423,9 @@
 
             var pos = getBlockPoints(".block1");
 
-            var labels = svg.append("g").attr("class", "l1");
+            // var labels = svg.append("g").attr("class", "l1");
 
-            labels.append("text")
+            oneHundred.append("text")
                 .attr("x", pos.left - newCircles.radius)
                 .attr("y", +pos.bottom + 30)
                 .text("Did not reach grade 12")
@@ -1414,13 +1442,53 @@
 
             var pos = getBlockPoints(".block2");
 
-            var labels = svg.append("g").attr("class", "l2");
+            // var labels = svg.append("g").attr("class", "l2");
 
-            labels.append("text")
+            oneHundred.append("text")
                 .attr("class", "block2label")
                 .attr("x", pos.left - newCircles.radius)
                 .attr("y", +pos.bottom + 30)
-                .text("Started Grade 12")
+                .text("Failed G12")
+                .style("fill", "#fff")
+                .style("stroke", "none")
+                .style("text-anchor", "start")
+                .style("text-transform", "uppercase")
+                .style("font-size", "90%")
+
+        }, 1000);
+
+        // ADD LABELS BLOCK3
+        setTimeout(function () {
+
+            var pos = getBlockPoints(".block3");
+
+           
+
+            oneHundred.append("text")
+                .attr("class", "block3label")
+                .attr("x", pos.left - newCircles.radius)
+                .attr("y", +pos.bottom + 30)
+                .text("Passed G12")
+                .style("fill", "#fff")
+                .style("stroke", "none")
+                .style("text-anchor", "start")
+                .style("text-transform", "uppercase")
+                .style("font-size", "90%")
+
+        }, 1000);
+
+        // ADD LABELS BLOCK4
+        setTimeout(function () {
+
+            var pos = getBlockPoints(".block4");
+
+            // var labels = svg.append("g").attr("class", "l2");
+
+            oneHundred.append("text")
+                .attr("class", "block4label")
+                .attr("x", pos.left - newCircles.radius)
+                .attr("y", +pos.bottom + 30)
+                .text("University entrance pass")
                 .style("fill", "#fff")
                 .style("stroke", "none")
                 .style("text-anchor", "start")
@@ -1431,219 +1499,168 @@
 
     }
 
-    // function slide_seventeen() {
-
-    //     var pos = getBlockPoints(".block1");
-    //     var col = 0;
-    //     var incr = newCircles.radius * 2 + newCircles.spacing;
-    //     var curX = +pos.left;
-    //     var curY = +pos.top - 80;
-
-    //     d3.selectAll(".block2")
-    //         .each(function (d, i) {
-
-    //             if (i > 50 - 35 && i < 50) {
-    //                 d3.select(this)
-    //                     .attr("class", "block3")
-    //                     .transition()
-    //                     .delay(randomInt(50, 500))
-    //                     .duration(500)
-    //                     .attr("cx", curX)
-    //                     .attr("cy", curY)
-    //                     .style("stroke", "lightpink")
-
-    //                 if (col < 7) {
-    //                     col++;
-    //                     curX += incr;
-    //                 } else {
-    //                     col = 0;
-    //                     curX = +pos.left;
-    //                     curY -= incr;
-    //                 }
-
-    //             }
-
-    //         })
-
-    //     // change label on block 2
-    //     d3.select(".block2label").text("Failed grade 12")
-
-    //     setTimeout(function () {
-    //         var pos = getBlockPoints(".block3");
-    //         var posTarget = getBlockPoints(".block1");
-
-    //         var labels = svg.append("g").attr("class", "l4");
-
-    //         labels.append("text")
-    //             .attr("x", posTarget.left - newCircles.radius)
-    //             .attr("y", +pos.bottom + 30)
-    //             .text("Passed Grade 12")
-    //             .style("fill", "#fff")
-    //             .style("stroke", "none")
-    //             .style("text-anchor", "start")
-    //             .style("text-transform", "uppercase")
-    //             .style("font-size", "90%")
-
-    //     }, 1000)
-
-    // }
-
-    // function slide_eighteen() {
-
-    //     var points = getBlockPoints(".block3");
-    //     var pointsTarget = getBlockPoints(".block2");
-
-    //     var col = 0,
-    //         curX = +pointsTarget.left,
-    //         curY = +points.bottom,
-    //         incr = newCircles.radius * 2 + newCircles.spacing;
-
-    //     d3.selectAll(".block3")
-    //         .each(function (d, i) {
-
-    //             if (i > 21) {
-    //                 d3.select(this)
-    //                     .attr("class", "block4")
-    //                     .transition()
-    //                     .delay(randomInt(50, 500))
-    //                     .style("stroke", "lawngreen")
-    //                     .attr("cx", curX)
-    //                     .attr("cy", curY)
-
-    //                 if (col < 7) {
-    //                     curX += incr;
-    //                     col++;
-    //                 } else {
-    //                     curX = +pointsTarget.left;
-    //                     curY -= incr;
-    //                     col = 0;
-    //                 }
-    //             }
-
-    //         })
-
-    //     setTimeout(function () {
-    //         var pos = getBlockPoints(".block4"),
-    //             posTarget = getBlockPoints(".block3");
-
-    //         var labels = svg.append("g").attr("class", "l4");
-
-    //         labels.append("text")
-    //             .attr("x", pos.left - newCircles.radius)
-    //             .attr("y", +pos.bottom + 30)
-    //             .text("University Pass")
-    //             .style("fill", "#fff")
-    //             .style("stroke", "none")
-    //             .style("text-anchor", "start")
-    //             .style("text-transform", "uppercase")
-    //             .style("font-size", "90%")
-
-
-    //     }, 1000)
-
-    // }
+   
 
     function slide_nineteen() {
 
+    var b1x = d3.select(".block1").attr("cx"),
+        b1y = d3.select(".block1").attr("cy"),
+        b1r = d3.select(".block1").attr("r"),
+        b2x = d3.select(".block2").attr("cx"),
+        b2y = d3.select(".block2").attr("cy"),
+        b2r = d3.select(".block2").attr("r"),
+        b3x = d3.select(".block3").attr("cx"),
+        b3y = d3.select(".block3").attr("cy"),
+        b3r = d3.select(".block3").attr("r");
+
+    var b1y = d3.select(".block1").attr("cy"),
+        b2y = d3.select(".block2").attr("cy"),
+        b3y = d3.select(".block3").attr("cy");
+
+    var barWidth = 20,
+        barSpace = 10,
+        barWidth1 = 141,
+        barWidth2 = 52,
+        barWidth3 = 30,
+        barRatio = 3 * 0.7;
+
+    var barTotalWidth = barWidth1 * barRatio + barWidth2 * barRatio + barWidth3 * barRatio + barSpace * 2; 
+
+    var bar1x = width/2 - barTotalWidth / 2;
+    var bar2x = bar1x + barWidth1 * barRatio + barSpace; 
+    var bar3x = bar2x + barWidth2 * barRatio + barSpace;
+
+
+    employed = svg.append("g").attr("class", "employed");
+
+    // var r = 6, 
+    //     x = b1x,
+    //     y = b1y,
+    //     s = 2, 
+    //     c = 5,
+    //     curX,
+    //     curY,
+    //     col = 0;
+
+    employed = svg.append("g").attr("class", "employed");
+
+    employed.append("rect")
+        .attr("class", "eb1")
+        .attr("x", bar1x)
+        .attr("y", b1y)
+        .attr("width", barWidth1 * barRatio)
+        .attr("height", 0)
+        .style("opacity", 0)
+        .style("fill", "#fff")
+
+    employed.append("rect")
+        .attr("class", "eb2")
+        .attr("x", bar2x)
+        .attr("y", b1y)
+        .attr("width", barWidth2 * barRatio)
+        .attr("height", 0)
+        .style("opacity", 0)
+        .style("fill", "#fff")
+
+    employed.append("rect")
+        .attr("class", "eb3")
+        .attr("x", bar3x)
+        .attr("y", b1y)
+        .attr("width", barWidth3 * barRatio)
+        .attr("height", 0)
+        .style("opacity", 0)
+        .style("fill", "#fff")
+
+    employed.append("rect")
+        .attr("class", "e1")
+        .attr("x", bar1x)
+        .attr("y", b1y)
+        .attr("width", barWidth1 * barRatio)
+        .attr("height", 0)
+        .style("fill", "#AEC3E0")
+        .style("opacity", 0)
+    
+    employed.append("rect")
+        .attr("class", "e2")
+        .attr("x", bar2x)
+        .attr("y", b2y - 67 * 3)
+        .attr("width", barWidth2 * barRatio)
+        .attr("height", 0)
+        .style("fill", "lightpink")
+        .style("opacity",0)
+        
+    employed.append("rect")
+        .attr("class", "e3")
+        .attr("x", bar3x)
+        .attr("y", b3y)
+        .attr("width", barWidth3 * barRatio)
+        .attr("height", 0)
+        .style("fill", "limegreen")
+        .style("opacity", 0)
       
-        d3.selectAll(".l1")
+    setTimeout( function () { 
+        oneHundred
             .transition()
-            .duration(1000)
-            .style("opacity", 0);
-            
-        d3.selectAll(".block2")
-            .transition()
-            .duration(1000)
-            .style("opacity", 0);
-            
-        d3.selectAll(".block3")
-            .transition()
-            .duration(1000)
-            .style("opacity", 0);
-            
-        d3.selectAll(".block4")
-            .transition()
-            .duration(1000)
+            .duration(2000)
             .style("opacity", 0);
 
+        employed.select(".eb1")
+            .transition()
+            .duration(2000)
+            .style("opacity", 0.2)
+            .attr("height", 100 * 3 * 0.7)
+            .attr("y", b1y - 100 * 3 * 0.7)
 
+        employed.select(".eb2")
+            .transition()
+            .duration(2000)
+            .style("opacity", 0.2)
+            .attr("height", 100 * 3 * 0.7)
+            .attr("y", b1y - 100 * 3 * 0.7)
+
+        employed.select(".eb3")
+            .transition()
+            .duration(2000)
+            .style("opacity", 0.2)
+            .attr("height", 100 * 3 * 0.7)
+            .attr("y", b1y - 100 * 3 * 0.7)
         
-        // d3.selectAll(".block1")
-        //     .each(function (d, i) {
-        //         if (i < 25) {
-        //             d3.select(this)
-        //                 .transition()
-        //                 .duration(1000)
-        //                 .style("fill", "lightsteelblue")
+        employed.select(".e1")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1)
+            .attr("height", 55 * 3 * 0.7)
+            .attr("y", b1y - 55 * 3 * 0.7)
+            
+        employed.select(".e2")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1)
+            .attr("height", 67 * 3 * 0.7)
+            .attr("y", b1y - 67 * 3 * 0.7)
+            
 
-        //         }
+        employed.select(".e3")
+            .transition()
+            .duration(2000)
+            .style("opacity", 1)
+            .attr("height", 87 * 3 * 0.7)
+            .attr("y", b1y - 87 * 3 * 0.7)
+            
+            
 
-        //     })
-
-       
-        // d3.selectAll(".block2")
-        //     .each(function (d, i) {
-        //         if (i < 10) {
-        //             d3.select(this)
-        //                 .transition()
-        //                 .duration(1000)
-        //                 .style("fill", "#FDFFB9")
-
-        //         }
-
-        //     })
-
-       
-
-        // d3.selectAll(".block3")
-        //     .each(function (d, i) {
-        //         if (i < 15) {
-        //             d3.select(this)
-        //                 .transition()
-        //                 .duration(1000)
-        //                 .style("fill", "lightpink")
-
-        //         }
-
-        //     })
-
-        
-
-        // d3.selectAll(".block4")
-        //     .each(function (d, i) {
-        //         if (i < 12) {
-        //             d3.select(this)
-        //                 .transition()
-        //                 .duration(1000)
-        //                 .style("fill", "lawngreen")
-
-        //         }
-
-        //     })
+    }, 200);
 
     }
 
 
     function slide_nineteen_reverse() {
 
+    employed.transition().duration(1000).style("opacity", 0);
+
       console.log('slide 19 reverse');
       
-        d3.selectAll(".block1")
-            .transition()
-            .duration(1000)
-            .style("opacity", 1);
-            
-        d3.selectAll(".block2")
-            .transition()
-            .duration(1000)
-            .style("opacity", 1);
-            
-        d3.selectAll(".block3")
-            .transition()
-            .duration(1000)
-            .style("opacity", 1);
-            
-        d3.selectAll(".block4")
+        oneHundred
             .transition()
             .duration(1000)
             .style("opacity", 1);

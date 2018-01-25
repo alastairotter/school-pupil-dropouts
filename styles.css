@@ -9,6 +9,7 @@ html, body {
 body { 
     margin: 0;
     background: #036f82;
+    /* background: linear-gradient(#00869b,#036f82); */
     font-family: "Slabo 27px", "Roboto Condensed", Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
