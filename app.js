@@ -1503,15 +1503,15 @@ slideFifteenDone = true;
 
     function slide_nineteen() {
 
-    var b1x = d3.select(".block1").attr("cx"),
-        b1y = d3.select(".block1").attr("cy"),
-        b1r = d3.select(".block1").attr("r"),
-        b2x = d3.select(".block2").attr("cx"),
-        b2y = d3.select(".block2").attr("cy"),
-        b2r = d3.select(".block2").attr("r"),
-        b3x = d3.select(".block3").attr("cx"),
-        b3y = d3.select(".block3").attr("cy"),
-        b3r = d3.select(".block3").attr("r");
+    var b1x = +d3.select(".block1").attr("cx"),
+        b1y = +d3.select(".block1").attr("cy"),
+        b1r = +d3.select(".block1").attr("r"),
+        b2x = +d3.select(".block2").attr("cx"),
+        b2y = +d3.select(".block2").attr("cy"),
+        b2r = +d3.select(".block2").attr("r"),
+        b3x = +d3.select(".block3").attr("cx"),
+        b3y = +d3.select(".block3").attr("cy"),
+        b3r = +d3.select(".block3").attr("r");
 
     var b1y = d3.select(".block1").attr("cy"),
         b2y = d3.select(".block2").attr("cy"),
@@ -1610,6 +1610,30 @@ slideFifteenDone = true;
             .style("opacity", 0.2)
             .attr("height", 100 * 3 * 0.7)
             .attr("y", b1y - 100 * 3 * 0.7)
+
+        employed.append("text")
+            .attr("x", bar1x + 100)
+            .attr("y", b1y - 150)
+            .text("UNEMPLOYED")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+
+        employed.append("text")
+            .attr("x", bar1x + 100)
+            .attr("y", b1y - 50)
+            .text("EMPLOYED")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+
+        employed.append("text")
+            .attr("x", bar1x + 100)
+            .attr("y", b1y + 5)
+            .text("No Matric")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
 
         employed.select(".eb2")
             .transition()
