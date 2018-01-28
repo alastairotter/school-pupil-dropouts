@@ -17,6 +17,18 @@ p {
     font-weight: 400;
 }
 
+.tooltip { 
+    background: #fff;
+    color: #007184;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute; 
+    top: 20px;
+    left: 20px;
+    border: solid 1px #31D5E8;
+    opacity: 0.8;
+}
+
 .loading { 
     position: absolute; 
     z-index: 900;
@@ -234,13 +246,21 @@ circle {
     min-height: 180vh;
 }
 
-
+.mobile { 
+    display: none;
+}
 
 
 
 
 
 @media only screen and (max-width: 650px) {
+    .desktop { 
+        display: none; 
+    }
+    .mobile { 
+        display: block;
+    }
     #slides { 
         /* background: red; */
         width: 100%;

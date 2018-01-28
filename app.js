@@ -52,6 +52,8 @@
         oneHundred,
         employed;
 
+    var tooltip; 
+
     // mobile
     if (windowWidth < 651) {
         width = window.outerWidth - 50,
@@ -63,6 +65,8 @@
             mobile = true;
 
     }
+
+ 
 
     var percentages = [55, 100, 37, 13];
 
@@ -85,6 +89,9 @@
         .append("g")
         .attr("transform", "translate(" + padding + " , " + padding + ")"),
         pos = $("svg").position();
+
+
+    tooltip = d3.select(".tooltip");
 
     // add group for lines
     var pLines = svg.append("g")
@@ -1519,9 +1526,9 @@ slideFifteenDone = true;
 
     var barWidth = 20,
         barSpace = 10,
-        barWidth1 = 141,
-        barWidth2 = 52,
-        barWidth3 = 30,
+        barWidth1 = 40,
+        barWidth2 = 40,
+        barWidth3 = 40,
         barRatio = 3 * 0.7;
 
     var barTotalWidth = barWidth1 * barRatio + barWidth2 * barRatio + barWidth3 * barRatio + barSpace * 2; 
@@ -1529,6 +1536,11 @@ slideFifteenDone = true;
     var bar1x = width/2 - barTotalWidth / 2;
     var bar2x = bar1x + barWidth1 * barRatio + barSpace; 
     var bar3x = bar2x + barWidth2 * barRatio + barSpace;
+
+    var no_matric_unemployed = 33, 
+        matric_unemployed = 28, 
+        tertiary_unemployed = 17, 
+        university_unemployed = 7;
 
 
     employed = svg.append("g").attr("class", "employed");
@@ -1574,11 +1586,14 @@ slideFifteenDone = true;
     employed.append("rect")
         .attr("class", "e1")
         .attr("x", bar1x)
-        .attr("y", b1y)
+        // .attr("y", b1y)
         .attr("width", barWidth1 * barRatio)
-        .attr("height", 0)
+        // .attr("height", 0)
+        .attr("height", (100 - no_matric_unemployed) * 3 * 0.7)
+            .attr("y", b1y - (100 - no_matric_unemployed) * 3 * 0.7 - 20)
         .style("fill", "#AEC3E0")
         .style("opacity", 0)
+        
     
     employed.append("rect")
         .attr("class", "e2")
@@ -1609,71 +1624,175 @@ slideFifteenDone = true;
             .duration(2000)
             .style("opacity", 0.2)
             .attr("height", 100 * 3 * 0.7)
-            .attr("y", b1y - 100 * 3 * 0.7)
+            .attr("y", b1y - 100 * 3 * 0.7 - 20)
 
         employed.append("text")
-            .attr("x", bar1x + 100)
-            .attr("y", b1y - 150)
+            .attr("x", bar1x - 20)
+            .attr("y", b1y - 190)
             .text("UNEMPLOYED")
             .style("stroke", "none")
             .style("fill", "#fff")
             .style("font-size", "90%")
+            .style("opacity", 0)
+            .style("text-anchor", "end")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
 
         employed.append("text")
-            .attr("x", bar1x + 100)
-            .attr("y", b1y - 50)
+            .attr("x", bar1x - 20)
+            .attr("y", b1y - 70)
             .text("EMPLOYED")
             .style("stroke", "none")
             .style("fill", "#fff")
             .style("font-size", "90%")
+            .style("opacity", 0)
+            .style("text-anchor", "end")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
 
         employed.append("text")
-            .attr("x", bar1x + 100)
-            .attr("y", b1y + 5)
+            .attr("x", bar1x + (barWidth1 / 2) * barRatio)
+            .attr("y", b1y - 70)
+            .text("67%")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .style("font-size", "150%")
+            .style("text-anchor", "middle")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
+
+        employed.append("text")
+            .attr("x", bar2x + (barWidth2 / 2) * barRatio)
+            .attr("y", b1y - 70)
+            .text("72%")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .style("font-size", "150%")
+            .style("text-anchor", "middle")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
+
+        employed.append("text")
+            .attr("x", bar3x + (barWidth3 / 2) * barRatio)
+            .attr("y", b1y - 70)
+            .text("93%")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            .style("font-size", "150%")
+            .style("text-anchor", "middle")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
+
+
+// bar labels
+        employed.append("text")
+            .attr("x", bar1x + barWidth1 / 2)
+            .attr("y", b1y)
             .text("No Matric")
             .style("stroke", "none")
             .style("fill", "#fff")
             .style("font-size", "90%")
+            .style("opacity", 0)
+            // .style("text-anchor", "end")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
+            
+
+        employed.append("text")
+            .attr("x", bar2x + barWidth2 / 2)
+            .attr("y", b1y)
+            .text("Matric")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            // .style("text-anchor", "end")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
+
+        employed.append("text")
+            .attr("x", bar3x + barWidth3 / 2)
+            .attr("y", b1y)
+            .text("University")
+            .style("stroke", "none")
+            .style("fill", "#fff")
+            .style("font-size", "90%")
+            .style("opacity", 0)
+            // .style("text-anchor", "end")
+            .transition() 
+            .delay(2000)
+            .duration(1000)
+            .style("opacity", 1)
 
         employed.select(".eb2")
             .transition()
             .duration(2000)
             .style("opacity", 0.2)
             .attr("height", 100 * 3 * 0.7)
-            .attr("y", b1y - 100 * 3 * 0.7)
+            .attr("y", b1y - 100 * 3 * 0.7 - 20)
 
         employed.select(".eb3")
             .transition()
             .duration(2000)
             .style("opacity", 0.2)
             .attr("height", 100 * 3 * 0.7)
-            .attr("y", b1y - 100 * 3 * 0.7)
+            .attr("y", b1y - 100 * 3 * 0.7- 20)
         
         employed.select(".e1")
             .transition()
             .duration(2000)
             .style("opacity", 1)
-            .attr("height", 55 * 3 * 0.7)
-            .attr("y", b1y - 55 * 3 * 0.7)
+            .attr("height", (100 - no_matric_unemployed) * 3 * 0.7)
+            .attr("y", b1y - (100 - no_matric_unemployed) * 3 * 0.7 - 20)
+            
+            
+            
             
         employed.select(".e2")
             .transition()
             .duration(2000)
             .style("opacity", 1)
-            .attr("height", 67 * 3 * 0.7)
-            .attr("y", b1y - 67 * 3 * 0.7)
+            .attr("height", (100 - matric_unemployed) * 3 * 0.7)
+            .attr("y", b1y - (100 - matric_unemployed) * 3 * 0.7 - 20)
             
 
         employed.select(".e3")
             .transition()
             .duration(2000)
             .style("opacity", 1)
-            .attr("height", 87 * 3 * 0.7)
-            .attr("y", b1y - 87 * 3 * 0.7)
+            .attr("height", (100 - university_unemployed) * 3 * 0.7)
+            .attr("y", b1y - (100 - university_unemployed) * 3 * 0.7 - 20)
             
             
 
     }, 200);
+
+    setTimeout( function () { 
+        d3.select(".e1")
+            .on("mouseover", function () { 
+                console.log("mouseover");
+            })
+    }, 1000);
 
     }
 
@@ -1734,3 +1853,6 @@ slideFifteenDone = true;
     });
 
 })();
+
+
+
