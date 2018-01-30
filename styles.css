@@ -250,6 +250,29 @@ circle {
     display: none;
 }
 
+.references { 
+    font-size: 80%;
+    text-align: left;
+    line-height: 110%;
+    
+}
+.slide-references { 
+    /* padding: 10px; */
+}
+
+.references a { 
+    color: #FDFFB9;
+    
+}
+.references a:hover { 
+    
+}
+.references-head { 
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #31D5E8
+}
+
 
 
 
