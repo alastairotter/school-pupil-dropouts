@@ -91,7 +91,7 @@
         pos = $("svg").position();
 
 
-    tooltip = d3.select(".tooltip");
+    // tooltip = d3.select(".tooltip");
 
     // add group for lines
     var pLines = svg.append("g")
@@ -300,7 +300,7 @@
         scroller
             .setup({
                 step: '.step',
-                offset: 0.4,
+                offset: 0.7,
                 debug: false
                 // progress: true
             })
@@ -585,9 +585,19 @@
                 if (response.direction === "down") {
                     // slide_nineteen();
                 }
+                else { 
+                    slide_twenty_reverse();
+                }
                 
                 
                 break;
+
+            case 'slide20': 
+                if(response.direction === "down") { 
+                    slide_twenty();
+
+                }
+                
 
         }
     }
@@ -1838,6 +1848,14 @@ slideFifteenDone = true;
 
     }
 
+    function slide_twenty () { 
+        employed.transition().duration(1000).style("opacity", 0.2);
+    }
+
+    function slide_twenty_reverse() {
+        employed.transition().duration(1000).style("opacity", 1);
+    }
+
     $(window).on("beforeunload", function () {
 
         $(window).scrollTop(0);
@@ -1850,6 +1868,32 @@ slideFifteenDone = true;
             $("html").css("overflow", "auto");
             scrollInit();
         }, 0);
+
+        // set mobile warning
+        if(window.outerWidth < 600) { 
+        
+        $(".mobile-warn").css("visibility", "visible");
+        var eHeight; 
+        setTimeout( function () { 
+            eHeight = $(".mobile-warn").height();
+            console.log(eHeight);
+            $(".mobile-warn").css("top", window.innerHeight / 2 - eHeight /2  + "px");
+        },200);
+
+
+        
+        setTimeout( function () { 
+            $(".mobile-warn").animate({ 
+                opacity: 0.8
+            }, 500);
+            
+        }, 1000);
+
+        $(".dismiss").click( function () { 
+            $(".mobile-warn").hide();
+        })
+
+        }
     });
 
 })();
